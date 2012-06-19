@@ -91,7 +91,7 @@ class Widget extends DataObject {
 		$output = '';
 		$fields = $this->getCMSFields();
 		foreach($fields as $field) {
-			$name = $field->Name();
+			$name = $field->getName();
 			$field->setValue($this->getField($name));
 			$renderedField = $field->FieldHolder();
 			$renderedField = preg_replace("/name=\"([A-Za-z0-9\-_]+)\"/", "name=\"Widget[" . $this->ID . "][\\1]\"", $renderedField);
