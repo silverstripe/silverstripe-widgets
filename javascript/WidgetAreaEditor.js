@@ -2,20 +2,16 @@
 	$.entwine('ss', function($) {
         $('.WidgetAreaEditor').entwine({
             onmatch: function() {
-                this.name = $(this).attr('name');
-                /*this.rewriteWidgetAreaAttributes();
-                UsedWidget.applyToChildren(document.getElementById('usedWidgets-'+this.name), 'div.Widget');
+                var parentName=$(this).attr('name');
+                this.rewriteWidgetAreaAttributes();
 
-                var availableWidgets = document.getElementById('availableWidgets-'+this.name).childNodes;
-                
-                for(var i = 0; i < availableWidgets.length; i++) {
-                    var widget = availableWidgets[i];
+                var availableWidgets=$('#availableWidgets-'+$(this).attr('name')).children().each(function() {
                     // Don't run on comments, whitespace, etc
-                    if (widget.nodeType == 1) {
+                    if($(this)[0].nodeType==1) {
                         // Gotta change their ID's because otherwise we get clashes between two tabs
-                        widget.id = widget.id + '-'+this.name;
+                        $(this)[0].id=$(this)[0].id+'-'+parentName;
                     }
-                }*/
+                });
             
             
                 // Create dummy sortable to prevent javascript errors
@@ -33,35 +29,37 @@
                 });
                 
                 // Figure out maxid, this is used when creating new widgets
-                this.maxid = 0;
+                $(this).data('maxid', 0);
                 
+                var parentRef=$(this);
                 var usedWidgets = $(this).find('.usedWidgets .Widget');
-                for(var i = 0; i < usedWidgets.length; i++) {
-                    var widget = usedWidgets.get(i);
+                usedWidgets.each(function() {
+                    var widget = $(this)[0];
                     if(widget.id) {
-                        widgetid = widget.id.match(/Widget\[([0-9]+)\]/i);
-                        if(widgetid && parseInt(widgetid[1]) > this.maxid) {
-                            this.maxid = parseInt(widgetid[1]);
+                        widgetid = widget.id.match(/Widget\[(.+?)\]\[([0-9]+)\]/i);
+                        if(widgetid && parseInt(widgetid[2]) > parseInt(parentRef.data('maxid'))) {
+                            parentRef.data('maxid', parseInt(widgetid[2]));
                         }
                     }
-                }
+                });
                 
                 
                 // Ensure correct sort values are written when page is saved
                 // TODO Adjust to new event listeners
-                //jQuery('.cms-edit-form').bind('ajaxsubmit', this.beforeSave.bind(this));*/
-            }/*,
+                $('.cms-container').bind('submitform', this.beforeSave);
+            },
             
             rewriteWidgetAreaAttributes: function() {
-                this.name = this.getAttribute('name');
+                var name = $(this).attr('name');
 
                 var monkeyWith = function(widgets, name) {
                     if (!widgets) {
                         return;
                     }
-                    for(var i = 0; i < widgets.length; i++) {
-                        widget = widgets[i];
-                        if (!widget.getAttribute('rewritten') && (widget.id || widget.name)) {
+                    
+                    widgets.each(function() {
+                        widget=$(this)[0];
+                        if (!widget.rewritten && (widget.id || widget.name)) {
                             if (widget.id && widget.id.indexOf('Widget[') === 0) {
                                 var newValue = widget.id.replace(/Widget\[/, 'Widget['+name+'][');
                                 //console.log('Renaming '+widget.tagName+' ID '+widget.id+' to '+newValue);
@@ -70,59 +68,53 @@
                             if (widget.name && widget.name.indexOf('Widget[') === 0) {
                                 var newValue = widget.name.replace(/Widget\[/, 'Widget['+name+'][');
                                 //console.log('Renaming '+widget.tagName+' Name '+widget.name+' to '+newValue);
-                                widget.name = newValue;
+                                widget.name=newValue;
                             }
-                            widget.setAttribute('rewritten', 'yes');
-                        }
-                        else {
+                            widget.rewritten='yes';
+                        }else {
                             //console.log('Skipping '+(widget.id ? widget.id : (widget.name ? widget.name : 'unknown '+widget.tagName)));
                         }
-                    }
+                    });
                 }
                 
-                monkeyWith($$('#WidgetAreaEditor-'+this.name+' .Widget'), this.name);
-                monkeyWith($$('#WidgetAreaEditor-'+this.name+' .Widget *'), this.name);
+                monkeyWith($('#WidgetAreaEditor-'+name+' .Widget'), name);
+                monkeyWith($('#WidgetAreaEditor-'+name+' .Widget *'), name);
             },
             
             beforeSave: function() {
                 // Ensure correct sort values are written when page is saved
-                var usedWidgets = document.getElementById('usedWidgets-'+this.name);
-                
+                var usedWidgets = $('#usedWidgets-'+$(this).attr('name'));
                 if(usedWidgets) {
                     this.sortWidgets();
                 
-                    var children = usedWidgets.childNodes;
+                    var children=usedWidgets.children();
                 
-                    for( var i = 0; i < children.length; ++i ) {
-                        var child = children[i];
-                    
-                        if(child.beforeSave) {
-                            child.beforeSave();
+                    children.each(function() {
+                        if($(this).beforeSave) {
+                            $(this).beforeSave();
                         }
-                    }
+                    });
                 }
             },
             
             addWidget: function(className, holder) {
-                
-                if (document.getElementById('WidgetAreaEditor-'+holder).getAttribute('maxwidgets')) {
-                    var maxCount = document.getElementById('WidgetAreaEditor-'+holder).getAttribute('maxwidgets');
-                    var count = $$('#usedWidgets-'+holder+' .Widget').length;
+                if($('#WidgetAreaEditor-'+holder).attr('maxwidgets')) {
+                    var maxCount = $('#WidgetAreaEditor-'+holder).attr('maxwidgets');
+                    var count = $('#usedWidgets-'+holder+' .Widget').length;
                     if (count+1 > maxCount) {
                         alert(ss.i18n._t('WidgetAreaEditor.TOOMANY'));
                         return;
                     }
                 }
                 
-                
-                this.name = holder;
-                jQuery.ajax({
+                var parentRef=$(this);
+                $.ajax({
                     'url': 'Widget_Controller/EditableSegment/' + className, 
-                    'success' : document.getElementById('usedWidgets-'+holder).parentNode.parentNode.insertWidgetEditor.bind(this)
+                    'success' : function(response) {parentRef.insertWidgetEditor(response)}
                 });
             },
 
-            updateWidgets: function() {
+            /*updateWidgets: function() {
                 var self = this;
 
                 // Gotta get the name of the current dohickey based off the ID
@@ -153,110 +145,92 @@
                         });
                     }
                 }
-            },
+            },*/
             
             insertWidgetEditor: function(response) {
                 // Remove placeholder text
-                if(document.getElementById('NoWidgets-'+this.name)) {
-                    document.getElementById('usedWidgets-'+this.name).removeChild(document.getElementById('NoWidgets-'+this.name));
+                if($('#NoWidgets-'+$(this).attr('name')).length>0) {
+                    $('#usedWidgets-'+$(this).attr('name')).remove($('#NoWidgets-'+$(this).attr('name')));
                 }
 
-                var usedWidgets = document.getElementById('usedWidgets-'+this.name).childNodes;
+                var usedWidgets = $('#usedWidgets-'+$(this).attr('name')).children();
                 
                 // Give the widget a unique id
-                widgetContent = response.replace(/Widget\[0\]/gi, "Widget[new-" + (++document.getElementById('usedWidgets-'+this.name).parentNode.parentNode.maxid) + "]");
-                new Insertion.Top(document.getElementById('usedWidgets-'+this.name), widgetContent);
+                var newID=parseInt($(this).data('maxid'))+1;
+                $(this).data('maxid', newID);
                 
-                document.getElementById('usedWidgets-'+this.name).parentNode.parentNode.rewriteWidgetAreaAttributes();
-                UsedWidget.applyToChildren(document.getElementById('usedWidgets-'+this.name), 'div.Widget');
+                var widgetContent = response.replace(/Widget\[0\]/gi, "Widget[new-" + (newID) + "]");
+                $('#usedWidgets-'+$(this).attr('name')).prepend(widgetContent);
                 
-                // Repply some common form controls
-                WidgetTreeDropdownField.applyTo('div.usedWidgets .TreeDropdownField');
-                
-                Sortable.create('usedWidgets-'+this.name, {
-                    tag: 'div',
-                    handle: 'handle',
-                    containment: ['availableWidgets-'+this.name, 'usedWidgets-'+this.name],
-                    onUpdate: document.getElementById('usedWidgets-'+this.name).parentNode.parentNode.updateWidgets
-                });
+                this.rewriteWidgetAreaAttributes();
             },
             
             sortWidgets: function() {
                 // Order the sort by the order the widgets are in the list
-                var usedWidgets = document.getElementById('usedWidgets-'+this.name);
-                
-                if(usedWidgets) {
-                    widgets = usedWidgets.childNodes;
-                    
-                    for(i = 0; i < widgets.length; i++) {
-                        var div = widgets[i];
+                $('#usedWidgets-'+$(this).attr('name')).children().each(function() {
+                        var div = $(this)[0];
 
                         if(div.nodeName != '#comment') {
                             var fields = div.getElementsByTagName('input');
-                            
                             for(j = 0; field = fields.item(j); j++) {
                                 if(field.name == div.id + '[Sort]') {
                                     field.value = i;
                                 }
                             }
                         }
-                        
-                    }
-                }
+                    });
             },
             
             deleteWidget: function(widgetToRemove) {
                 // Remove a widget from the used widgets column
-                document.getElementById('usedWidgets-'+this.name).removeChild(widgetToRemove);
+                $('#usedWidgets-'+$(this).attr('name')).remove(widgetToRemove);
                 // TODO ... re-create NoWidgets div?
-            }*/
-            
-            
-        
-            /*$('div.availableWidgets .Widget h3').entwine({
-                onclick: function(event) {
-                    parts = this.parentNode.id.split('-');
-                    var widgetArea = parts.pop();
-                    var className = parts.pop();
-                    document.getElementById('WidgetAreaEditor-'+widgetArea).addWidget(className, widgetArea);
-                }
-            });
-            
-            $('div.usedWidgets .TreeDropdownField').entwine({
-                getName: function() {
-                    return 'Widget_TDF_Endpoint';
-                }
-            });
-            
-            /*$('div.usedWidgets div.Widget').entwine({
-                initialize: function() {
-                    // Call deleteWidget when delete button is pushed
-                    this.deleteButton = this.findDescendant('span', 'widgetDelete');
-                    if(this.deleteButton)
-                        this.deleteButton.onclick = this.deleteWidget.bind(this);
-                },
-                
-                // Taken from FieldEditor
-                findDescendant: function(tag, clsName, element) {
-                    if(!element)
-                        element = this;
-                    
-                    var descendants = element.getElementsByTagName(tag);
-                    
-                    for(var i = 0; i < descendants.length; i++) {
-                        var el = descendants[i];
-                        
-                        if(tag.toUpperCase() == el.tagName && el.className.indexOf( clsName ) != -1)
-                            return el;
-                    }
-                    
-                    return null;
-                },
-                
-                deleteWidget: function() {
-                    this.parentNode.parentNode.parentNode.deleteWidget(this);
-                }
-            });*/
+            }
         });
+        
+        $('div.availableWidgets .Widget h3').entwine({
+            onclick: function(event) {
+                parts = $(this).parent().attr('id').split('-');
+                var widgetArea = parts.pop();
+                var className = parts.pop();
+                $('#WidgetAreaEditor-'+widgetArea).addWidget(className, widgetArea);
+            }
+        });
+        
+        /*$('div.usedWidgets .TreeDropdownField').entwine({
+            getName: function() {
+                return 'Widget_TDF_Endpoint';
+            }
+        });
+        
+        /*$('div.usedWidgets div.Widget').entwine({
+            initialize: function() {
+                // Call deleteWidget when delete button is pushed
+                this.deleteButton = this.findDescendant('span', 'widgetDelete');
+                if(this.deleteButton)
+                    this.deleteButton.onclick = this.deleteWidget.bind(this);
+            },
+            
+            // Taken from FieldEditor
+            findDescendant: function(tag, clsName, element) {
+                if(!element)
+                    element = this;
+                
+                var descendants = element.getElementsByTagName(tag);
+                
+                for(var i = 0; i < descendants.length; i++) {
+                    var el = descendants[i];
+                    
+                    if(tag.toUpperCase() == el.tagName && el.className.indexOf( clsName ) != -1)
+                        return el;
+                }
+                
+                return null;
+            },
+            
+            deleteWidget: function() {
+                this.parentNode.parentNode.parentNode.deleteWidget(this);
+            }
+        });*/
     })
 })(jQuery);
