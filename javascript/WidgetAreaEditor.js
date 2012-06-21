@@ -20,7 +20,9 @@
 				$(this).find('.usedWidgets').sortable({
 					opacity: 0.6,
 					handle: '.handle',
-					update: function(e, ui) {parentRef.updateWidgets(e, ui)}
+					update: function(e, ui) {parentRef.updateWidgets(e, ui)},
+                    placeholder: 'ui-state-highlight',
+                    forcePlaceholderSize: true
 				});
 				
 				// Figure out maxid, this is used when creating new widgets

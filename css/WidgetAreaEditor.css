@@ -15,6 +15,16 @@ div.usedWidgetsHolder {
 	float: right;
 }
 
+div.usedWidgets .ui-state-highlight {
+    background: #EEEEEE;
+    
+    border: 1px solid #DDDDDD;
+    
+    width: 98%;
+    
+    margin-bottom: 5px;
+}
+
 .NoWidgets {
 	padding: 50px; /* Make this nice and big and easily 'droppable' */
 }
