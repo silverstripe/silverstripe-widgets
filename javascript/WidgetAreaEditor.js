@@ -127,7 +127,7 @@
 			insertWidgetEditor: function(response) {
 				// Remove placeholder text
 				if($('#NoWidgets-'+$(this).attr('name')).length>0) {
-					$('#usedWidgets-'+$(this).attr('name')).remove($('#NoWidgets-'+$(this).attr('name')));
+					$('#NoWidgets-'+$(this).attr('name')).remove();
 				}
 
 				var usedWidgets = $('#usedWidgets-'+$(this).attr('name')).children();
