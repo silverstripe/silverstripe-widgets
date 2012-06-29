@@ -35,6 +35,7 @@ div.availableWidgets div.Widget {
 	border: 1px solid #ddd;
 	border-top: none;
 	margin-bottom: 10px;
+	background: #F0F3F4 url('../../cms/images/textures/bg_cms_main_content.png') repeat top left;
 }
 
 div.widgetDescription{
