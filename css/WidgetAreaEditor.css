@@ -36,6 +36,10 @@ div.availableWidgets div.Widget {
 	border-top: none;
 	margin-bottom: 10px;
 }
+
+div.widgetDescription{
+    padding: 10px 0;
+}
 div.widgetDescription p,
 div.widgetFields {
 	padding: 0 8px;
