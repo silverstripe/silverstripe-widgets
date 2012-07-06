@@ -125,11 +125,6 @@
 			},
 			
 			insertWidgetEditor: function(response) {
-				// Remove placeholder text
-				if($('#NoWidgets-'+$(this).attr('name')).length>0) {
-					$('#usedWidgets-'+$(this).attr('name')).remove($('#NoWidgets-'+$(this).attr('name')));
-				}
-
 				var usedWidgets = $('#usedWidgets-'+$(this).attr('name')).children();
 				
 				// Give the widget a unique id
@@ -161,7 +156,6 @@
 			deleteWidget: function(widgetToRemove) {
 				// Remove a widget from the used widgets column
 				widgetToRemove.remove();
-				// TODO ... re-create NoWidgets div?
 			}
 		});
 		
