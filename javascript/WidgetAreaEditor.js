@@ -21,8 +21,8 @@
 					opacity: 0.6,
 					handle: '.handle',
 					update: function(e, ui) {parentRef.updateWidgets(e, ui)},
-                    placeholder: 'ui-state-highlight',
-                    forcePlaceholderSize: true
+					placeholder: 'ui-state-highlight',
+					forcePlaceholderSize: true
 				});
 				
 				// Figure out maxid, this is used when creating new widgets
@@ -168,11 +168,16 @@
 			}
 		});
 		
-		/*$('div.usedWidgets .TreeDropdownField').entwine({
-			getName: function() {
-				return 'Widget_TDF_Endpoint';
+		/**
+		 * Disable chosen
+		 */
+		$('div.usedWidgets .field.dropdown select, div.usedWidgets .field select[multiple]').entwine({
+			onmatch: function() {
+				$(this).addClass('no-chzn');
+				
+				this._super();
 			}
-		});*/
+		});
 		
 		$('div.usedWidgets div.Widget').entwine({
 			onmatch: function() {
