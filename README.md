@@ -21,49 +21,61 @@ the sidebar of your website. To check out a what a [Widget](http://silverstripe.
 packaging instructions at the bottom of the page about how to make your widget package.
 
 
+### Installing the Widgets Module
+
+Download and unzip the [Widgets Module](http://www.silverstripe.org/widgets-module/) to the main folder of your website and ensure the folder is named `widgets`. 
+
+
 ### Installing a widget
 
-By following the "Packaging" rules below, widgets are easily installed. 
-
-* Install the [blog module](http://www.silverstripe.org/blog-module/) (by default only the Blog has widgets enabled)
-* Download the file and unzip to the main folder of your SilverStripe website, e.g. to `/widget_<widget-name>/`. The folder
+By following the "Packaging" rules below, widgets are easily installed. This example uses the Blog module which by default has widgets already enabled.
+ 
+* Install the [blog module](http://www.silverstripe.org/blog-module/).
+* Download the widget and unzip to the main folder of your SilverStripe website, e.g. to `/widget_<widget-name>/`. The folder
 will contain a few files, which generally won't need editing or reading.
 * Run `http://my-website.com/dev/build`
-* Login to the CMS and go to the 'Blog' page. Choose the "widgets" tab and drag n drop the new widget to activate it.
+* Login to the CMS and go to the 'Blog' page. Choose the "widgets" tab and click the new widget to activate it.
 * Your blog will now have the widget shown
+
 
 ### Adding widgets to other pages
 
 You have to do a couple things to get a Widget to work on a page.
 
-First step is to add an WidgetArea to the Database to store the widget details. Then you have to edit the CMS to add a
-Widget Form to manage the widgets. An example of this is below
+* Install the Widgets Module, see above.
+* Add a WidgetArea field to your Page. 
+* Add a new tab to the CMS with a WidgetAreaEditor field for managing the widgets. 
+e.g.
 
 **mysite/code/Page.php**
 
 	class Page extends SiteTree {
-	
 	...
 	    static $has_one = array(
-		"Sidebar" => "WidgetArea",
+			"MyWidgetArea" => "WidgetArea",
 	    );
 		
 	    public function getCMSFields() {
-		$fields = parent::getCMSFields();
-		$fields->addFieldToTab("Root.Content.Widgets", new WidgetAreaEditor("Sidebar"));
-		return $fields;
+			$fields = parent::getCMSFields();
+			$fields->addFieldToTab("Root.Widgets", new WidgetAreaEditor("MyWidgetArea"));
+			return $fields;
 	    }
-	....
+	...
 	}
 
 
-Then in your Template you need to call $SideBar wherever you want to render the widget
+* Then in your Template you need to call $MyWidgetArea wherever you want to render the widget
 
-For example: using the blackcandy theme I put this piece of code above the closing `</div>`
+e.g. using the simple theme, add the `$MyWidgetArea` variable above the closing `</aside>` 
 
-**themes/blackcandy/templates/Includes/Sidebar.ss**
+**themes/simple/templates/Includes/Sidebar.ss**
 
-	$Sidebar
+	<aside>
+		<% if Menu(2) %>
+		...	
+		<% end_if %>
+		$MyWidgetArea
+	</aside>
 
 
 ## Writing your own widgets
@@ -272,13 +284,13 @@ Page class). One way to fix this is to comment out line 30 in BlogHolder.php and
 		
 	      ........
 		static $has_one = array(
-		//	"SideBar" => "WidgetArea", COMMENT OUT
+		//	"Sidebar" => "WidgetArea", COMMENT OUT
 			'Newsletter' => 'NewsletterType'
 	      .......
 		public function getCMSFields() {
 			$fields = parent::getCMSFields();
 			$fields->removeFieldFromTab("Root.Content","Content");
-		//	$fields->addFieldToTab("Root.Content.Widgets", new WidgetAreaEditor("SideBar")); COMMENT OUT
+		//	$fields->addFieldToTab("Root.Widgets", new WidgetAreaEditor("Sidebar")); COMMENT OUT
 	
 		........
 
