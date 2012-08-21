@@ -4,6 +4,7 @@ div.availableWidgetsHolder {
 
 div.usedWidgetsHolder {
 	width: 66%;
+    max-width: 745px;
 }
 
 div.availableWidgetsHolder {
@@ -12,6 +13,13 @@ div.availableWidgetsHolder {
 
 div.usedWidgetsHolder {
 	float: right;
+}
+
+div.usedWidgets .ui-state-highlight {
+    background: #EEEEEE;
+    border: 1px solid #DDDDDD;
+    width: 98%;
+    margin-bottom: 5px;
 }
 
 .NoWidgets {
@@ -23,7 +31,12 @@ div.availableWidgets div.Widget {
 	width: 98%;
 	border: 1px solid #ddd;
 	border-top: none;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
+	background: #F0F3F4;
+}
+
+div.widgetDescription{
+    padding: 10px 0;
 }
 div.widgetDescription p,
 div.widgetFields {
@@ -33,7 +46,7 @@ div.widgetFields {
 }
 
 p.deleteWidget {
-	margin: 0;
+	margin: 0 0 4px;
 	height: 22px;
 	line-height: 2.2;
 	font-size: 12px;
