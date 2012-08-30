@@ -168,17 +168,6 @@
 			}
 		});
 		
-		/**
-		 * Disable chosen
-		 */
-		$('div.usedWidgets .field.dropdown select, div.usedWidgets .field select[multiple]').entwine({
-			onmatch: function() {
-				$(this).addClass('no-chzn');
-				
-				this._super();
-			}
-		});
-		
 		$('div.usedWidgets div.Widget').entwine({
 			onmatch: function() {
 				// Call deleteWidget when delete button is pushed

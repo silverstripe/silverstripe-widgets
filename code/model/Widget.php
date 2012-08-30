@@ -88,17 +88,19 @@ class Widget extends DataObject {
 	}
 	
 	function CMSEditor() {
-		$output = '';
 		$fields = $this->getCMSFields();
+		$outputFields = new FieldList();
 		foreach($fields as $field) {
 			$name = $field->getName();
-			$field->setValue($this->getField($name));
-			$renderedField = $field->FieldHolder();
-			$renderedField = preg_replace("/name=\"([A-Za-z0-9\-_]+)\"/", "name=\"Widget[" . $this->ID . "][\\1]\"", $renderedField);
-			$renderedField = preg_replace("/id=\"([A-Za-z0-9\-_]+)\"/", "id=\"Widget[" . $this->ID . "][\\1]\"", $renderedField);
-			$output .= $renderedField;
+			$value = $this->getField($name);
+			if ($value) {
+				$field->setValue($value);
+			}
+			$name = preg_replace("/([A-Za-z0-9\-_]+)/", "Widget[" . $this->ID . "][\\1]", $name);
+			$field->setName($name);
+			$outputFields->push($field);
 		}
-		return $output;
+		return $outputFields;
 	}
 	
 	function ClassName() {
@@ -110,9 +112,16 @@ class Widget extends DataObject {
 	}
 
 	function populateFromPostData($data) {
+		$fields = $this->getCMSFields();
 		foreach($data as $name => $value) {
 			if($name != "Type") {
-				$this->setField($name, $value);
+				if ($field = $fields->dataFieldByName($name)) {
+					$field->setValue($value);
+					$field->saveInto($this);
+				}
+				else {
+					$this->setField($name, $value);
+				}
 			}
 		}
 		
