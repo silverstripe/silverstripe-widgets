@@ -65,15 +65,15 @@ class Widget extends DataObject {
 	}
 	
 	function Title() {
-		return Object::get_static($this->class, 'title');
+		return _t($this->class.'.TITLE', Object::get_static($this->class, 'title'));
 	}
 	
 	function CMSTitle() {
-		return Object::get_static($this->class, 'cmsTitle');
+		return _t($this->class.'.CMSTITLE', Object::get_static($this->class, 'cmsTitle'));
 	}
 	
 	function Description() {
-		return Object::get_static($this->class, 'description');
+		return _t($this->class.'.DESCRIPTION', Object::get_static($this->class, 'description'));
 	}
 	
 	function DescriptionSegment() {
