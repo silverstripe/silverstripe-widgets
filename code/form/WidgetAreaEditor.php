@@ -5,12 +5,6 @@
  * @subpackage content
  */
 class WidgetAreaEditor extends FormField {
-	/**
-	 * 3 variables to hold titles for the template
-	 */
-	public $InUseTitle;
-	public $AvailableTitle;
-	public $ToAddTitle;
 
 	function __construct($name, $widgetClasses = array('Widget'), $maxWidgets = 0) {
 		$this->MaxWidgets = $maxWidgets;
