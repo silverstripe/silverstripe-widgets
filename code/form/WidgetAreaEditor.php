@@ -94,28 +94,28 @@ class WidgetAreaEditor extends FormField {
 					}
 				
 					// \"ParentID\" = '0' is for the new page
-			  		$widget = DataObject::get_one(
+					$widget = DataObject::get_one(
 						'Widget',
-						"(\"ParentID\" = '{$record->$name()->ID}' OR \"ParentID\" = '0') AND \"Widget\".\"ID\" = '$newWidgetID'"
+						"(\"ParentID\" = '{$record->$name()->ID}' OR ".
+						"\"ParentID\" = '0') AND \"Widget\".\"ID\" = '$newWidgetID'"
 					);
 
-		  		
-			  		// check if we are updating an existing widget
+					// check if we are updating an existing widget
 					if($widget && isset($missingWidgets[$widget->ID])) {
-			  			unset($missingWidgets[$widget->ID]);
+						unset($missingWidgets[$widget->ID]);
 					}
 					
-			  		// create a new object
-			  		if(!$widget && !empty($newWidgetData['Type']) && class_exists($newWidgetData['Type'])) {
-			  			$widget = new $newWidgetData['Type']();
-			  			$widget->ID = 0;
-			  			$widget->ParentID = $record->$name()->ID;
+					// create a new object
+					if(!$widget && !empty($newWidgetData['Type']) && class_exists($newWidgetData['Type'])) {
+						$widget = new $newWidgetData['Type']();
+						$widget->ID = 0;
+						$widget->ParentID = $record->$name()->ID;
 
-			  			if(!is_subclass_of($widget, 'Widget')) {
-			  				$widget = null;
-			  			}
-			  		}
-		  		
+						if(!is_subclass_of($widget, 'Widget')) {
+							$widget = null;
+						}
+					}
+
 					if($widget) {
 						if($widget->ParentID == 0) {
 							$widget->ParentID = $record->$name()->ID;
