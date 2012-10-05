@@ -12,29 +12,77 @@
  */
 class Widget extends DataObject {
 
+	/**
+	 *
+	 * @var array
+	 */
 	public static $db = array(
 		"Sort" => "Int",
 		"Enabled" => "Boolean"
 	);
-	
+
+	/**
+	 *
+	 * @var array
+	 */
 	public static $defaults = array(
 		'Enabled' => true
 	);
-	
+
+	/**
+	 *
+	 * @var array
+	 */
 	public static $has_one = array(
 		"Parent" => "WidgetArea",
 	);
-	
+
+	/**
+	 *
+	 * @var array
+	 */
 	public static $has_many = array();
+
+	/**
+	 *
+	 * @var array
+	 */
 	public static $many_many = array();
+
+	/**
+	 *
+	 * @var array
+	 */
 	public static $belongs_many_many = array();
-	
+
+	/**
+	 *
+	 * @var string
+	 */
 	public static $default_sort = "\"Sort\"";
-	
+
+	/**
+	 *
+	 * @var string
+	 */
 	public static $title = "Widget Title";
+
+	/**
+	 *
+	 * @var string
+	 */
 	public static $cmsTitle = "Name of this widget";
+
+	/**
+	 *
+	 * @var string
+	 */
 	public static $description = "Description of what this widget does.";
-	
+
+	/**
+	 *
+	 * @return FieldList
+	 */
 	public function getCMSFields() {
 		$fields = new FieldList();
 		$this->extend('updateCMSFields', $fields);
@@ -64,30 +112,51 @@ class Widget extends DataObject {
 	public function Content() {
 		return $this->renderWith(array_reverse(ClassInfo::ancestry($this->class)));
 	}
-	
+
+	/**
+	 *
+	 * @return string
+	 */
 	public function Title() {
 		return _t($this->class.'.TITLE', Object::get_static($this->class, 'title'));
 	}
-	
+
+	/**
+	 *
+	 * @return string
+	 */
 	public function CMSTitle() {
 		return _t($this->class.'.CMSTITLE', Object::get_static($this->class, 'cmsTitle'));
 	}
-	
+
+	/**
+	 *
+	 * @return string
+	 */
 	public function Description() {
 		return _t($this->class.'.DESCRIPTION', Object::get_static($this->class, 'description'));
 	}
-	
+
+	/**
+	 *
+	 * @return string - HTML
+	 */
 	public function DescriptionSegment() {
 		return $this->renderWith('WidgetDescription'); 
 	}
 	
 	/**
 	 * @see Widget_Controller->editablesegment()
+	 * @return string - HTML
 	 */
 	public function EditableSegment() {
 		return $this->renderWith('WidgetEditor'); 
 	}
-	
+
+	/**
+	 *
+	 * @return FieldList
+	 */
 	public function CMSEditor() {
 		$fields = $this->getCMSFields();
 		$outputFields = new FieldList();
@@ -103,15 +172,27 @@ class Widget extends DataObject {
 		}
 		return $outputFields;
 	}
-	
+
+	/**
+	 *
+	 * @return string
+	 */
 	public function ClassName() {
 		return $this->class;
 	}
-	
+
+	/**
+	 *
+	 * @return string
+	 */
 	public function Name() {
 		return "Widget[".$this->ID."]";
 	}
 
+	/**
+	 *
+	 * @param array $data
+	 */
 	public function populateFromPostData($data) {
 		$fields = $this->getCMSFields();
 		foreach($data as $name => $value) {
@@ -159,11 +240,19 @@ class Widget_Controller extends Controller {
 	 * @var Widget
 	 */
 	protected $widget;
-	
+
+	/**
+	 *
+	 * @var array
+	 */
 	public static $allowed_actions = array(
 		'editablesegment'
 	);
-	
+
+	/**
+	 *
+	 * @param Widget $widget
+	 */
 	public function __construct($widget = null) {
 		// TODO This shouldn't be optional, is only necessary for editablesegment()
 		if($widget) {
@@ -173,7 +262,12 @@ class Widget_Controller extends Controller {
 		
 		parent::__construct();
 	}
-	
+
+	/**
+	 *
+	 * @param string $action
+	 * @return string
+	 */
 	public function Link($action = null) {
 		$segment = Controller::join_links('widget', ($this->widget ? $this->widget->ID : null), $action);
 		
