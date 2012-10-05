@@ -6,20 +6,20 @@
  */
 class WidgetAreaEditor extends FormField {
 
-	function __construct($name, $widgetClasses = array('Widget'), $maxWidgets = 0) {
+	public function __construct($name, $widgetClasses = array('Widget'), $maxWidgets = 0) {
 		$this->MaxWidgets = $maxWidgets;
 		$this->widgetClasses = $widgetClasses;
 		
 		parent::__construct($name);
 	}
 	
-	function FieldHolder($properties = array()) {
+	public function FieldHolder($properties = array()) {
 		Requirements::css('widgets/css/WidgetAreaEditor.css');
 		Requirements::javascript('widgets/javascript/WidgetAreaEditor.js');
 		return $this->renderWith("WidgetAreaEditor");
 	}
 	
-	function AvailableWidgets() {
+	public function AvailableWidgets() {
 		
 		$widgets= new ArrayList();
 		
@@ -34,7 +34,7 @@ class WidgetAreaEditor extends FormField {
 		return $widgets;
 	}
 	
-	function UsedWidgets() {
+	public function UsedWidgets() {
 		// Call class_exists() to load Widget.php earlier and avoid a segfault
 		class_exists('Widget');
 		
@@ -43,16 +43,16 @@ class WidgetAreaEditor extends FormField {
 		return $widgets;
 	}
 	
-	function IdxField() {
+	public function IdxField() {
 		return $this->id() . 'ID';
 	}
 	
-	function Value() {
+	public function Value() {
 		$relationName = $this->name;
 		return $this->form->getRecord()->getComponent($relationName)->ID;
 	}
 	
-	function saveInto(DataObjectInterface $record) {
+	public function saveInto(DataObjectInterface $record) {
 		$name = $this->name;
 		$idName = $name . "ID";
 

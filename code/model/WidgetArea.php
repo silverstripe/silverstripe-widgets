@@ -6,17 +6,17 @@
  */
 class WidgetArea extends DataObject {
 	
-	static $db = array();
+	public static $db = array();
 	
-	static $has_one = array();
+	public static $has_one = array();
 	
-	static $has_many = array(
+	public static $has_many = array(
 		"Widgets" => "Widget"
 	);
 	
-	static $many_many = array();
+	public static $many_many = array();
 	
-	static $belongs_many_many = array();
+	public static $belongs_many_many = array();
 	
 	public $template = __CLASS__;
 	
@@ -28,7 +28,7 @@ class WidgetArea extends DataObject {
 	 * 
 	 * @return SS_List Collection of {@link Widget_Controller}
 	 */
-	function WidgetControllers() {
+	public function WidgetControllers() {
 		$controllers = new ArrayList();
 
 		foreach($this->ItemsToRender() as $widget) {
@@ -46,23 +46,23 @@ class WidgetArea extends DataObject {
 		return $controllers;
 	}
 	
-	function Items() {
+	public function Items() {
 		return $this->getComponents('Widgets');
 	}
 	
-	function ItemsToRender() {
+	public function ItemsToRender() {
 		return $this->getComponents('Widgets', "\"Widget\".\"Enabled\" = 1");
 	}
 	
-	function forTemplate() {
+	public function forTemplate() {
 		return $this->renderWith($this->template); 
 	}
 	
-	function setTemplate($template) {
+	public function setTemplate($template) {
 		$this->template = $template;
 	}
 	
-	function onBeforeDelete() {
+	public function onBeforeDelete() {
 		parent::onBeforeDelete();
 		foreach($this->Widgets() as $widget) {
 			$widget->delete();

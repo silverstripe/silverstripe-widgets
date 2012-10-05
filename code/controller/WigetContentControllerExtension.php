@@ -1,10 +1,10 @@
 <?php
-
 /**
  * Add this to ContentController to enable widgets
  */
 class WidgetContentControllerExtension extends Extension {
-	static $allowed_actions = array(
+
+	public static $allowed_actions = array(
 		'handleWidget'
 	);
 	
@@ -16,7 +16,7 @@ class WidgetContentControllerExtension extends Extension {
 	 * 
 	 * @return RequestHandler
 	 */
-	function handleWidget() {
+	public function handleWidget() {
 		$SQL_id = $this->owner->getRequest()->param('ID');
 		if(!$SQL_id) return false;
 		

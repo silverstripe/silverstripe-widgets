@@ -11,30 +11,31 @@
  * @subpackage widgets
  */
 class Widget extends DataObject {
-	static $db = array(
+
+	public static $db = array(
 		"Sort" => "Int",
 		"Enabled" => "Boolean"
 	);
 	
-	static $defaults = array(
+	public static $defaults = array(
 		'Enabled' => true
 	);
 	
-	static $has_one = array(
+	public static $has_one = array(
 		"Parent" => "WidgetArea",
 	);
 	
-	static $has_many = array();
-	static $many_many = array();
-	static $belongs_many_many = array();
+	public static $has_many = array();
+	public static $many_many = array();
+	public static $belongs_many_many = array();
 	
-	static $default_sort = "\"Sort\"";
+	public static $default_sort = "\"Sort\"";
 	
-	static $title = "Widget Title";
-	static $cmsTitle = "Name of this widget";
-	static $description = "Description of what this widget does.";
+	public static $title = "Widget Title";
+	public static $cmsTitle = "Name of this widget";
+	public static $description = "Description of what this widget does.";
 	
-	function getCMSFields() {
+	public function getCMSFields() {
 		$fields = new FieldList();
 		$this->extend('updateCMSFields', $fields);
 		return $fields;
@@ -45,7 +46,7 @@ class Widget extends DataObject {
 	 * 
 	 * @return string HTML
 	 */
-	function WidgetHolder() {
+	public function WidgetHolder() {
 		return $this->renderWith("WidgetHolder");
 	}
 	
@@ -60,34 +61,34 @@ class Widget extends DataObject {
 	 * 
 	 * @return string HTML
 	 */
-	function Content() {
+	public function Content() {
 		return $this->renderWith(array_reverse(ClassInfo::ancestry($this->class)));
 	}
 	
-	function Title() {
+	public function Title() {
 		return _t($this->class.'.TITLE', Object::get_static($this->class, 'title'));
 	}
 	
-	function CMSTitle() {
+	public function CMSTitle() {
 		return _t($this->class.'.CMSTITLE', Object::get_static($this->class, 'cmsTitle'));
 	}
 	
-	function Description() {
+	public function Description() {
 		return _t($this->class.'.DESCRIPTION', Object::get_static($this->class, 'description'));
 	}
 	
-	function DescriptionSegment() {
+	public function DescriptionSegment() {
 		return $this->renderWith('WidgetDescription'); 
 	}
 	
 	/**
 	 * @see Widget_Controller->editablesegment()
 	 */
-	function EditableSegment() {
+	public function EditableSegment() {
 		return $this->renderWith('WidgetEditor'); 
 	}
 	
-	function CMSEditor() {
+	public function CMSEditor() {
 		$fields = $this->getCMSFields();
 		$outputFields = new FieldList();
 		foreach($fields as $field) {
@@ -103,15 +104,15 @@ class Widget extends DataObject {
 		return $outputFields;
 	}
 	
-	function ClassName() {
+	public function ClassName() {
 		return $this->class;
 	}
 	
-	function Name() {
+	public function Name() {
 		return "Widget[".$this->ID."]";
 	}
 
-	function populateFromPostData($data) {
+	public function populateFromPostData($data) {
 		$fields = $this->getCMSFields();
 		foreach($data as $name => $value) {
 			if($name != "Type") {
@@ -159,11 +160,11 @@ class Widget_Controller extends Controller {
 	 */
 	protected $widget;
 	
-	static $allowed_actions = array( 
+	public static $allowed_actions = array(
 		'editablesegment'
 	);
 	
-	function __construct($widget = null) {
+	public function __construct($widget = null) {
 		// TODO This shouldn't be optional, is only necessary for editablesegment()
 		if($widget) {
 			$this->widget = $widget;
@@ -186,7 +187,7 @@ class Widget_Controller extends Controller {
 	/**
 	 * @return Widget
 	 */
-	function getWidget() {
+	public function getWidget() {
 		return $this->widget;
 	}
 	
@@ -196,7 +197,7 @@ class Widget_Controller extends Controller {
 	 * 
 	 * @return string HTML
 	 */
-	function Content() {
+	public function Content() {
 		return $this->renderWith(array_reverse(ClassInfo::ancestry($this->widget->class)));
 	}
 	
@@ -206,7 +207,7 @@ class Widget_Controller extends Controller {
 	 * 
 	 * @return string HTML
 	 */
-	function WidgetHolder() {
+	public function WidgetHolder() {
 		return $this->renderWith("WidgetHolder");
 	}
 	
@@ -218,7 +219,7 @@ class Widget_Controller extends Controller {
 	 * 
 	 * @return string HTML
 	 */
-	function editablesegment() {
+	public function editablesegment() {
 		$className = $this->urlParams['ID'];
 		if (class_exists('Translatable') && Member::currentUserID()) {
 			// set current locale based on logged in user's locale
@@ -241,7 +242,8 @@ class Widget_Controller extends Controller {
  * @subpackage widgets
  */
 class Widget_TreeDropdownField extends TreeDropdownField {
-	function FieldHolder($properties = array()) {}
-	function Field($properties = array()) {}
+
+	public function FieldHolder($properties = array()) {}
+	public function Field($properties = array()) {}
 }
 
