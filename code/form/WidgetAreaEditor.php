@@ -5,27 +5,36 @@
  * @subpackage content
  */
 class WidgetAreaEditor extends FormField {
-	/**
-	 * 3 variables to hold titles for the template
-	 */
-	public $InUseTitle;
-	public $AvailableTitle;
-	public $ToAddTitle;
 
-	function __construct($name, $widgetClasses = array('Widget'), $maxWidgets = 0) {
+	/**
+	 *
+	 * @param string $name
+	 * @param array $widgetClasses
+	 * @param int $maxWidgets
+	 */
+	public function __construct($name, $widgetClasses = array('Widget'), $maxWidgets = 0) {
 		$this->MaxWidgets = $maxWidgets;
 		$this->widgetClasses = $widgetClasses;
 		
 		parent::__construct($name);
 	}
-	
-	function FieldHolder($properties = array()) {
+
+	/**
+	 *
+	 * @param array $properties
+	 * @return string - HTML for this formfield
+	 */
+	public function FieldHolder($properties = array()) {
 		Requirements::css('widgets/css/WidgetAreaEditor.css');
 		Requirements::javascript('widgets/javascript/WidgetAreaEditor.js');
 		return $this->renderWith("WidgetAreaEditor");
 	}
-	
-	function AvailableWidgets() {
+
+	/**
+	 *
+	 * @return ArrayList
+	 */
+	public function AvailableWidgets() {
 		
 		$widgets= new ArrayList();
 		
@@ -39,8 +48,12 @@ class WidgetAreaEditor extends FormField {
 		
 		return $widgets;
 	}
-	
-	function UsedWidgets() {
+
+	/**
+	 *
+	 * @return HasManyList
+	 */
+	public function UsedWidgets() {
 		// Call class_exists() to load Widget.php earlier and avoid a segfault
 		class_exists('Widget');
 		
@@ -48,17 +61,29 @@ class WidgetAreaEditor extends FormField {
 		$widgets = $this->form->getRecord()->getComponent($relationName)->Items();
 		return $widgets;
 	}
-	
-	function IdxField() {
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function IdxField() {
 		return $this->id() . 'ID';
 	}
-	
-	function Value() {
+
+	/**
+	 *
+	 * @return int
+	 */
+	public function Value() {
 		$relationName = $this->name;
 		return $this->form->getRecord()->getComponent($relationName)->ID;
 	}
-	
-	function saveInto(DataObjectInterface $record) {
+
+	/**
+	 *
+	 * @param DataObjectInterface $record
+	 */
+	public function saveInto(DataObjectInterface $record) {
 		$name = $this->name;
 		$idName = $name . "ID";
 
@@ -94,28 +119,28 @@ class WidgetAreaEditor extends FormField {
 					}
 				
 					// \"ParentID\" = '0' is for the new page
-			  		$widget = DataObject::get_one(
+					$widget = DataObject::get_one(
 						'Widget',
-						"(\"ParentID\" = '{$record->$name()->ID}' OR \"ParentID\" = '0') AND \"Widget\".\"ID\" = '$newWidgetID'"
+						"(\"ParentID\" = '{$record->$name()->ID}' OR ".
+						"\"ParentID\" = '0') AND \"Widget\".\"ID\" = '$newWidgetID'"
 					);
 
-		  		
-			  		// check if we are updating an existing widget
+					// check if we are updating an existing widget
 					if($widget && isset($missingWidgets[$widget->ID])) {
-			  			unset($missingWidgets[$widget->ID]);
+						unset($missingWidgets[$widget->ID]);
 					}
 					
-			  		// create a new object
-			  		if(!$widget && !empty($newWidgetData['Type']) && class_exists($newWidgetData['Type'])) {
-			  			$widget = new $newWidgetData['Type']();
-			  			$widget->ID = 0;
-			  			$widget->ParentID = $record->$name()->ID;
+					// create a new object
+					if(!$widget && !empty($newWidgetData['Type']) && class_exists($newWidgetData['Type'])) {
+						$widget = new $newWidgetData['Type']();
+						$widget->ID = 0;
+						$widget->ParentID = $record->$name()->ID;
 
-			  			if(!is_subclass_of($widget, 'Widget')) {
-			  				$widget = null;
-			  			}
-			  		}
-		  		
+						if(!is_subclass_of($widget, 'Widget')) {
+							$widget = null;
+						}
+					}
+
 					if($widget) {
 						if($widget->ParentID == 0) {
 							$widget->ParentID = $record->$name()->ID;

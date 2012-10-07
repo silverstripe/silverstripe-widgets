@@ -11,30 +11,79 @@
  * @subpackage widgets
  */
 class Widget extends DataObject {
-	static $db = array(
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $db = array(
 		"Sort" => "Int",
 		"Enabled" => "Boolean"
 	);
-	
-	static $defaults = array(
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $defaults = array(
 		'Enabled' => true
 	);
-	
-	static $has_one = array(
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $has_one = array(
 		"Parent" => "WidgetArea",
 	);
-	
-	static $has_many = array();
-	static $many_many = array();
-	static $belongs_many_many = array();
-	
-	static $default_sort = "\"Sort\"";
-	
-	static $title = "Widget Title";
-	static $cmsTitle = "Name of this widget";
-	static $description = "Description of what this widget does.";
-	
-	function getCMSFields() {
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $has_many = array();
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $many_many = array();
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $belongs_many_many = array();
+
+	/**
+	 *
+	 * @var string
+	 */
+	public static $default_sort = "\"Sort\"";
+
+	/**
+	 *
+	 * @var string
+	 */
+	public static $title = "Widget Title";
+
+	/**
+	 *
+	 * @var string
+	 */
+	public static $cmsTitle = "Name of this widget";
+
+	/**
+	 *
+	 * @var string
+	 */
+	public static $description = "Description of what this widget does.";
+
+	/**
+	 *
+	 * @return FieldList
+	 */
+	public function getCMSFields() {
 		$fields = new FieldList();
 		$this->extend('updateCMSFields', $fields);
 		return $fields;
@@ -45,7 +94,7 @@ class Widget extends DataObject {
 	 * 
 	 * @return string HTML
 	 */
-	function WidgetHolder() {
+	public function WidgetHolder() {
 		return $this->renderWith("WidgetHolder");
 	}
 	
@@ -60,34 +109,55 @@ class Widget extends DataObject {
 	 * 
 	 * @return string HTML
 	 */
-	function Content() {
+	public function Content() {
 		return $this->renderWith(array_reverse(ClassInfo::ancestry($this->class)));
 	}
-	
-	function Title() {
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function Title() {
 		return _t($this->class.'.TITLE', Object::get_static($this->class, 'title'));
 	}
-	
-	function CMSTitle() {
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function CMSTitle() {
 		return _t($this->class.'.CMSTITLE', Object::get_static($this->class, 'cmsTitle'));
 	}
-	
-	function Description() {
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function Description() {
 		return _t($this->class.'.DESCRIPTION', Object::get_static($this->class, 'description'));
 	}
-	
-	function DescriptionSegment() {
+
+	/**
+	 *
+	 * @return string - HTML
+	 */
+	public function DescriptionSegment() {
 		return $this->renderWith('WidgetDescription'); 
 	}
 	
 	/**
 	 * @see Widget_Controller->editablesegment()
+	 * @return string - HTML
 	 */
-	function EditableSegment() {
+	public function EditableSegment() {
 		return $this->renderWith('WidgetEditor'); 
 	}
-	
-	function CMSEditor() {
+
+	/**
+	 *
+	 * @return FieldList
+	 */
+	public function CMSEditor() {
 		$fields = $this->getCMSFields();
 		$outputFields = new FieldList();
 		foreach($fields as $field) {
@@ -102,16 +172,28 @@ class Widget extends DataObject {
 		}
 		return $outputFields;
 	}
-	
-	function ClassName() {
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function ClassName() {
 		return $this->class;
 	}
-	
-	function Name() {
+
+	/**
+	 *
+	 * @return string
+	 */
+	public function Name() {
 		return "Widget[".$this->ID."]";
 	}
 
-	function populateFromPostData($data) {
+	/**
+	 *
+	 * @param array $data
+	 */
+	public function populateFromPostData($data) {
 		$fields = $this->getCMSFields();
 		foreach($data as $name => $value) {
 			if($name != "Type") {
@@ -158,12 +240,20 @@ class Widget_Controller extends Controller {
 	 * @var Widget
 	 */
 	protected $widget;
-	
-	static $allowed_actions = array( 
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $allowed_actions = array(
 		'editablesegment'
 	);
-	
-	function __construct($widget = null) {
+
+	/**
+	 *
+	 * @param Widget $widget
+	 */
+	public function __construct($widget = null) {
 		// TODO This shouldn't be optional, is only necessary for editablesegment()
 		if($widget) {
 			$this->widget = $widget;
@@ -172,7 +262,12 @@ class Widget_Controller extends Controller {
 		
 		parent::__construct();
 	}
-	
+
+	/**
+	 *
+	 * @param string $action
+	 * @return string
+	 */
 	public function Link($action = null) {
 		$segment = Controller::join_links('widget', ($this->widget ? $this->widget->ID : null), $action);
 		
@@ -186,7 +281,7 @@ class Widget_Controller extends Controller {
 	/**
 	 * @return Widget
 	 */
-	function getWidget() {
+	public function getWidget() {
 		return $this->widget;
 	}
 	
@@ -196,7 +291,7 @@ class Widget_Controller extends Controller {
 	 * 
 	 * @return string HTML
 	 */
-	function Content() {
+	public function Content() {
 		return $this->renderWith(array_reverse(ClassInfo::ancestry($this->widget->class)));
 	}
 	
@@ -206,7 +301,7 @@ class Widget_Controller extends Controller {
 	 * 
 	 * @return string HTML
 	 */
-	function WidgetHolder() {
+	public function WidgetHolder() {
 		return $this->renderWith("WidgetHolder");
 	}
 	
@@ -218,7 +313,7 @@ class Widget_Controller extends Controller {
 	 * 
 	 * @return string HTML
 	 */
-	function editablesegment() {
+	public function editablesegment() {
 		$className = $this->urlParams['ID'];
 		if (class_exists('Translatable') && Member::currentUserID()) {
 			// set current locale based on logged in user's locale
@@ -241,7 +336,8 @@ class Widget_Controller extends Controller {
  * @subpackage widgets
  */
 class Widget_TreeDropdownField extends TreeDropdownField {
-	function FieldHolder($properties = array()) {}
-	function Field($properties = array()) {}
+
+	public function FieldHolder($properties = array()) {}
+	public function Field($properties = array()) {}
 }
 

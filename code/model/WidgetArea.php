@@ -5,19 +5,43 @@
  * @subpackage widgets
  */
 class WidgetArea extends DataObject {
-	
-	static $db = array();
-	
-	static $has_one = array();
-	
-	static $has_many = array(
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $db = array();
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $has_one = array();
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $has_many = array(
 		"Widgets" => "Widget"
 	);
-	
-	static $many_many = array();
-	
-	static $belongs_many_many = array();
-	
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $many_many = array();
+
+	/**
+	 *
+	 * @var array
+	 */
+	public static $belongs_many_many = array();
+
+	/**
+	 *
+	 * @var string
+	 */
 	public $template = __CLASS__;
 	
 	/**
@@ -28,7 +52,7 @@ class WidgetArea extends DataObject {
 	 * 
 	 * @return SS_List Collection of {@link Widget_Controller}
 	 */
-	function WidgetControllers() {
+	public function WidgetControllers() {
 		$controllers = new ArrayList();
 
 		foreach($this->ItemsToRender() as $widget) {
@@ -45,24 +69,43 @@ class WidgetArea extends DataObject {
 
 		return $controllers;
 	}
-	
-	function Items() {
+
+	/**
+	 *
+	 * @return HasManyList
+	 */
+	public function Items() {
 		return $this->getComponents('Widgets');
 	}
-	
-	function ItemsToRender() {
+
+	/**
+	 *
+	 * @return HasManyList
+	 */
+	public function ItemsToRender() {
 		return $this->getComponents('Widgets', "\"Widget\".\"Enabled\" = 1");
 	}
-	
-	function forTemplate() {
+
+	/**
+	 *
+	 * @return string - HTML
+	 */
+	public function forTemplate() {
 		return $this->renderWith($this->template); 
 	}
-	
-	function setTemplate($template) {
+
+	/**
+	 *
+	 * @param string $template
+	 */
+	public function setTemplate($template) {
 		$this->template = $template;
 	}
-	
-	function onBeforeDelete() {
+
+	/**
+	 * Delete all connected Widgets when this WidgetArea gets deleted
+	 */
+	public function onBeforeDelete() {
 		parent::onBeforeDelete();
 		foreach($this->Widgets() as $widget) {
 			$widget->delete();
