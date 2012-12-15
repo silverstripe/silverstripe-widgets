@@ -1,0 +1,11 @@
+de:
+  WidgetAreaEditor.ss:
+    AVAILABLE: "Vorhandene Widgets"
+    AVAILWIDGETS: "Klicke den Widget Titel, um es zu benutzen."
+    NOAVAIL: "Es sind derzeit keine Widgets verfügbar."
+    INUSE: "Benutzte Widgets"
+    TOSORT: "Um die Widgets auf dieser Seite zu sortieren, ziehe sie nach oben oder unten."
+  WidgetEditor.ss:
+    DELETE: "Löschen"
+  WidgetDescription.ss:
+    CLICKTOADDWIDGET: "Klicke um dieses Widget hinzuzufügen"
