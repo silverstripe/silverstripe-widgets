@@ -3,10 +3,12 @@
 	<div class="widgetDescription">
 		<p>$Description</p>
 	</div>
+	<% if $CMSEditor %>
 	<div class="widgetFields">
 		$CMSEditor
-		<input type="hidden" name="$Name[Type]" value="$ClassName" />   
-		<input type="hidden" name="$Name[Sort]" value="$Sort" />
 	</div>
-	<p class="deleteWidget"><span class="widgetDelete"><% _t('DELETE', 'Delete') %></span></p>
+	<% end_if %>
+	<input type="hidden" name="$Name[Type]" value="$ClassName" />
+	<input type="hidden" name="$Name[Sort]" value="$Sort" />
+	<p class="deleteWidget"><span class="widgetDelete ss-ui-button"><% _t('DELETE', 'Delete') %></span></p>
 </div>
