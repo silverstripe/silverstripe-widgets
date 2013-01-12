@@ -9,3 +9,6 @@ en:
     DELETE: "Delete"
   WidgetDescription.ss:
     CLICKTOADDWIDGET: "Click to add this widget"
+  WidgetArea:
+    PLURALNAME: "Widget areas"
+    SINGULARNAME: "Widget area"
