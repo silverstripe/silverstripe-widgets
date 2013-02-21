@@ -9,3 +9,6 @@ sv:
     DELETE: "Radera"
   WidgetDescription.ss:
     CLICKTOADDWIDGET: "Klicka för att lägga till denna widget"
+  WidgetArea:
+    PLURALNAME: "Widget Areas"
+    SINGULARNAME: "Widget Area"

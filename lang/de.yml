@@ -9,3 +9,6 @@ de:
     DELETE: "Löschen"
   WidgetDescription.ss:
     CLICKTOADDWIDGET: "Klicke um dieses Widget hinzuzufügen"
+  WidgetArea:
+    PLURALNAME: "Widgetbereiche"
+    SINGULARNAME: "Widgetbereich"
