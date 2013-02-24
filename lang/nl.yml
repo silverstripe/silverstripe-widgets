@@ -1,0 +1,14 @@
+nl:
+  WidgetAreaEditor.ss:
+    AVAILABLE: "Beschikbare Widgets"
+    AVAILWIDGETS: "Klik op een widget titel hieronder, om de widget te gebruiken op deze pagina."
+    NOAVAIL: "Er zijn geen widgets beschikbaar."
+    INUSE: "Huidige gebruikte Widgets"
+    TOSORT: "Om uw widgets te sorteren op deze pagina, rangschik met drag & drop."
+  WidgetEditor.ss:
+    DELETE: "Verwijderen"
+  WidgetDescription.ss:
+    CLICKTOADDWIDGET: "Klik om deze widget toe te voegen"
+  WidgetArea:
+    PLURALNAME: "Widget plaatsen"
+    SINGULARNAME: "Widget plaats"
