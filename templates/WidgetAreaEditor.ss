@@ -5,9 +5,9 @@
 		<p class="message"><% _t('AVAILWIDGETS', 'Click a widget title below to use it on this page.') %></p>
 		<div class="availableWidgets" id="availableWidgets-$Name">
 			<% if AvailableWidgets %>
-				<% control AvailableWidgets %>
+				<% loop AvailableWidgets %>
 					$DescriptionSegment
-				<% end_control %>
+				<% end_loop %>
 			<% else %>
 				<div class="NoWidgets" id="NoWidgets-$Name">
 					<p><% _t('NOAVAIL', 'There are currently no widgets available.') %></p>
@@ -21,9 +21,9 @@
 		
 		<div class="usedWidgets" id="usedWidgets-$Name">
 			<% if UsedWidgets %>
-				<% control UsedWidgets %>
+				<% loop UsedWidgets %>
 					$EditableSegment
-				<% end_control %>
+				<% end_loop %>
 			<% else %>
 				<div class="NoWidgets" id="NoWidgets-$Name"></div>
 			<% end_if %>
