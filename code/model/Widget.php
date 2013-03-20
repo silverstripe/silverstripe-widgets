@@ -118,7 +118,7 @@ class Widget extends DataObject {
 	 * @return string
 	 */
 	public function Title() {
-		return _t($this->class.'.TITLE', Object::get_static($this->class, 'title'));
+		return _t($this->class.'.TITLE', $this->config()->title);
 	}
 
 	/**
@@ -126,7 +126,7 @@ class Widget extends DataObject {
 	 * @return string
 	 */
 	public function CMSTitle() {
-		return _t($this->class.'.CMSTITLE', Object::get_static($this->class, 'cmsTitle'));
+		return _t($this->class.'.CMSTITLE', $this->config()->cmsTitle);
 	}
 
 	/**
@@ -134,7 +134,7 @@ class Widget extends DataObject {
 	 * @return string
 	 */
 	public function Description() {
-		return _t($this->class.'.DESCRIPTION', Object::get_static($this->class, 'description'));
+		return _t($this->class.'.DESCRIPTION', $this->config()->description);
 	}
 
 	/**
