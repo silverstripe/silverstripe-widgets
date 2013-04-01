@@ -11,7 +11,7 @@ the sidebar of your website. To check out a what a [Widget](http://silverstripe.
 
 ## Requirements
 
- * SilverStripe 3.0
+ * SilverStripe 3.1
 
 ## How to Use A Widget
 
@@ -53,8 +53,8 @@ e.g.
 
 	class Page extends SiteTree {
 	...
-	    static $has_one = array(
-			"MyWidgetArea" => "WidgetArea",
+	    private static $has_one = array(
+				"MyWidgetArea" => "WidgetArea",
 	    );
 		
 	    public function getCMSFields() {
@@ -105,7 +105,7 @@ An example widget is below:
 	<?php
 	
 	class FlickrWidget extends Widget {
-		static $db = array(
+		private static $db = array(
 			"User" => "Varchar",
 			"Photoset" => "Varchar",
 			"Tags" => "Varchar",
@@ -113,14 +113,14 @@ An example widget is below:
 		);
 		
 	
-		static $defaults = array(
+		private static $defaults = array(
 			"NumberToShow" => 8
 		);
 		
 	
-		static $title = "Photos";
-		static $cmsTitle = "Flickr Photos";
-		static $description = "Shows flickr photos.";
+		private static $title = "Photos";
+		private static $cmsTitle = "Flickr Photos";
+		private static $description = "Shows flickr photos.";
 		
 		public function Photos() {
 			Requirements::javascript(THIRDPARTY_DIR . "/prototype/prototype.js");
@@ -236,7 +236,7 @@ sure that your controller follows the usual naming conventions, and it will be a
 **mysite/code/MyWidget.php**
 
 	class MyWidget extends Widget {
-	  static $db = array(
+	  private static $db = array(
 	    'TestValue' => 'Text'
 	  );
 	}

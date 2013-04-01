@@ -16,7 +16,7 @@ class Widget extends DataObject {
 	 *
 	 * @var array
 	 */
-	public static $db = array(
+	private static $db = array(
 		"Sort" => "Int",
 		"Enabled" => "Boolean"
 	);
@@ -25,7 +25,7 @@ class Widget extends DataObject {
 	 *
 	 * @var array
 	 */
-	public static $defaults = array(
+	private static $defaults = array(
 		'Enabled' => true
 	);
 
@@ -33,7 +33,7 @@ class Widget extends DataObject {
 	 *
 	 * @var array
 	 */
-	public static $has_one = array(
+	private static $has_one = array(
 		"Parent" => "WidgetArea",
 	);
 
@@ -41,43 +41,43 @@ class Widget extends DataObject {
 	 *
 	 * @var array
 	 */
-	public static $has_many = array();
+	private static $has_many = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	public static $many_many = array();
+	private static $many_many = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	public static $belongs_many_many = array();
+	private static $belongs_many_many = array();
 
 	/**
 	 *
 	 * @var string
 	 */
-	public static $default_sort = "\"Sort\"";
+	private static $default_sort = "\"Sort\"";
 
 	/**
 	 *
 	 * @var string
 	 */
-	public static $title = "Widget Title";
+	private static $title = "Widget Title";
 
 	/**
 	 *
 	 * @var string
 	 */
-	public static $cmsTitle = "Name of this widget";
+	private static $cmsTitle = "Name of this widget";
 
 	/**
 	 *
 	 * @var string
 	 */
-	public static $description = "Description of what this widget does.";
+	private static $description = "Description of what this widget does.";
 
 	/**
 	 *
@@ -245,7 +245,7 @@ class Widget_Controller extends Controller {
 	 *
 	 * @var array
 	 */
-	public static $allowed_actions = array(
+	private static $allowed_actions = array(
 		'editablesegment'
 	);
 

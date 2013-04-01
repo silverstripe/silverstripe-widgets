@@ -4,7 +4,7 @@
  * @subpackage tests
  */
 class WidgetControllerTestPage extends Page implements TestOnly {
-	static $has_one = array(
+	private static $has_one = array(
 		'WidgetControllerTestSidebar' => 'WidgetArea'
 	);
 }

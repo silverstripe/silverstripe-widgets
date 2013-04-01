@@ -447,17 +447,17 @@ class WidgetAreaEditorTest extends SapphireTest {
 }
 
 class WidgetAreaEditorTest_FakePage extends Page implements TestOnly {
-	public static $has_one = array(
+	private static $has_one = array(
 		"SideBar" => "WidgetArea",
 		"BottomBar" => "WidgetArea",
 	);
 }
 
 class WidgetAreaEditorTest_TestWidget extends Widget implements TestOnly {
-	static $cmsTitle = "Test widget";
-	static $title = "Test widget";
-	static $description = "Test widget";
-	static $db = array(
+	private static $cmsTitle = "Test widget";
+	private static $title = "Test widget";
+	private static $description = "Test widget";
+	private static $db = array(
 		'Title' => 'Varchar'
 	);
 	public function getCMSFields() {

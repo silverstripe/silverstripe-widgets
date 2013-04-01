@@ -8,7 +8,7 @@ class WidgetContentControllerExtension extends Extension {
 	 *
 	 * @var array
 	 */
-	public static $allowed_actions = array(
+	private static $allowed_actions = array(
 		'handleWidget'
 	);
 	

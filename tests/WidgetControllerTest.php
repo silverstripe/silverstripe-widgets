@@ -4,7 +4,7 @@
  * @subpackage tests
  */
 class WidgetControllerTest extends FunctionalTest {
-	static $fixture_file = 'WidgetControllerTest.yml';
+	protected static $fixture_file = 'WidgetControllerTest.yml';
 
 	protected $extraDataObjects = array(
 		'WidgetControllerTestPage',
@@ -54,7 +54,7 @@ class WidgetControllerTest extends FunctionalTest {
  * @subpackage tests
  */
 class WidgetControllerTest_Widget extends Widget implements TestOnly {
-	static $db = array(
+	private static $db = array(
 		'TestValue' => 'Text'
 	);
 }
