@@ -40,7 +40,7 @@ class WidgetAreaEditor extends FormField {
 		
 		foreach($this->widgetClasses as $widgetClass) {
 			$classes = ClassInfo::subclassesFor($widgetClass);
-			array_shift($classes);
+			if(count($classes) > 1) array_shift($classes);
 			foreach($classes as $class) {
 				$widgets->push(singleton($class));
 			}
