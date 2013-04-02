@@ -132,7 +132,7 @@
 				$(this).data('maxid', newID);
 				
 				var widgetContent = response.replace(/Widget\[0\]/gi, "Widget[new-" + (newID) + "]");
-				$('#usedWidgets-'+$(this).attr('name')).prepend(widgetContent);
+				$('#usedWidgets-'+$(this).attr('name')).append(widgetContent);
 				
 				this.rewriteWidgetAreaAttributes();
 			},
