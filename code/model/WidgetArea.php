@@ -7,36 +7,11 @@
 class WidgetArea extends DataObject {
 
 	/**
-	 *
-	 * @var array
-	 */
-	public static $db = array();
-
-	/**
-	 *
-	 * @var array
-	 */
-	public static $has_one = array();
-
-	/**
-	 *
 	 * @var array
 	 */
 	public static $has_many = array(
 		"Widgets" => "Widget"
 	);
-
-	/**
-	 *
-	 * @var array
-	 */
-	public static $many_many = array();
-
-	/**
-	 *
-	 * @var array
-	 */
-	public static $belongs_many_many = array();
 
 	/**
 	 *

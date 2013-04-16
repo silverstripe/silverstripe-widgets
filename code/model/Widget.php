@@ -12,69 +12,32 @@
  */
 class Widget extends DataObject {
 
-	/**
-	 *
-	 * @var array
-	 */
 	public static $db = array(
 		"Sort" => "Int",
 		"Enabled" => "Boolean"
 	);
 
-	/**
-	 *
-	 * @var array
-	 */
 	public static $defaults = array(
 		'Enabled' => true
 	);
 
-	/**
-	 *
-	 * @var array
-	 */
 	public static $has_one = array(
 		"Parent" => "WidgetArea",
 	);
 
-	/**
-	 *
-	 * @var array
-	 */
-	public static $has_many = array();
-
-	/**
-	 *
-	 * @var array
-	 */
-	public static $many_many = array();
-
-	/**
-	 *
-	 * @var array
-	 */
-	public static $belongs_many_many = array();
-
-	/**
-	 *
-	 * @var string
-	 */
 	public static $default_sort = "\"Sort\"";
 
 	/**
-	 *
 	 * @var string
 	 */
 	public static $title = "Widget Title";
 
 	/**
-	 *
 	 * @var string
 	 */
 	public static $cmsTitle = "Name of this widget";
 
 	/**
-	 *
 	 * @var string
 	 */
 	public static $description = "Description of what this widget does.";
