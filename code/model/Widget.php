@@ -20,6 +20,8 @@ class Widget extends DataObject {
 	public static $defaults = array(
 		'Enabled' => true
 	);
+	
+	public static $only_available_in = array();
 
 	public static $has_one = array(
 		"Parent" => "WidgetArea",
