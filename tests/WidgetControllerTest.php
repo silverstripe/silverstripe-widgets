@@ -1,9 +1,10 @@
 <?php
 /**
- * @package cms
+ * @package widgets
  * @subpackage tests
  */
 class WidgetControllerTest extends FunctionalTest {
+
 	protected static $fixture_file = 'WidgetControllerTest.yml';
 
 	protected $extraDataObjects = array(
@@ -33,9 +34,9 @@ class WidgetControllerTest extends FunctionalTest {
 		
 		$widget = $this->objFromFixture('WidgetControllerTest_Widget', 'widget1');
 		
-		$this->get($page->URLSegment);
+		$response = $this->get($page->URLSegment);
 		$response = $this->submitForm('Form_Form', null, array('TestValue'=>'Updated'));
-		
+
 		$this->assertContains(
 			'TestValue: Updated', 
 			$response->getBody(),
@@ -50,7 +51,7 @@ class WidgetControllerTest extends FunctionalTest {
 }
 
 /**
- * @package cms
+ * @package widgets
  * @subpackage tests
  */
 class WidgetControllerTest_Widget extends Widget implements TestOnly {
@@ -60,10 +61,15 @@ class WidgetControllerTest_Widget extends Widget implements TestOnly {
 }
 
 /**
- * @package cms
+ * @package widgets
  * @subpackage tests
  */
-class WidgetControllerTest_Widget_Controller extends Widget_Controller implements TestOnly {
+class WidgetControllerTest_WidgetController extends WidgetController implements TestOnly {
+	
+	private static $allowed_actions = array(
+		'Form'
+	);
+
 	function Form() {
 		$widgetform = new Form(
 			$this, 

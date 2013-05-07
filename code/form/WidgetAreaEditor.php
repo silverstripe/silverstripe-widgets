@@ -1,13 +1,13 @@
 <?php
+
 /**
  * Special field type for selecting and configuring widgets on a page.
- * @package cms
- * @subpackage content
+ *
+ * @package widgets
  */
 class WidgetAreaEditor extends FormField {
 
 	/**
-	 *
 	 * @param string $name
 	 * @param array $widgetClasses
 	 * @param int $maxWidgets
@@ -20,13 +20,14 @@ class WidgetAreaEditor extends FormField {
 	}
 
 	/**
-	 *
 	 * @param array $properties
-	 * @return string - HTML for this formfield
+	 *
+	 * @return string - HTML
 	 */
 	public function FieldHolder($properties = array()) {
 		Requirements::css('widgets/css/WidgetAreaEditor.css');
 		Requirements::javascript('widgets/javascript/WidgetAreaEditor.js');
+
 		return $this->renderWith("WidgetAreaEditor");
 	}
 
@@ -40,7 +41,11 @@ class WidgetAreaEditor extends FormField {
 		
 		foreach($this->widgetClasses as $widgetClass) {
 			$classes = ClassInfo::subclassesFor($widgetClass);
-			if(count($classes) > 1) array_shift($classes);
+
+			if(count($classes) > 1) {
+				array_shift($classes);
+			}
+
 			foreach($classes as $class) {
 				$widgets->push(singleton($class));
 			}
@@ -50,7 +55,6 @@ class WidgetAreaEditor extends FormField {
 	}
 
 	/**
-	 *
 	 * @return HasManyList
 	 */
 	public function UsedWidgets() {
@@ -59,11 +63,11 @@ class WidgetAreaEditor extends FormField {
 		
 		$relationName = $this->name;
 		$widgets = $this->form->getRecord()->getComponent($relationName)->Items();
+
 		return $widgets;
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function IdxField() {
@@ -76,11 +80,11 @@ class WidgetAreaEditor extends FormField {
 	 */
 	public function Value() {
 		$relationName = $this->name;
+
 		return $this->form->getRecord()->getComponent($relationName)->ID;
 	}
 
 	/**
-	 *
 	 * @param DataObjectInterface $record
 	 */
 	public function saveInto(DataObjectInterface $record) {
@@ -145,7 +149,7 @@ class WidgetAreaEditor extends FormField {
 						if($widget->ParentID == 0) {
 							$widget->ParentID = $record->$name()->ID;
 						}
-						// echo "Saving $widget->ID into $name/$widget->ParentID\n<br/>";
+
 						$widget->populateFromPostData($newWidgetData);
 					}
 				}
