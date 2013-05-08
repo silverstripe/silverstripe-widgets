@@ -105,7 +105,7 @@
 				
 				var parentRef=$(this);
 				$.ajax({
-					'url': 'Widget_Controller/EditableSegment/' + className, 
+					'url': 'WidgetController/EditableSegment/' + className, 
 					'success' : function(response) {parentRef.insertWidgetEditor(response)}
 				});
 			},

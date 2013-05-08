@@ -1,13 +1,13 @@
 <?php
+
 /**
  * Represents a set of widgets shown on a page.
- * @package cms
- * @subpackage widgets
+ *
+ * @package widgets
  */
 class WidgetArea extends DataObject {
 
 	/**
-	 *
 	 * @var array
 	 */
 	private static $has_many = array(
@@ -21,24 +21,18 @@ class WidgetArea extends DataObject {
 	public $template = __CLASS__;
 	
 	/**
-	 * Used in template instead of {@link Widgets()}
-	 * to wrap each widget in its controller, making
-	 * it easier to access and process form logic
-	 * and actions stored in {@link Widget_Controller}.
+	 * Used in template instead of {@link Widgets()} to wrap each widget in its 
+	 * controller, making it easier to access and process form logic and 
+	 * actions stored in {@link WidgetController}.
 	 * 
-	 * @return SS_List Collection of {@link Widget_Controller}
+	 * @return SS_List - Collection of {@link WidgetController} instances.
 	 */
 	public function WidgetControllers() {
 		$controllers = new ArrayList();
 
 		foreach($this->ItemsToRender() as $widget) {
-			// find controller
-			$controllerClass = '';
-			foreach(array_reverse(ClassInfo::ancestry($widget->class)) as $widgetClass) {
-				$controllerClass = "{$widgetClass}_Controller";
-				if(class_exists($controllerClass)) break;
-			}
-			$controller = new $controllerClass($widget);
+			$controller = $widget->getController();
+
 			$controller->init();
 			$controllers->push($controller);
 		}
@@ -47,7 +41,6 @@ class WidgetArea extends DataObject {
 	}
 
 	/**
-	 *
 	 * @return HasManyList
 	 */
 	public function Items() {
@@ -55,7 +48,6 @@ class WidgetArea extends DataObject {
 	}
 
 	/**
-	 *
 	 * @return HasManyList
 	 */
 	public function ItemsToRender() {
@@ -63,7 +55,6 @@ class WidgetArea extends DataObject {
 	}
 
 	/**
-	 *
 	 * @return string - HTML
 	 */
 	public function forTemplate() {

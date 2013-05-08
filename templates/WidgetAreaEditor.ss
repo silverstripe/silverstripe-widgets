@@ -1,4 +1,4 @@
-<div class="WidgetAreaEditor" id="WidgetAreaEditor-$Name" name="$Name"<% if MaxWidgets %> maxwidgets="$MaxWidgets"<% end_if %>>
+<div class="WidgetAreaEditor field" id="WidgetAreaEditor-$Name" name="$Name"<% if MaxWidgets %> maxwidgets="$MaxWidgets"<% end_if %>>
 	<input type="hidden" id="$Name" name="$IdxField" value="$Value" />
 	<div class="availableWidgetsHolder">
 		<h2><% _t('AVAILABLE', 'Available Widgets') %></h2>

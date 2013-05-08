@@ -241,7 +241,7 @@ sure that your controller follows the usual naming conventions, and it will be a
 	  );
 	}
 	
-	class MyWidget_Controller extends Widget_Controller {
+	class MyWidget_Controller extends WidgetController {
 	  public function MyFormName() {
 	    return new Form(
 	      $this, 
