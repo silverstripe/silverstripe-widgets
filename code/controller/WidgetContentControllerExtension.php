@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Add this to ContentController to enable widgets
