@@ -4,7 +4,7 @@
 
 ## Introduction
 
-[Widgets](http://silverstripe.org/widgets) are small pieces of functionality such as showing the latest Comments or Flickr Photos. They normally display on
+[Widgets](http://silverstripe.org/widgets) are small pieces of functionality such as showing the latest comments or Flickr photos. They normally display on
 the sidebar of your website. To check out a what a [Widget](http://silverstripe.org/widgets) can do watch the
 [Widget video](http://silverstripe.com/assets/screencasts/SilverStripe-Blog-DragDrop-Widgets.swf) and try out the
 [demo site](http://demo.silverstripe.org/)
@@ -13,20 +13,30 @@ the sidebar of your website. To check out a what a [Widget](http://silverstripe.
 
  * SilverStripe 3.1
 
-## How to Use A Widget
+### Installation
 
-### Downloading and Contributing Widgets
+Install the module through [composer](http://getcomposer.org):
 
-*  To download widgets visit [Widgets section](http://silverstripe.org/widgets)
-*  Upload widgets you want to share to
-[http://silverstripe.org/widgets/manage/add](http://silverstripe.org/widgets/manage/add). Make sure you read the
-packaging instructions at the bottom of the page about how to make your widget package.
+	composer require silverstripe/widgets
 
+Widgets are essentially database relations to other models, mostly page types.
+By default, they're not added to any of your own models. The easiest and most common
+way to get started would be to create a single collection of widgets under the 
+name "SideBar" on your `Page` class. This is handled by an extension which you
+can enable through your `config.yml`:
 
-### Installing the Widgets Module
+	:::yml
+	Page:
+	  extensions:
+	    - WidgetPageExtension
 
-Download and unzip the [Widgets Module](http://www.silverstripe.org/widgets-module/) to the main folder of your website and ensure the folder is named `widgets`. 
+Run a `dev/build`, and adjust your templates to include the resulting sidebar view.
+The placeholder is called `$SideBarView`, and loops through all widgets assigned
+to the current page.
 
+Alternatively, you can add one or more widget collections to your own page types.
+Here's an example on how to just add widgets to a `MyPage` type, and call it
+`MyWidgetArea` instead.
 
 ### Installing a widget
 
@@ -57,28 +67,14 @@ e.g.
 				"MyWidgetArea" => "WidgetArea",
 	    );
 		
-	    public function getCMSFields() {
+	  public function getCMSFields() {
 			$fields = parent::getCMSFields();
 			$fields->addFieldToTab("Root.Widgets", new WidgetAreaEditor("MyWidgetArea"));
 			return $fields;
-	    }
-	...
+	  }
 	}
 
-
-* Then in your Template you need to call $MyWidgetArea wherever you want to render the widget
-
-e.g. using the simple theme, add the `$MyWidgetArea` variable above the closing `</aside>` 
-
-**themes/simple/templates/Includes/Sidebar.ss**
-
-	<aside>
-		<% if Menu(2) %>
-		...	
-		<% end_if %>
-		$MyWidgetArea
-	</aside>
-
+In this case, you need to alter your templates to include the `$MyWidgetArea` placeholder.
 
 ## Writing your own widgets
 
@@ -102,8 +98,8 @@ An example widget is below:
 
 **FlickrWidget.php**
 
+	:::php
 	<?php
-	
 	class FlickrWidget extends Widget {
 		private static $db = array(
 			"User" => "Varchar",
@@ -116,7 +112,6 @@ An example widget is below:
 		private static $defaults = array(
 			"NumberToShow" => 8
 		);
-		
 	
 		private static $title = "Photos";
 		private static $cmsTitle = "Flickr Photos";
@@ -135,7 +130,7 @@ An example widget is below:
 				$photos = $flickr->getPhotoSet($this->Photoset, $this->User, $this->NumberToShow, 1);
 			}
 			
-			$output = new DataObjectSet();
+			$output = new ArrayList();
 			foreach($photos->PhotoItems as $photo) {
 				$output->push(new ArrayData(array(
 					"Title" => $photo->title,
@@ -143,7 +138,6 @@ An example widget is below:
 					"Image" => "http://farm1.static.flickr.com/" .$photo->image_path. "_s.jpg"
 				)));
 			}
-			
 			return $output;
 		}
 	
@@ -156,12 +150,11 @@ An example widget is below:
 			);
 		}
 	}
-	
-	?>
 
 
 **FlickrWidget.ss**
 
+	:::ss
 	<% control Photos %>
 		<a href="$Link" rel="lightbox" title="$Title"><img src="$Image" alt="$Title" /></a>
 	<% end_control %>
@@ -176,14 +169,12 @@ define a merge variable in the Page Controller and include it in the Page Templa
 
 This example creates an RSSWidget with the SilverStripe blog feed.
 
-	<?php
-		public function SilverStripeFeed() {
-			$widget = new RSSWidget();
-			$widget->RssUrl = "http://feeds.feedburner.com/silverstripe-blog";
-			return $widget->renderWith("WidgetHolder");
-		}
-	?>
-
+	:::php
+	public function SilverStripeFeed() {
+		$widget = new RSSWidget();
+		$widget->RssUrl = "http://feeds.feedburner.com/silverstripe-blog";
+		return $widget->renderWith("WidgetHolder");
+	}
 
 To render the widget, simply include $SilverStripeFeed in your template:
 
@@ -193,6 +184,7 @@ To render the widget, simply include $SilverStripeFeed in your template:
 As directed in the definition of SilverStripeFeed(), the Widget will be rendered through the WidgetHolder template. This
 is pre-defined at `framework/templates/WidgetHolder.ss` and simply consists of: 
 
+	:::ss
 	<div class="WidgetHolder">
 		<h3>$Title</h3>
 		$Content
@@ -209,6 +201,7 @@ variable. For example, to set your widgets title to 'Hello World!', you could us
 
 **widgets_yourWidget/YourWidgetWidget.php**
 
+	:::php
 	public function Title() {
 		return "Hello World!";
 	}
@@ -220,6 +213,7 @@ A more common reason for overriding Title() is to allow the title to be set in t
 widget called WidgetTitle, that you wish to use as your title. If nothing is set, then you'll use your default title.
 This is similar to the RSS Widget in the blog module.
 
+	:::php
 	public function Title() {
 		return $this->WidgetTitle ? $this->WidgetTitle : self::$title;
 	}
@@ -235,6 +229,7 @@ sure that your controller follows the usual naming conventions, and it will be a
 
 **mysite/code/MyWidget.php**
 
+	:::php
 	class MyWidget extends Widget {
 	  private static $db = array(
 	    'TestValue' => 'Text'
@@ -265,6 +260,7 @@ To output this form, modify your widget template.
 
 **mysite/templates/MyWidget.ss**
 
+	:::ss
 	$Content
 	$MyFormName
 
@@ -280,8 +276,8 @@ Page class). One way to fix this is to comment out line 30 in BlogHolder.php and
 
 **blog/code/BlogHolder.php**
 
+	:::php
 	<?php
-	
 	class BlogHolder extends Page {
 		
 	      ........
@@ -298,46 +294,3 @@ Page class). One way to fix this is to comment out line 30 in BlogHolder.php and
 
 
 Then you can use the Widget area you defined on Page.php
-
-## Releasing Your Widget
-
-### Packaging
-
-For a widget to be put in our official widget database they must follow this convention - If the name of your widget was
-"YourName" then:
-
-#### File Structure for your widget
-
-You should have a folder called widget_YourName in the top level (the one with framework, cms..) with all your files. See
-the example below. Your widget **MUST** have at least 1 Template file, 1 PHP file, the README File
-[(Example)](http://open.silverstripe.com/browser/modules/widgets/twitter/trunk/README)and an _config.php file for
-configuration. If you dont need any config options for the widget to work then you still need an _config.php by you can
-make it blank
-
-The decision over whether to configure a widget in _config.php or in the CMS is important:
-
-*  If the setting is the kind of thing that a website author, familiar with common business apps such as Word and
-Outlook, would understand - then make it configurable in the CMS.
-*  If the setting is the kind of thing that the person setting up the website - doing the design and/or development -
-would understand, then make it configurable in the _config.php file.
-
-This way, the CMS remains an application designed for content authors, and not developers. 
-
-*widget_name/_config.php*
-
-	<?php /*  */ ?>
-
-
-**Example Widget Structure**
-
-![](_images/widget_demo.gif)
-
-
-#### How to make the Package
-
-*  Make a tar.gz file called widgets_YourName-0.1.tar.gz (where 0.1 is the version number).
-     * Ensure when you "unzip" the compressed file it has everything the "widgets_YourName" folder with everything inside
-it.
-*  If made official, it will be given these locations at silverstripe.com:
-    * SVN location: http://svn.silverstripe.com/open/modules/widgets/flickr/trunk
-    * Official download: http://www.silverstripe.com/assets/downloads/widgets/widgets_flickr-0.1.1.tar.gz
