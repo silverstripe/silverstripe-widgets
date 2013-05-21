@@ -10,19 +10,19 @@
  */
 class WidgetPageExtension extends DataExtension {
 
-	static $db = array(
+	private static $db = array(
 		'InheritSideBar' => 'Boolean',
 	);
 
-	static $defaults = array(
+	private static $defaults = array(
 		'InheritSideBar' => true
 	);
 
-	static $has_one = array(
+	private static $has_one = array(
 		'SideBar' => 'WidgetArea'
 	);
 
-	function updateCMSFields(FieldList $fields) {
+	public function updateCMSFields(FieldList $fields) {
 		$fields->addFieldToTab(
 			"Root.Widgets", 
 			new CheckboxField("InheritSideBar", 'Inherit Sidebar From Parent')
@@ -36,7 +36,7 @@ class WidgetPageExtension extends DataExtension {
 	/**
 	 * @return WidgetArea
 	 */
-	function SideBarView() {
+	public function SideBarView() {
 		if(
 			$this->owner->InheritSideBar 
 			&& $this->owner->getParent() 
