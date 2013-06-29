@@ -1,0 +1,14 @@
+fi:
+  WidgetAreaEditor.ss:
+    AVAILABLE: "Tarjolla olevat vimpaimet"
+    AVAILWIDGETS: "Klikkaa vimpaimen nimeä ottaaksesi se käyttöön tällä sivulla."
+    NOAVAIL: "Ei vimpaimia käytettävissä."
+    INUSE: "Käytössä olevat vimpaimet"
+    TOSORT: "Järjestääksesi käytössä olevat vimpamet, raahaa ne haluamaasi järjestykseen"
+  WidgetEditor.ss:
+    DELETE: "Poista"
+  WidgetDescription.ss:
+    CLICKTOADDWIDGET: "Lisää vimpain klikkaamalla"
+  WidgetArea:
+    PLURALNAME: "Vimpain alueet"
+    SINGULARNAME: "Vimpain alue"
