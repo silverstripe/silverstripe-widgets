@@ -1,0 +1,3 @@
+Director:
+  rules:
+    'WidgetController//$Action/$ID/$OtherID': 'WidgetController'
