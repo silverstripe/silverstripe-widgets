@@ -1,13 +1,13 @@
 en:
-  WidgetAreaEditor.ss:
+  WidgetAreaEditor_ss:
     AVAILABLE: "Available Widgets"
     AVAILWIDGETS: "Click a widget title below to use it on this page."
     NOAVAIL: "There are currently no widgets available."
     INUSE: "Widgets currently used"
     TOSORT: "To sort currently used widgets on this page, drag them up and down."
-  WidgetEditor.ss:
+  WidgetEditor_ss:
     DELETE: "Delete"
-  WidgetDescription.ss:
+  WidgetDescription_ss:
     CLICKTOADDWIDGET: "Click to add this widget"
   WidgetArea:
     PLURALNAME: "Widget areas"

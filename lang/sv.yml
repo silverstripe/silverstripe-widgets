@@ -1,13 +1,13 @@
 sv:
-  WidgetAreaEditor.ss:
+  WidgetAreaEditor_ss:
     AVAILABLE: "Tillgängliga widgets"
     AVAILWIDGETS: "Klicka på en widget nedan för att använda den på sidan."
     NOAVAIL: "Inga widgets tillängliga."
     INUSE: "Använda widgets"
     TOSORT: "För att sortera widgetar på denna sida, dra dem uppåt eller nedåt."
-  WidgetEditor.ss:
+  WidgetEditor_ss:
     DELETE: "Radera"
-  WidgetDescription.ss:
+  WidgetDescription_ss:
     CLICKTOADDWIDGET: "Klicka för att lägga till denna widget"
   WidgetArea:
     PLURALNAME: "Widget Areas"
