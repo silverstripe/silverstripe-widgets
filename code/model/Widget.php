@@ -72,6 +72,13 @@ class Widget extends DataObject {
 	private static $description = "Description of what this widget does.";
 
 	/**
+	 * @var array
+	 */
+	private static $summary_fields = array(
+		'CMSTitle' => 'Title'
+	);
+
+	/**
 	 * @var WidgetController
 	 */
 	protected $controller;
