@@ -48,4 +48,12 @@ class WidgetPageExtension extends DataExtension {
 		}
 	}
 
+	/**
+	 * Support Translatable so that we don't link WidgetAreas across translations
+	 */
+	public function onTranslatableCreate() {
+		//reset the sidebar ID
+		$this->owner->SideBarID = 0;
+	}
+
 }
