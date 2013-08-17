@@ -49,9 +49,11 @@ class WidgetAreaEditor extends FormField {
 			}
 			
 			foreach($classes as $class) {
-
-				if (!empty($class::$only_available_in) && is_array($class::$only_available_in)){
-					if(in_array($this->Name, $class::$only_available_in)) {
+				
+				$available = Config::inst()->get($class, 'only_available_in');
+				
+				if (!empty($available) && is_array($available)) {
+					if(in_array($this->Name, $available)) {
 						$widgets->push(singleton($class));
 					}
 				}else {
