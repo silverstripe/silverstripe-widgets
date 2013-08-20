@@ -99,7 +99,6 @@ class WidgetController extends Controller {
 		if (class_exists('Translatable') && Member::currentUserID()) {
 			// set current locale based on logged in user's locale
 			$locale = Member::currentUser()->Locale;
-			Translatable::set_current_locale($locale);
 			i18n::set_locale($locale);
 		}
 		if(class_exists($className) && is_subclass_of($className, 'Widget')) {
