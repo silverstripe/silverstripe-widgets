@@ -38,11 +38,11 @@ class WidgetPageExtension extends DataExtension {
 	 */
 	public function SideBarView() {
 		if(
-			$this->owner->InheritSideBar 
-			&& $this->owner->getParent() 
-			&& $this->owner->getParent()->hasMethod('SideBar')
+			$this->owner->InheritSideBar
+			&& ($parent = $this->owner->getParent())
+			&& $parent->hasMethod('SideBarView')
 		) {
-			return $this->owner->getParent()->SideBar();
+			return $parent->SideBarView();
 		} elseif($this->owner->SideBar()->exists()){
 			return $this->owner->SideBar();
 		}
