@@ -47,6 +47,24 @@ class WidgetPageExtension extends DataExtension {
 			return $this->owner->SideBar();
 		}
 	}
+	
+	public function onBeforeDuplicate($duplicatePage) {
+		if($this->owner->hasField('SideBarID')) {
+			$sideBar = $this->owner->getComponent('SideBar');
+			$duplicateWidgetArea = $sideBar->duplicate();
+
+			foreach($sideBar->Items() as $originalWidget) {
+				$widget = $originalWidget->duplicate(false);
+				$widget->ParentID = $duplicateWidgetArea->ID;
+				$widget->write();
+			}
+
+			$duplicatePage->SideBarID = $duplicateWidgetArea->ID;
+
+		}
+
+		return $duplicatePage;
+	}
 
 	/**
 	 * Support Translatable so that we don't link WidgetAreas across translations
