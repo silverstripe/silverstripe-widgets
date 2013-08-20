@@ -103,10 +103,15 @@
 					}
 				}
 				
-				var parentRef=$(this);
+				var parentRef=$(this),
+					locale = $(this).closest('form').find('input[name=Locale]').val();
+				
 				$.ajax({
 					'url': 'WidgetController/EditableSegment/' + className, 
-					'success' : function(response) {parentRef.insertWidgetEditor(response)}
+					'success' : function(response) {parentRef.insertWidgetEditor(response)},
+					'data' : {
+						'locale' :  locale ,
+					},
 				});
 			},
 			
