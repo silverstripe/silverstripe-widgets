@@ -27,7 +27,7 @@ class Widget extends DataObject {
 		'Enabled' => true
 	);
 	
-	public static $only_available_in = array();
+	private static $only_available_in = array();
 
 	/**
 	 * @var array
