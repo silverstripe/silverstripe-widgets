@@ -82,17 +82,6 @@ class Widget extends DataObject {
 	 * @var WidgetController
 	 */
 	protected $controller;
-
-	/**
-	 *
-	 * @return FieldList
-	 */
-	public function getCMSFields() {
-		$fields = new FieldList();
-		$this->extend('updateCMSFields', $fields);
-
-		return $fields;
-	}
 	
 	/**
 	 * Note: Overloaded in {@link WidgetController}.
