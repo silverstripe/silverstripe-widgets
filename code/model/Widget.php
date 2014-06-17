@@ -240,6 +240,14 @@ class Widget extends DataObject {
 			}
 		}
 		
+		//Look for checkbox fields not present in the data
+		foreach($fields as $field) {
+			if($field instanceof CheckboxField && !array_key_exists($field->getName(), $data)) {
+				$field->setValue(false);
+				$field->saveInto($this);
+			}
+		}
+		
 		$this->write();
 		
 		// The field must be written to ensure a unique ID.
