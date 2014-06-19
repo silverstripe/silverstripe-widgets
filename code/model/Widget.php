@@ -92,6 +92,12 @@ class Widget extends DataObject {
 		return $this->renderWith("WidgetHolder");
 	}
 
+	public function getCMSFields(){
+                $fields = parent::getCMSFields();
+                $fields->removeByName(array('Sort', 'ParentID'));
+                return $fields;
+	}
+	
 	/**
 	 * Default way to render widget in templates.
 	 * @return string HTML
