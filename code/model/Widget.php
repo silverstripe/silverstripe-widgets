@@ -158,6 +158,16 @@ class Widget extends DataObject {
 	/**
 	 * @return FieldList
 	 */
+	public function getCMSFields() {
+		$fields = parent::getCMSFields();
+		$fields->removeByName('ParentID');
+
+		return $fields;
+	}
+	
+	/**
+	 * @return FieldList
+	 */
 	public function CMSEditor() {
 		$fields = $this->getCMSFields();
 		$outputFields = new FieldList();
