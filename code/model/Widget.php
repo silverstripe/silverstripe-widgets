@@ -161,7 +161,8 @@ class Widget extends DataObject {
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 		$fields->removeByName('ParentID');
-
+		$fields->removeByName('Sort');
+		
 		return $fields;
 	}
 	
