@@ -78,6 +78,13 @@ class Widget extends DataObject {
 		'CMSTitle' => 'Title'
 	);
 
+	public function getCMSFields(){
+                $fields = parent::getCMSFields();
+                $fields->removeByName(array('Sort', 'ParentID'));
+                $fields->push(CheckboxField::create('Enabled'));
+                return $fields;
+	}
+     
 	/**
 	 * @var WidgetController
 	 */
