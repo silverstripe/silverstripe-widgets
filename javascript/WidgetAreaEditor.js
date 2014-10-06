@@ -42,7 +42,7 @@
 				
 				// Ensure correct sort values are written when page is saved
 				// TODO Adjust to new event listeners
-				$('.cms-container').bind('submitform', this.beforeSave);
+				$('.cms-container').bind('submitform', function(e) {parentRef.beforeSave(e)});
 			},
 			
 			rewriteWidgetAreaAttributes: function() {
@@ -144,7 +144,7 @@
 			
 			sortWidgets: function() {
 				// Order the sort by the order the widgets are in the list
-				$('#usedWidgets-'+$(this).attr('name')).children().each(function() {
+				$('#usedWidgets-'+$(this).attr('name')).children().each(function(i) {
 						var div = $(this)[0];
 
 						if(div.nodeName != '#comment') {
