@@ -118,51 +118,50 @@ class WidgetAreaEditor extends FormField {
 				$missingWidgets[$existingWidget->ID] = $existingWidget;
 			}
 		}
-		
-		if(isset($_REQUEST['Widget'])) {
-			foreach(array_keys($_REQUEST['Widget']) as $widgetAreaName) {
-				if ($widgetAreaName !== $this->name) {
-					continue;
+
+		if(!$this->getForm()) throw new Exception("no form");
+
+		$widgetData = $this->getForm()->getRequest()->requestVar('Widget');
+		if($widgetData && isset($widgetData[$this->getName()])) {
+			$widgetAreaData = $widgetData[$this->getName()];
+
+			foreach($widgetAreaData as $newWidgetID => $newWidgetData) {
+
+				// Sometimes the id is "new-1" or similar, ensure this doesn't get into the query
+				if(!is_numeric($newWidgetID)) {
+					$newWidgetID = 0;
 				}
 
-				foreach(array_keys($_REQUEST['Widget'][$widgetAreaName]) as $newWidgetID) {
-					$newWidgetData = $_REQUEST['Widget'][$widgetAreaName][$newWidgetID];
-
-					// Sometimes the id is "new-1" or similar, ensure this doesn't get into the query
-					if(!is_numeric($newWidgetID)) {
-						$newWidgetID = 0;
-					}
-				
+				$widget = null;
+				if($newWidgetID) {
 					// \"ParentID\" = '0' is for the new page
-					$widget = DataObject::get_one(
-						'Widget',
-						"(\"ParentID\" = '{$record->$name()->ID}' OR ".
-						"\"ParentID\" = '0') AND \"Widget\".\"ID\" = '$newWidgetID'"
-					);
+					$widget = Widget::get()
+						->filter('ParentID', array(0, $record->$name()->ID))
+						->byID($newWidgetID);
 
 					// check if we are updating an existing widget
 					if($widget && isset($missingWidgets[$widget->ID])) {
 						unset($missingWidgets[$widget->ID]);
 					}
-					
-					// create a new object
-					if(!$widget && !empty($newWidgetData['Type']) && class_exists($newWidgetData['Type'])) {
-						$widget = new $newWidgetData['Type']();
-						$widget->ID = 0;
+				}
+
+				// create a new object
+				if(!$widget
+					&& !empty($newWidgetData['Type'])
+					&& class_exists($newWidgetData['Type'])
+					&& is_subclass_of($newWidgetData['Type'], 'Widget')
+				) {
+					$widget = Injector::inst()->create($newWidgetData['Type']);
+					$widget->ID = 0;
+					$widget->ParentID = $record->$name()->ID;
+				}
+
+				if($widget) {
+					if($widget->ParentID == 0) {
 						$widget->ParentID = $record->$name()->ID;
-
-						if(!is_subclass_of($widget, 'Widget')) {
-							$widget = null;
-						}
 					}
 
-					if($widget) {
-						if($widget->ParentID == 0) {
-							$widget->ParentID = $record->$name()->ID;
-						}
-
-						$widget->populateFromPostData($newWidgetData);
-					}
+					$widget->populateFromPostData($newWidgetData);
 				}
 			}
 		}
