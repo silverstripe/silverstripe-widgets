@@ -16,15 +16,24 @@ class Widget extends DataObject {
 	 * @var array
 	 */
 	private static $db = array(
+		"Title" => "Varchar(255)",
 		"Sort" => "Int",
-		"Enabled" => "Boolean"
+		"Enabled" => "Boolean",
 	);
 
 	/**
 	 * @var array
 	 */
 	private static $defaults = array(
-		'Enabled' => true
+		'Enabled' => true,
+	);
+
+	/**
+	 * @var array
+	 */
+	private static $casting = array(
+		'CMSTitle' => 'Text',
+		'Description' => 'Text',
 	);
 	
 	private static $only_available_in = array();
@@ -35,21 +44,6 @@ class Widget extends DataObject {
 	private static $has_one = array(
 		"Parent" => "WidgetArea",
 	);
-
-	/**
-	 * @var array
-	 */
-	private static $has_many = array();
-
-	/**
-	 * @var array
-	 */
-	private static $many_many = array();
-
-	/**
-	 * @var array
-	 */
-	private static $belongs_many_many = array();
 
 	/**
 	 * @var string
@@ -82,6 +76,11 @@ class Widget extends DataObject {
 	 * @var WidgetController
 	 */
 	protected $controller;
+
+	public function populateDefaults() {
+		parent::populateDefaults();
+		$this->setField('Title', $this->getTitle());
+	}
 	
 	/**
 	 * Note: Overloaded in {@link WidgetController}.
@@ -120,22 +119,49 @@ class Widget extends DataObject {
 
 	/**
 	 * @return string
+	 * @deprecated
 	 */
 	public function Title() {
-		return _t($this->class.'.TITLE', $this->config()->title);
+		return $this->getTitle();
+	}
+
+	/**
+	 * Get the frontend title for this widget
+	 *
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->getField('Title')
+			?: _t($this->class.'.TITLE', $this->config()->title);
+	}
+
+	/**
+	 * @return string
+	 * @deprecated
+	 */
+	public function CMSTitle() {
+		return $this->getCMSTitle();
 	}
 
 	/**
 	 * @return string
 	 */
-	public function CMSTitle() {
+	public function getCMSTitle() {
 		return _t($this->class.'.CMSTITLE', $this->config()->cmsTitle);
 	}
 
 	/**
 	 * @return string
+	 * @deprecated
 	 */
 	public function Description() {
+		return $this->getDescription();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDescription() {
 		return _t($this->class.'.DESCRIPTION', $this->config()->description);
 	}
 
@@ -159,10 +185,11 @@ class Widget extends DataObject {
 	 * @return FieldList
 	 */
 	public function getCMSFields() {
-		$fields = parent::getCMSFields();
-		$fields->removeByName('ParentID');
-		$fields->removeByName('Sort');
-		
+		$fields = new FieldList(
+			new TextField('Title', $this->fieldLabel('Title'), null, 255),
+			new CheckboxField('Enabled', $this->fieldLabel('Enabled'))
+		);
+		$this->extend('updateCMSFields', $fields);
 		return $fields;
 	}
 	

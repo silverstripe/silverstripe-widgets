@@ -85,9 +85,11 @@ blank). Each widget should be in its own folder like widgets_widgetName/
 After installing or creating a new widget, **make sure to run db/build?flush=1** at the end of the URL, *before*
 attempting to use it.
 
-The class should extend the Widget class, and must specify three static variables - $title, the title that will appear
-in the rendered widget (eg Photos), $cmsTitle, a more descriptive title that will appear in the cms editor (eg Flickr
-Photos), and $description, a short description that will appear in the cms editor (eg This widget shows photos from
+The class should extend the Widget class, and must specify three config variables:
+
+* `title`: The title that will appear in the rendered widget (eg Photos). This can be customised by the CMS admin
+* `cmsTitle`: a more descriptive title that will appear in the cms editor (eg Flickr Photos)
+* `description`: a short description that will appear in the cms editor (eg This widget shows photos from
 Flickr). The class may also specify functions to be used in the template like a page type can.
 
 If a Widget has configurable options, then it can specify a number of database fields to store these options in via the
