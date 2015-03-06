@@ -439,15 +439,4 @@ class WidgetAreaEditorTest_TestWidget extends Widget implements TestOnly {
 	private static $cmsTitle = "Test widget";
 	private static $title = "Test widget";
 	private static $description = "Test widget";
-	private static $db = array(
-		'Title' => 'Varchar'
-	);
-	public function getCMSFields() {
-		$fields = new FieldList();
-		$fields->push(new TextField('Title'));
-		return $fields;
-	}
-	function Title() {
-		return $this->Title ? $this->Title : self::$title;
-	}
 }
