@@ -159,9 +159,17 @@ class Widget extends DataObject {
 	 * @return FieldList
 	 */
 	public function getCMSFields() {
-		$fields = parent::getCMSFields();
+		$fields = $this->scaffoldFormFields(array(
+			// Don't allow has_many/many_many relationship editing before the record is first saved
+			'includeRelations' => ($this->ID > 0),
+			'tabbed' => false,
+			'ajaxSafe' => true
+		));
+		
 		$fields->removeByName('ParentID');
 		$fields->removeByName('Sort');
+		
+		$this->extend('updateCMSFields', $tabbedFields);
 		
 		return $fields;
 	}
