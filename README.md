@@ -1,6 +1,6 @@
 # Widgets Module
 
-[![Build Status](https://secure.travis-ci.org/silverstripe/silverstripe-widgets.png?branch=master)](http://travis-ci.org/silverstripe/silverstripe-widgets)
+[![Build Status](https://secure.travis-ci.org/silverstripe/silverstripe-widgets.png?branch=1.0)](http://travis-ci.org/silverstripe/silverstripe-widgets)
 
 ## Introduction
 
