@@ -1,6 +1,6 @@
 # Widgets Module
 
-[![Build Status](https://secure.travis-ci.org/silverstripe/silverstripe-widgets.png?branch=master)](http://travis-ci.org/silverstripe/silverstripe-widgets)
+[![Build Status](https://secure.travis-ci.org/silverstripe/silverstripe-widgets.png?branch=1.1)](http://travis-ci.org/silverstripe/silverstripe-widgets)
 
 ## Introduction
 
@@ -11,7 +11,7 @@ the sidebar of your website. To check out a what a [Widget](http://silverstripe.
 
 ## Requirements
 
- * SilverStripe 3.1
+ * SilverStripe 3.2
 
 ### Installation
 

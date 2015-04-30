@@ -31,7 +31,7 @@ class WidgetContentControllerExtension extends Extension {
 		
 		// find WidgetArea relations
 		$widgetAreaRelations = array();
-		$hasOnes = $this->owner->data()->has_one();
+		$hasOnes = $this->owner->data()->hasOne();
 		
 		if(!$hasOnes) {
 			return false;
@@ -51,9 +51,9 @@ class WidgetContentControllerExtension extends Extension {
 				break;
 			}
 
-			$widget = $this->owner->data()->$widgetAreaRelation()->Widgets(
-				sprintf('"Widget"."ID" = %d', $SQL_id)
-			)->First();
+			$widget = $this->owner->data()->$widgetAreaRelation()->Widgets()
+				->filter('ID', $SQL_id)
+				->First();
 		}
 
 		if(!$widget) {

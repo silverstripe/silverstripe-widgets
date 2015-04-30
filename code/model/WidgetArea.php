@@ -51,7 +51,8 @@ class WidgetArea extends DataObject {
 	 * @return HasManyList
 	 */
 	public function ItemsToRender() {
-		return $this->getComponents('Widgets', "\"Widget\".\"Enabled\" = 1");
+		return $this->getComponents('Widgets')
+			->filter("Enabled", 1);
 	}
 
 	/**
