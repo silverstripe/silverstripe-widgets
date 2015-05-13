@@ -169,7 +169,7 @@ class Widget extends DataObject {
 		$fields->removeByName('ParentID');
 		$fields->removeByName('Sort');
 		
-		$this->extend('updateCMSFields', $tabbedFields);
+		$this->extend('updateCMSFields', $fields);
 		
 		return $fields;
 	}
