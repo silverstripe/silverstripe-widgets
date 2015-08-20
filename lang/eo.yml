@@ -1,0 +1,17 @@
+eo:
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Disponeblaj fenestraĵoj'
+    AVAILWIDGETS: 'Alklaku sube titolon de fenestraĵo por uzi ĝin en ĉi tiu paĝo.'
+    NOAVAIL: 'Aktuale mankas disponeblaj fenestraĵoj.'
+    INUSE: 'Fenestraĵoj aktuale uzataj'
+    TOSORT: 'Por ordigi aktuale uzatajn fenestraĵojn en ĉi tiu paĝo, ŝovu ilin supren kaj malsupren.'
+  WidgetEditor_ss:
+    DELETE: Forigi
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Alklaku por aldoni la fenestraĵon'
+  WidgetArea:
+    PLURALNAME: 'Fenestraĵaj zonoj'
+    SINGULARNAME: 'Fenestraĵa zono'
+  Widget:
+    PLURALNAME: Fenestraĵoj
+    SINGULARNAME: Fenestraĵo

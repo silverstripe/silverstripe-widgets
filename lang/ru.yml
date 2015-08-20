@@ -1,0 +1,17 @@
+ru:
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Доступные виджеты'
+    AVAILWIDGETS: 'Щелкните заголовок виджета ниже, чтобы использовать его на этой странице.'
+    NOAVAIL: 'В данный момент доступных виджетов нет.'
+    INUSE: 'Используемые виджеты'
+    TOSORT: 'Чтобы расположить используемые на странице виджеты в нужном порядке, перетащите их вверх или вниз.'
+  WidgetEditor_ss:
+    DELETE: Удалить
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Щелкните, чтобы добавить этот виджет'
+  WidgetArea:
+    PLURALNAME: 'Области виджетов'
+    SINGULARNAME: 'Область виджета'
+  Widget:
+    PLURALNAME: Виджеты
+    SINGULARNAME: Виджет

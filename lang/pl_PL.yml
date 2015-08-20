@@ -1,0 +1,11 @@
+pl_PL:
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Dostępne widżety'
+    AVAILWIDGETS: 'Kliknij w tytuł widżetu, aby używać go na tej stronie.'
+    NOAVAIL: 'Nie ma żadnych dostępnych widżetów'
+    INUSE: 'Obecnie stosowane widżety'
+    TOSORT: 'Aby posortować używane widżety na tej stronie, przeciągnij je w górę i w dół.'
+  WidgetEditor_ss:
+    DELETE: Usuń
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Kliknij aby dodać ten widżet'

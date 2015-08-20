@@ -1,0 +1,17 @@
+zh:
+  WidgetAreaEditor_ss:
+    AVAILABLE: '可用的小工具'
+    AVAILWIDGETS: '点击下方的小工具名称即可在此页上使用。'
+    NOAVAIL: '目前没有可用小工具。'
+    INUSE: '当前使用的小工具'
+    TOSORT: '要对本页当前使用的小工具进行排序，请像上下拖拽。'
+  WidgetEditor_ss:
+    DELETE: 删除
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: '点击添加该小工具'
+  WidgetArea:
+    PLURALNAME: '小工具区域'
+    SINGULARNAME: '小工具区域'
+  Widget:
+    PLURALNAME: 小工具
+    SINGULARNAME: 小工具

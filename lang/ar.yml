@@ -1,0 +1,17 @@
+ar:
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'التطبيقات المصغرة المتاحة'
+    AVAILWIDGETS: 'اضغط على عنوان تطبيق مصغر بالأسفل لاستخدامه بهذه الصفحة.'
+    NOAVAIL: 'لا توجد حاليا أية تطبيقات مصغرة متاحة.'
+    INUSE: 'التطبيقات المصغرة المستخدمة حاليا'
+    TOSORT: 'لترتيب التطبيقات المصغرة المستخدمة حاليا فى هذه الصفحة, اسحبها لأعلى و لأسفل.'
+  WidgetEditor_ss:
+    DELETE: مسح
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'اضغط لإضافة هذا التطبيق المصغر'
+  WidgetArea:
+    PLURALNAME: 'مساحات التطبيقات المصغرة'
+    SINGULARNAME: 'مساحة التطبيقات المصغرة'
+  Widget:
+    PLURALNAME: تطبيقات مصغرة
+    SINGULARNAME: تطبيق مصغر
