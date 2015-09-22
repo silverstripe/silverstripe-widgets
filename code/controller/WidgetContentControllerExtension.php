@@ -28,11 +28,17 @@ class WidgetContentControllerExtension extends Extension {
 	public function handleWidget() {
 		$SQL_id = $this->owner->getRequest()->param('ID');
 		if(!$SQL_id) return false;
-		
+
+		/** @var SiteTree $widgetOwner */
+		$widgetOwner = $this->owner->data();
+		while($widgetOwner->InheritSideBar && $widgetOwner->Parent()->exists()){
+			$widgetOwner = $widgetOwner->Parent();
+		}
+
 		// find WidgetArea relations
 		$widgetAreaRelations = array();
-		$hasOnes = $this->owner->data()->has_one();
-		
+		$hasOnes = $widgetOwner->has_one();
+
 		if(!$hasOnes) {
 			return false;
 		}
@@ -51,7 +57,8 @@ class WidgetContentControllerExtension extends Extension {
 				break;
 			}
 
-			$widget = $this->owner->data()->$widgetAreaRelation()->Widgets(
+
+			$widget = $widgetOwner->$widgetAreaRelation()->Widgets(
 				sprintf('"Widget"."ID" = %d', $SQL_id)
 			)->First();
 		}
