@@ -15,6 +15,12 @@ class WidgetAreaEditorTest extends SapphireTest {
 	);
 	
 	protected $usesDatabase = true;
+
+	protected $requiredExtensions = array(
+		"SiteTree" => array(
+			"WidgetPageExtension"
+		)
+	);
 	
 	function testFillingOneArea() {
 		$data = array(
@@ -430,7 +436,6 @@ class WidgetAreaEditorTest extends SapphireTest {
 
 class WidgetAreaEditorTest_FakePage extends Page implements TestOnly {
 	private static $has_one = array(
-		"SideBar" => "WidgetArea",
 		"BottomBar" => "WidgetArea",
 	);
 }
