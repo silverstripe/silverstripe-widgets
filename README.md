@@ -21,7 +21,7 @@ Install the module through [composer](http://getcomposer.org):
 
 Widgets are essentially database relations to other models, mostly page types.
 By default, they're not added to any of your own models. The easiest and most common
-way to get started would be to create a single collection of widgets under the 
+way to get started would be to create a single collection of widgets under the
 name "SideBar" on your `Page` class. This is handled by an extension which you
 can enable through your `config.yml`:
 
@@ -41,7 +41,7 @@ Here's an example on how to just add widgets to a `MyPage` type, and call it
 ### Installing a widget
 
 By following the "Packaging" rules below, widgets are easily installed. This example uses the Blog module which by default has widgets already enabled.
- 
+
 * Install the [blog module](http://www.silverstripe.org/blog-module/).
 * Download the widget and unzip to the main folder of your SilverStripe website, e.g. to `/widget_<widget-name>/`. The folder
 will contain a few files, which generally won't need editing or reading.
@@ -55,8 +55,8 @@ will contain a few files, which generally won't need editing or reading.
 You have to do a couple things to get a Widget to work on a page.
 
 * Install the Widgets Module, see above.
-* Add a WidgetArea field to your Page. 
-* Add a new tab to the CMS with a WidgetAreaEditor field for managing the widgets. 
+* Add a WidgetArea field to your Page.
+* Add a new tab to the CMS with a WidgetAreaEditor field for managing the widgets.
 e.g.
 
 **mysite/code/Page.php**
@@ -66,7 +66,7 @@ e.g.
 	    private static $has_one = array(
 				"MyWidgetArea" => "WidgetArea",
 	    );
-		
+
 	  public function getCMSFields() {
 			$fields = parent::getCMSFields();
 			$fields->addFieldToTab("Root.Widgets", new WidgetAreaEditor("MyWidgetArea"));
@@ -109,29 +109,29 @@ An example widget is below:
 			"Tags" => "Varchar",
 			"NumberToShow" => "Int"
 		);
-		
-	
+
+
 		private static $defaults = array(
 			"NumberToShow" => 8
 		);
-	
+
 		private static $title = "Photos";
 		private static $cmsTitle = "Flickr Photos";
 		private static $description = "Shows flickr photos.";
-		
+
 		public function Photos() {
 			Requirements::javascript(THIRDPARTY_DIR . "/prototype/prototype.js");
 			Requirements::javascript(THIRDPARTY_DIR . "/scriptaculous/effects.js");
 			Requirements::javascript("mashups/javascript/lightbox.js");
 			Requirements::css("mashups/css/lightbox.css");
-			
+
 			$flickr = new FlickrService();
 			if($this->Photoset == "") {
 				$photos = $flickr->getPhotos($this->Tags, $this->User, $this->NumberToShow, 1);
 			} else {
 				$photos = $flickr->getPhotoSet($this->Photoset, $this->User, $this->NumberToShow, 1);
 			}
-			
+
 			$output = new ArrayList();
 			foreach($photos->PhotoItems as $photo) {
 				$output->push(new ArrayData(array(
@@ -142,7 +142,7 @@ An example widget is below:
 			}
 			return $output;
 		}
-	
+
 		public function getCMSFields() {
 			return new FieldList(
 				new TextField("User", "User"),
@@ -205,7 +205,7 @@ You need to finish off / change:
 ### Rendering a $Widget Individually
 
 To call a single Widget in a page - without adding a widget area in the CMS for you to add / delete the widgets, you can
-define a merge variable in the Page Controller and include it in the Page Template. 
+define a merge variable in the Page Controller and include it in the Page Template.
 
 This example creates an RSSWidget with the SilverStripe blog feed.
 
@@ -222,7 +222,7 @@ To render the widget, simply include $SilverStripeFeed in your template:
 
 
 As directed in the definition of SilverStripeFeed(), the Widget will be rendered through the WidgetHolder template. This
-is pre-defined at `framework/templates/WidgetHolder.ss` and simply consists of: 
+is pre-defined at `framework/templates/WidgetHolder.ss` and simply consists of:
 
 	:::ss
 	<div class="WidgetHolder">
@@ -275,21 +275,21 @@ sure that your controller follows the usual naming conventions, and it will be a
 	    'TestValue' => 'Text'
 	  );
 	}
-	
+
 	class MyWidget_Controller extends WidgetController {
 	  public function MyFormName() {
 	    return new Form(
-	      $this, 
-	      'MyFormName', 
+	      $this,
+	      'MyFormName',
 	      new FieldList(
 	        new TextField('TestValue')
-	      ), 
+	      ),
 	      new FieldList(
 	        new FormAction('doAction')
 	      )
 	    );
 	  }
-	  
+
 	  public function doAction($data, $form) {
 	    // $this->widget points to the widget
 	  }
@@ -319,7 +319,7 @@ Page class). One way to fix this is to comment out line 30 in BlogHolder.php and
 	:::php
 	<?php
 	class BlogHolder extends Page {
-		
+
 	      ........
 		static $has_one = array(
 		//	"Sidebar" => "WidgetArea", COMMENT OUT
@@ -329,13 +329,11 @@ Page class). One way to fix this is to comment out line 30 in BlogHolder.php and
 			$fields = parent::getCMSFields();
 			$fields->removeFieldFromTab("Root.Content","Content");
 		//	$fields->addFieldToTab("Root.Widgets", new WidgetAreaEditor("Sidebar")); COMMENT OUT
-	
+
 		........
 
 
 Then you can use the Widget area you defined on Page.php
-
-## Contributing
 
 ### Translations
 
