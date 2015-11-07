@@ -1,17 +1,16 @@
 <?php
 
 /**
- * Widgets let CMS authors drag and drop small pieces of functionality into  
+ * Widgets let CMS authors drag and drop small pieces of functionality into
  * defined areas of their websites.
- * 
+ *
  * You can use forms in widgets by implementing a {@link WidgetController}.
- * 
+ *
  * See {@link Widget_Controller} for more information.
- * 
+ *
  * @package widgets
  */
 class Widget extends DataObject {
-
 	/**
 	 * @var array
 	 */
@@ -35,7 +34,7 @@ class Widget extends DataObject {
 		'CMSTitle' => 'Text',
 		'Description' => 'Text',
 	);
-	
+
 	private static $only_available_in = array();
 
 	/**
@@ -81,10 +80,10 @@ class Widget extends DataObject {
 		parent::populateDefaults();
 		$this->setField('Title', $this->getTitle());
 	}
-	
+
 	/**
 	 * Note: Overloaded in {@link WidgetController}.
-	 * 
+	 *
 	 * @return string HTML
 	 */
 	public function WidgetHolder() {
@@ -95,22 +94,22 @@ class Widget extends DataObject {
 	 * Default way to render widget in templates.
 	 * @return string HTML
 	 */
-	public function forTemplate($holder = true){
-		if($holder){
+	public function forTemplate($holder = true) {
+		if ($holder) {
 			return $this->WidgetHolder();
 		}
 		return $this->Content();
 	}
-	
+
 	/**
-	 * Renders the widget content in a custom template with the same name as the 
+	 * Renders the widget content in a custom template with the same name as the
 	 * current class. This should be the main point of output customization.
-	 * 
-	 * Invoked from within WidgetHolder.ss, which contains the "framing" around 
+	 *
+	 * Invoked from within WidgetHolder.ss, which contains the "framing" around
 	 * the custom content, like a title.
-	 * 
+	 *
 	 * Note: Overloaded in {@link WidgetController}.
-	 * 
+	 *
 	 * @return string HTML
 	 */
 	public function Content() {
@@ -169,16 +168,16 @@ class Widget extends DataObject {
 	 * @return string - HTML
 	 */
 	public function DescriptionSegment() {
-		return $this->renderWith('WidgetDescription'); 
+		return $this->renderWith('WidgetDescription');
 	}
-	
+
 	/**
 	 * @see WidgetController::editablesegment()
 	 *
 	 * @return string - HTML
 	 */
 	public function EditableSegment() {
-		return $this->renderWith('WidgetEditor'); 
+		return $this->renderWith('WidgetEditor');
 	}
 
 	/**
@@ -192,7 +191,7 @@ class Widget extends DataObject {
 		$this->extend('updateCMSFields', $fields);
 		return $fields;
 	}
-	
+
 	/**
 	 * @return FieldList
 	 */
@@ -200,7 +199,7 @@ class Widget extends DataObject {
 		$fields = $this->getCMSFields();
 		$outputFields = new FieldList();
 
-		foreach($fields as $field) {
+		foreach ($fields as $field) {
 			$name = $field->getName();
 			$value = $this->getField($name);
 			if ($value) {
@@ -234,25 +233,25 @@ class Widget extends DataObject {
 	 * @return WidgetController
 	 */
 	public function getController() {
-		if($this->controller) {
+		if ($this->controller) {
 			return $this->controller;
 		}
 
-		foreach(array_reverse(ClassInfo::ancestry($this->class)) as $widgetClass) {
+		foreach (array_reverse(ClassInfo::ancestry($this->class)) as $widgetClass) {
 			$controllerClass = "{$widgetClass}_Controller";
-			
-			if(class_exists($controllerClass)) {
+
+			if (class_exists($controllerClass)) {
 				break;
 			}
 
 			$controllerClass = "{$widgetClass}Controller";
-		
-			if(class_exists($controllerClass)) {
+
+			if (class_exists($controllerClass)) {
 				break;
 			}
 		}
 
-		if(!class_exists($controllerClass)) {
+		if (!class_exists($controllerClass)) {
 			throw new Exception("Could not find controller class for $this->classname");
 		}
 
@@ -260,37 +259,35 @@ class Widget extends DataObject {
 
 		return $this->controller;
 	}
-	
+
 	/**
 	 * @param array $data
 	 */
 	public function populateFromPostData($data) {
 		$fields = $this->getCMSFields();
-		foreach($data as $name => $value) {
-			if($name != "Type") {
+		foreach ($data as $name => $value) {
+			if ($name != "Type") {
 				if ($field = $fields->dataFieldByName($name)) {
 					$field->setValue($value);
 					$field->saveInto($this);
-				}
-				else {
+				} else {
 					$this->setField($name, $value);
 				}
 			}
 		}
-		
+
 		//Look for checkbox fields not present in the data
-		foreach($fields as $field) {
-			if($field instanceof CheckboxField && !array_key_exists($field->getName(), $data)) {
+		foreach ($fields as $field) {
+			if ($field instanceof CheckboxField && !array_key_exists($field->getName(), $data)) {
 				$field->setValue(false);
 				$field->saveInto($this);
 			}
 		}
-		
+
 		$this->write();
-		
+
 		// The field must be written to ensure a unique ID.
 		$this->Name = $this->class.$this->ID;
 		$this->write();
-	}	
+	}
 }
-

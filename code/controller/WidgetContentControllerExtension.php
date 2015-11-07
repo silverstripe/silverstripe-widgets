@@ -5,7 +5,6 @@
  * @package widgets
  */
 class WidgetContentControllerExtension extends Extension {
-
 	/**
 	 *
 	 * @var array
@@ -13,32 +12,34 @@ class WidgetContentControllerExtension extends Extension {
 	private static $allowed_actions = array(
 		'handleWidget'
 	);
-	
+
 	/**
 	 * Handles widgets attached to a page through one or more {@link WidgetArea}
 	 * elements.
 	 *
-	 * Iterated through each $has_one relation with a {@link WidgetArea} and 
+	 * Iterated through each $has_one relation with a {@link WidgetArea} and
 	 * looks for connected widgets by their database identifier.
-	 * 
+	 *
 	 * Assumes URLs in the following format: <URLSegment>/widget/<Widget-ID>.
-	 * 
+	 *
 	 * @return RequestHandler
 	 */
 	public function handleWidget() {
 		$SQL_id = $this->owner->getRequest()->param('ID');
-		if(!$SQL_id) return false;
-		
-		// find WidgetArea relations
-		$widgetAreaRelations = array();
-		$hasOnes = $this->owner->data()->hasOne();
-		
-		if(!$hasOnes) {
+		if (!$SQL_id) {
 			return false;
 		}
 
-		foreach($hasOnes as $hasOneName => $hasOneClass) {
-			if($hasOneClass == 'WidgetArea' || is_subclass_of($hasOneClass, 'WidgetArea')) {
+		// find WidgetArea relations
+		$widgetAreaRelations = array();
+		$hasOnes = $this->owner->data()->hasOne();
+
+		if (!$hasOnes) {
+			return false;
+		}
+
+		foreach ($hasOnes as $hasOneName => $hasOneClass) {
+			if ($hasOneClass == 'WidgetArea' || is_subclass_of($hasOneClass, 'WidgetArea')) {
 				$widgetAreaRelations[] = $hasOneName;
 			}
 		}
@@ -46,8 +47,8 @@ class WidgetContentControllerExtension extends Extension {
 		// find widget
 		$widget = null;
 
-		foreach($widgetAreaRelations as $widgetAreaRelation) {
-			if($widget) {
+		foreach ($widgetAreaRelations as $widgetAreaRelation) {
+			if ($widget) {
 				break;
 			}
 
@@ -56,10 +57,10 @@ class WidgetContentControllerExtension extends Extension {
 				->First();
 		}
 
-		if(!$widget) {
+		if (!$widget) {
 			user_error('No widget found', E_USER_ERROR);
 		}
-		
+
 		return $widget->getController();
 	}
 }

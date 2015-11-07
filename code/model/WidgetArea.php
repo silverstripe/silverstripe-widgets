@@ -6,7 +6,6 @@
  * @package widgets
  */
 class WidgetArea extends DataObject {
-
 	/**
 	 * @var array
 	 */
@@ -19,18 +18,18 @@ class WidgetArea extends DataObject {
 	 * @var string
 	 */
 	public $template = __CLASS__;
-	
+
 	/**
-	 * Used in template instead of {@link Widgets()} to wrap each widget in its 
-	 * controller, making it easier to access and process form logic and 
+	 * Used in template instead of {@link Widgets()} to wrap each widget in its
+	 * controller, making it easier to access and process form logic and
 	 * actions stored in {@link WidgetController}.
-	 * 
+	 *
 	 * @return SS_List - Collection of {@link WidgetController} instances.
 	 */
 	public function WidgetControllers() {
 		$controllers = new ArrayList();
 
-		foreach($this->ItemsToRender() as $widget) {
+		foreach ($this->ItemsToRender() as $widget) {
 			$controller = $widget->getController();
 
 			$controller->init();
@@ -59,7 +58,7 @@ class WidgetArea extends DataObject {
 	 * @return string - HTML
 	 */
 	public function forTemplate() {
-		return $this->renderWith($this->template); 
+		return $this->renderWith($this->template);
 	}
 
 	/**
@@ -75,9 +74,8 @@ class WidgetArea extends DataObject {
 	 */
 	public function onBeforeDelete() {
 		parent::onBeforeDelete();
-		foreach($this->Widgets() as $widget) {
+		foreach ($this->Widgets() as $widget) {
 			$widget->delete();
 		}
 	}
 }
-
