@@ -4,8 +4,6 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/silverstripe/silverstripe-widgets/tree/HEAD)
-
 [Full Changelog](https://github.com/silverstripe/silverstripe-widgets/compare/1.1.2...HEAD)
 
 **Merged pull requests:**
