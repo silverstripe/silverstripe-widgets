@@ -50,15 +50,37 @@ class WidgetController extends Controller {
 	 */
 	public function Link($action = null) {
 		$id = ($this->widget) ? $this->widget->ID : null;
+
 		$segment = Controller::join_links('widget', $id, $action);
-		
-		if($page = Director::get_current_page()) {
+
+		$page = Director::get_current_page();
+		if($page && !($page instanceof WidgetController)) {
 			return $page->Link($segment);
-		} 
-		
-		return Controller::curr()->Link($segment);
+		}
+
+		if ($controller = $this->getParentController()) {
+			return $controller->Link($segment);
+		}
+
+		return $segment;
 	}
-	
+
+	/**
+	 * Cycles up the controller stack until it finds a non-widget controller
+	 * This is needed because Controller::curr returns the widget controller,
+	 * which means any Link function turns into endless loop.
+	 *
+	 * @return Controller
+	 */
+	public function getParentController() {
+		foreach(Controller::$controller_stack as $controller) {
+			if (!($controller instanceof WidgetController)) {
+				return $controller;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * @return Widget
 	 */
