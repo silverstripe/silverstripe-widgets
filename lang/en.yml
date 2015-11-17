@@ -1,17 +1,17 @@
 en:
-  WidgetAreaEditor_ss:
-    AVAILABLE: 'Available Widgets'
-    AVAILWIDGETS: 'Click a widget title below to use it on this page.'
-    NOAVAIL: 'There are currently no widgets available.'
-    INUSE: 'Widgets currently used'
-    TOSORT: 'To sort currently used widgets on this page, drag them up and down.'
-  WidgetEditor_ss:
-    DELETE: Delete
-  WidgetDescription_ss:
-    CLICKTOADDWIDGET: 'Click to add this widget'
-  WidgetArea:
-    PLURALNAME: 'Widget Areas'
-    SINGULARNAME: 'Widget Area'
   Widget:
     PLURALNAME: Widgets
     SINGULARNAME: Widget
+  WidgetArea:
+    PLURALNAME: 'Widget Areas'
+    SINGULARNAME: 'Widget Area'
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Available Widgets'
+    AVAILWIDGETS: 'Click a widget title below to use it on this page.'
+    INUSE: 'Widgets currently used'
+    NOAVAIL: 'There are currently no widgets available.'
+    TOSORT: 'To sort currently used widgets on this page, drag them up and down.'
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Click to add this widget'
+  WidgetEditor_ss:
+    DELETE: Delete

@@ -1,0 +1,11 @@
+ro_RO:
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Widget-uri disponibile'
+    AVAILWIDGETS: 'Faceți clic pe un titlu widget de mai jos pentru a-l folosi pe aceasta pagina.'
+    INUSE: 'Widget-uri utilizate în prezent'
+    NOAVAIL: 'Momentan nu exista widget-uri disponibile.'
+    TOSORT: 'Pentru a sorta widget-uri utilizate în prezent pe această pagină, trageți-le în sus și în jos.'
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Click pentru a adăuga acest widget'
+  WidgetEditor_ss:
+    DELETE: Ştergeţi

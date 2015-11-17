@@ -1,14 +1,17 @@
 de:
-  WidgetAreaEditor_ss:
-    AVAILABLE: "Vorhandene Widgets"
-    AVAILWIDGETS: "Klicke den Widget Titel, um es zu benutzen."
-    NOAVAIL: "Es sind derzeit keine Widgets verfügbar."
-    INUSE: "Benutzte Widgets"
-    TOSORT: "Um die Widgets auf dieser Seite zu sortieren, ziehe sie nach oben oder unten."
-  WidgetEditor_ss:
-    DELETE: "Löschen"
-  WidgetDescription_ss:
-    CLICKTOADDWIDGET: "Klicke um dieses Widget hinzuzufügen"
+  Widget:
+    PLURALNAME: Widgets
+    SINGULARNAME: Widget
   WidgetArea:
-    PLURALNAME: "Widgetbereiche"
-    SINGULARNAME: "Widgetbereich"
+    PLURALNAME: 'Widgetbereiche'
+    SINGULARNAME: 'Widgetbereich'
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Vorhandene Widgets'
+    AVAILWIDGETS: 'Klicke den Widget Titel, um es zu benutzen.'
+    INUSE: 'Benutzte Widgets'
+    NOAVAIL: 'Es sind derzeit keine Widgets verfügbar.'
+    TOSORT: 'Um die Widgets auf dieser Seite zu sortieren, ziehe sie nach oben oder unten.'
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Klicke um dieses Widget hinzuzufügen'
+  WidgetEditor_ss:
+    DELETE: Löschen

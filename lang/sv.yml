@@ -1,14 +1,17 @@
 sv:
-  WidgetAreaEditor_ss:
-    AVAILABLE: "Tillgängliga widgets"
-    AVAILWIDGETS: "Klicka på en widget nedan för att använda den på sidan."
-    NOAVAIL: "Inga widgets tillängliga."
-    INUSE: "Använda widgets"
-    TOSORT: "För att sortera widgetar på denna sida, dra dem uppåt eller nedåt."
-  WidgetEditor_ss:
-    DELETE: "Radera"
-  WidgetDescription_ss:
-    CLICKTOADDWIDGET: "Klicka för att lägga till denna widget"
+  Widget:
+    PLURALNAME: Widgets
+    SINGULARNAME: Widget
   WidgetArea:
-    PLURALNAME: "Widget Areas"
-    SINGULARNAME: "Widget Area"
+    PLURALNAME: 'Widgetområden'
+    SINGULARNAME: 'Widgetområde'
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Tillgängliga widgets'
+    AVAILWIDGETS: 'Klicka på en widget nedan för att använda den på sidan.'
+    INUSE: 'Använda widgets'
+    NOAVAIL: 'Inga widgets tillängliga.'
+    TOSORT: 'För att sortera widgetar på denna sida, dra dem uppåt eller nedåt.'
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Klicka för att lägga till denna widget'
+  WidgetEditor_ss:
+    DELETE: Radera
