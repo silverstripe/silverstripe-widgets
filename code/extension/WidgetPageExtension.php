@@ -9,7 +9,6 @@
  * without using this class.
  */
 class WidgetPageExtension extends DataExtension {
-
 	private static $db = array(
 		'InheritSideBar' => 'Boolean',
 	);
@@ -24,11 +23,11 @@ class WidgetPageExtension extends DataExtension {
 
 	public function updateCMSFields(FieldList $fields) {
 		$fields->addFieldToTab(
-			"Root.Widgets", 
+			"Root.Widgets",
 			new CheckboxField("InheritSideBar", 'Inherit Sidebar From Parent')
 		);
 		$fields->addFieldToTab(
-			"Root.Widgets", 
+			"Root.Widgets",
 			new WidgetAreaEditor("SideBar")
 		);
 	}
@@ -37,30 +36,29 @@ class WidgetPageExtension extends DataExtension {
 	 * @return WidgetArea
 	 */
 	public function SideBarView() {
-		if(
+		if (
 			$this->owner->InheritSideBar
 			&& ($parent = $this->owner->getParent())
 			&& $parent->hasMethod('SideBarView')
 		) {
 			return $parent->SideBarView();
-		} elseif($this->owner->SideBar()->exists()){
+		} elseif ($this->owner->SideBar()->exists()) {
 			return $this->owner->SideBar();
 		}
 	}
-	
+
 	public function onBeforeDuplicate($duplicatePage) {
-		if($this->owner->hasField('SideBarID')) {
+		if ($this->owner->hasField('SideBarID')) {
 			$sideBar = $this->owner->getComponent('SideBar');
 			$duplicateWidgetArea = $sideBar->duplicate();
 
-			foreach($sideBar->Items() as $originalWidget) {
+			foreach ($sideBar->Items() as $originalWidget) {
 				$widget = $originalWidget->duplicate(false);
 				$widget->ParentID = $duplicateWidgetArea->ID;
 				$widget->write();
 			}
 
 			$duplicatePage->SideBarID = $duplicateWidgetArea->ID;
-
 		}
 
 		return $duplicatePage;
@@ -73,5 +71,4 @@ class WidgetPageExtension extends DataExtension {
 		//reset the sidebar ID
 		$this->owner->SideBarID = 0;
 	}
-
 }
