@@ -4,10 +4,8 @@
 
 ## Overview
 
-[Widgets](http://silverstripe.org/widgets) are small pieces of functionality such as showing the latest comments or Flickr photos. They normally display on
-the sidebar of your website. To check out a what a [Widget](http://silverstripe.org/widgets) can do watch the
-[Widget video](http://silverstripe.com/assets/screencasts/SilverStripe-Blog-DragDrop-Widgets.swf) and try out the
-[demo site](http://demo.silverstripe.org/)
+Widgets are small pieces of functionality such as showing the latest comments or Flickr photos. They normally display on
+the sidebar of your website.
 
 ## Requirements
 
@@ -38,7 +36,7 @@ This library follows [Semver](http://semver.org). According to Semver, you will 
 
 By following the "Packaging" rules below, widgets are easily installed. This example uses the Blog module which by default has widgets already enabled.
 
-* Install the [blog module](http://www.silverstripe.org/blog-module/).
+* Install the [blog module](https://github.com/silverstripe/silverstripe-blog/).
 * Download the widget and unzip to the main folder of your SilverStripe website, e.g. to `/widget_<widget-name>/`. The folder
 will contain a few files, which generally won't need editing or reading.
 * Run `http://my-website.com/dev/build`
@@ -341,4 +339,4 @@ and any new translations will be merged back to the project source code.
 Please use [https://www.transifex.com/projects/p/silverstripe-widgets/](https://www.transifex.com/projects/p/silverstripe-widgets/) to contribute translations,
 rather than sending pull requests with YAML files.
 
-See the ["i18n" topic](http://doc.silverstripe.org/framework/en/trunk/topics/i18n) on doc.silverstripe.org for more details.
+See the ["i18n" topic](https://docs.silverstripe.org/en/3.2/developer_guides/i18n/) on doc.silverstripe.org for more details.
