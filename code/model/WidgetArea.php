@@ -30,14 +30,15 @@ class WidgetArea extends DataObject
     public function WidgetControllers()
     {
         $controllers = new ArrayList();
+        $items = $this->ItemsToRender();
+        if (!is_null($items)){
+            foreach ($items as $widget) {
+                $controller = $widget->getController();
 
-        foreach ($this->ItemsToRender() as $widget) {
-            $controller = $widget->getController();
-
-            $controller->init();
-            $controllers->push($controller);
+                $controller->init();
+                $controllers->push($controller);
+            }
         }
-
         return $controllers;
     }
 
