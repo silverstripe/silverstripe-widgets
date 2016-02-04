@@ -1,8 +1,27 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
+## [1.2.2](https://github.com/silverstripe/silverstripe-widgets/tree/1.2.2) (2016-02-04)
+[Full Changelog](https://github.com/silverstripe/silverstripe-widgets/compare/1.2.1...1.2.2)
 
-This project adheres to [Semantic Versioning](http://semver.org/).
+**Closed issues:**
+
+- Broken Links in README [\#119](https://github.com/silverstripe/silverstripe-widgets/issues/119)
+- Loop Children / with has\_one \(page\) not working [\#81](https://github.com/silverstripe/silverstripe-widgets/issues/81)
+
+**Merged pull requests:**
+
+- Fix readme.md links [\#120](https://github.com/silverstripe/silverstripe-widgets/pull/120) ([tractorcow](https://github.com/tractorcow))
+- Updated license year [\#118](https://github.com/silverstripe/silverstripe-widgets/pull/118) ([helpfulrobot](https://github.com/helpfulrobot))
+- ItemsToRender might return NULL // avoid warnings [\#117](https://github.com/silverstripe/silverstripe-widgets/pull/117) ([steiha](https://github.com/steiha))
+- Added standard code of conduct [\#116](https://github.com/silverstripe/silverstripe-widgets/pull/116) ([helpfulrobot](https://github.com/helpfulrobot))
+- Remove invalid 3.1 test fixture [\#115](https://github.com/silverstripe/silverstripe-widgets/pull/115) ([tractorcow](https://github.com/tractorcow))
+- Added standard git attributes [\#114](https://github.com/silverstripe/silverstripe-widgets/pull/114) ([helpfulrobot](https://github.com/helpfulrobot))
+- Added license to composer.json [\#113](https://github.com/silverstripe/silverstripe-widgets/pull/113) ([helpfulrobot](https://github.com/helpfulrobot))
+- Added standard license [\#112](https://github.com/silverstripe/silverstripe-widgets/pull/112) ([helpfulrobot](https://github.com/helpfulrobot))
+- Update changelog for 1.2.1 [\#111](https://github.com/silverstripe/silverstripe-widgets/pull/111) ([tractorcow](https://github.com/tractorcow))
+- Added standard Travis config [\#110](https://github.com/silverstripe/silverstripe-widgets/pull/110) ([helpfulrobot](https://github.com/helpfulrobot))
+- Added standard editor config [\#109](https://github.com/silverstripe/silverstripe-widgets/pull/109) ([helpfulrobot](https://github.com/helpfulrobot))
+- Converted to PSR-2 [\#107](https://github.com/silverstripe/silverstripe-widgets/pull/107) ([helpfulrobot](https://github.com/helpfulrobot))
 
 ## [1.2.1](https://github.com/silverstripe/silverstripe-widgets/tree/1.2.1) (2015-11-18)
 [Full Changelog](https://github.com/silverstripe/silverstripe-widgets/compare/1.1.2...1.2.1)
