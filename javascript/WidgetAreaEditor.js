@@ -20,9 +20,23 @@
 				$(this).find('.usedWidgets').sortable({
 					opacity: 0.6,
 					handle: '.handle',
-					update: function(e, ui) {parentRef.updateWidgets(e, ui)},
+					update: function (e, ui) {
+						parentRef.updateWidgets(e, ui)
+					},
 					placeholder: 'ui-state-highlight',
-					forcePlaceholderSize: true
+					forcePlaceholderSize: true,
+					start: function (e, ui) {
+						htmleditors = $(e.srcElement).closest('.Widget').find('textarea.htmleditor');
+						$.each(htmleditors, function (k, i) {
+							tinyMCE.execCommand('mceRemoveControl', false, $(i).attr('id'));
+						})
+					},
+					stop: function (e, ui) {
+						htmleditors = $(e.srcElement).closest('.Widget').find('textarea.htmleditor');
+						$.each(htmleditors, function (k, i) {
+							tinyMCE.execCommand('mceAddControl', true, $(i).attr('id'));
+						})
+					}
 				});
 				
 				// Figure out maxid, this is used when creating new widgets
