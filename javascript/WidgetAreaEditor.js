@@ -24,22 +24,7 @@
 					placeholder: 'ui-state-highlight',
 					forcePlaceholderSize: true
 				});
-				
-				// Figure out maxid, this is used when creating new widgets
-				$(this).data('maxid', 0);
-				
-				var usedWidgets = $(this).find('.usedWidgets .Widget');
-				usedWidgets.each(function() {
-					var widget = $(this)[0];
-					if(widget.id) {
-						widgetid = widget.id.match(/Widget\[(.+?)\]\[([0-9]+)\]/i);
-						if(widgetid && parseInt(widgetid[2]) > parseInt(parentRef.data('maxid'))) {
-							parentRef.data('maxid', parseInt(widgetid[2]));
-						}
-					}
-				});
-				
-				
+							
 				// Ensure correct sort values are written when page is saved
 				// TODO Adjust to new event listeners
 				$('.cms-container').bind('submitform', function(e) {parentRef.beforeSave(e)});
@@ -58,17 +43,13 @@
 						if (!widget.rewritten && (widget.id || widget.name)) {
 							if (widget.id && widget.id.indexOf('Widget[') === 0) {
 								var newValue = widget.id.replace(/Widget\[/, 'Widget['+name+'][');
-								//console.log('Renaming '+widget.tagName+' ID '+widget.id+' to '+newValue);
 								widget.id = newValue;
 							}
 							if (widget.name && widget.name.indexOf('Widget[') === 0) {
 								var newValue = widget.name.replace(/Widget\[/, 'Widget['+name+'][');
-								//console.log('Renaming '+widget.tagName+' Name '+widget.name+' to '+newValue);
 								widget.name=newValue;
 							}
 							widget.rewritten='yes';
-						}else {
-							//console.log('Skipping '+(widget.id ? widget.id : (widget.name ? widget.name : 'unknown '+widget.tagName)));
 						}
 					});
 				}
@@ -130,13 +111,8 @@
 			},
 			
 			insertWidgetEditor: function(response) {
-				var usedWidgets = $('#usedWidgets-'+$(this).attr('name')).children();
-				
-				// Give the widget a unique id
-				var newID=parseInt($(this).data('maxid'))+1;
-				$(this).data('maxid', newID);
-				
-				var widgetContent = response.replace(/Widget\[0\]/gi, "Widget[new-" + (newID) + "]");
+				var newID = $(response).find('.formid').val();
+				var widgetContent = response.replace(/Widget\[0\]/gi, "Widget[" + (newID) + "]");
 				$('#usedWidgets-'+$(this).attr('name')).append(widgetContent);
 				
 				this.rewriteWidgetAreaAttributes();

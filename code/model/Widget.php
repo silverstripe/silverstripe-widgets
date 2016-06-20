@@ -209,10 +209,13 @@ class Widget extends DataObject
     /**
      * @return FieldList
      */
-    public function CMSEditor()
+    public function CMSEditor() 
     {
-        $fields = $this->getCMSFields();
+	    $fields = $this->getCMSFields();
         $outputFields = new FieldList();
+
+        $this->FormID = $this->FormID ? : uniqid();
+        $outputFields->push(HiddenField::create('Widget[' . $this->FormID . '][FormID]', 'FormID', $this->FormID)->addExtraClass('formid'));
 
         foreach ($fields as $field) {
             $name = $field->getName();
@@ -220,11 +223,11 @@ class Widget extends DataObject
             if ($value) {
                 $field->setValue($value);
             }
-            $name = preg_replace("/([A-Za-z0-9\-_]+)/", "Widget[" . $this->ID . "][\\1]", $name);
-            $field->setName($name);
+            $namefiltered = preg_replace("/([A-Za-z0-9\-_]+)/", "Widget[" . $this->FormID . "][\\1]", $name);
+
+            $field->setName($namefiltered);
             $outputFields->push($field);
         }
-
         return $outputFields;
     }
 
