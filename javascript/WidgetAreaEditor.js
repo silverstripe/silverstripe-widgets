@@ -26,13 +26,13 @@
 					placeholder: 'ui-state-highlight',
 					forcePlaceholderSize: true,
 					start: function (e, ui) {
-						htmleditors = $(e.srcElement).closest('.Widget').find('textarea.htmleditor');
+						htmleditors = $(ui.item).closest('.Widget').find('textarea.htmleditor');
 						$.each(htmleditors, function (k, i) {
 							tinyMCE.execCommand('mceRemoveControl', false, $(i).attr('id'));
 						})
 					},
 					stop: function (e, ui) {
-						htmleditors = $(e.srcElement).closest('.Widget').find('textarea.htmleditor');
+						htmleditors = $(ui.item).closest('.Widget').find('textarea.htmleditor');
 						$.each(htmleditors, function (k, i) {
 							tinyMCE.execCommand('mceAddControl', true, $(i).attr('id'));
 						})
