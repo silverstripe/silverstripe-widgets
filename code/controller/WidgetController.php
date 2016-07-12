@@ -101,6 +101,10 @@ class WidgetController extends Controller
      */
     public function editablesegment()
     {
+        // use left and main to set the html config
+        $leftandmain = LeftAndMain::create();
+        $leftandmain->init();
+        
         $className = $this->urlParams['ID'];
         if (class_exists('Translatable') && Member::currentUserID()) {
             // set current locale based on logged in user's locale
