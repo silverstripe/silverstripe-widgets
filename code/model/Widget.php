@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Widgets let CMS authors drag and drop small pieces of functionality into  
+ * Widgets let CMS authors drag and drop small pieces of functionality into
  * defined areas of their websites.
- * 
+ *
  * You can use forms in widgets by implementing a {@link WidgetController}.
- * 
+ *
  * See {@link Widget_Controller} for more information.
- * 
+ *
  * @package widgets
  */
 class Widget extends DataObject
@@ -16,6 +16,7 @@ class Widget extends DataObject
      * @var array
      */
     private static $db = array(
+        "Title" => "Varchar(255)",
         "Title" => "Varchar(255)",
         "Sort" => "Int",
         "Enabled" => "Boolean",
@@ -35,7 +36,7 @@ class Widget extends DataObject
         'CMSTitle' => 'Text',
         'Description' => 'Text',
     );
-    
+
     private static $only_available_in = array();
 
     /**
@@ -82,10 +83,10 @@ class Widget extends DataObject
         parent::populateDefaults();
         $this->setField('Title', $this->getTitle());
     }
-    
+
     /**
      * Note: Overloaded in {@link WidgetController}.
-     * 
+     *
      * @return string HTML
      */
     public function WidgetHolder()
@@ -102,18 +103,19 @@ class Widget extends DataObject
         if ($holder) {
             return $this->WidgetHolder();
         }
+
         return $this->Content();
     }
-    
+
     /**
-     * Renders the widget content in a custom template with the same name as the 
+     * Renders the widget content in a custom template with the same name as the
      * current class. This should be the main point of output customization.
-     * 
-     * Invoked from within WidgetHolder.ss, which contains the "framing" around 
+     *
+     * Invoked from within WidgetHolder.ss, which contains the "framing" around
      * the custom content, like a title.
-     * 
+     *
      * Note: Overloaded in {@link WidgetController}.
-     * 
+     *
      * @return string HTML
      */
     public function Content()
@@ -138,7 +140,7 @@ class Widget extends DataObject
     public function getTitle()
     {
         return $this->getField('Title')
-            ?: _t($this->class.'.TITLE', $this->config()->title);
+            ?: _t($this->class . '.TITLE', $this->config()->title);
     }
 
     /**
@@ -155,7 +157,7 @@ class Widget extends DataObject
      */
     public function getCMSTitle()
     {
-        return _t($this->class.'.CMSTITLE', $this->config()->cmsTitle);
+        return _t($this->class . '.CMSTITLE', $this->config()->cmsTitle);
     }
 
     /**
@@ -172,7 +174,7 @@ class Widget extends DataObject
      */
     public function getDescription()
     {
-        return _t($this->class.'.DESCRIPTION', $this->config()->description);
+        return _t($this->class . '.DESCRIPTION', $this->config()->description);
     }
 
     /**
@@ -182,7 +184,7 @@ class Widget extends DataObject
     {
         return $this->renderWith('WidgetDescription');
     }
-    
+
     /**
      * @see WidgetController::editablesegment()
      *
@@ -203,9 +205,10 @@ class Widget extends DataObject
             new CheckboxField('Enabled', $this->fieldLabel('Enabled'))
         );
         $this->extend('updateCMSFields', $fields);
+
         return $fields;
     }
-    
+
     /**
      * @return FieldList
      */
@@ -214,14 +217,19 @@ class Widget extends DataObject
         $fields = $this->getCMSFields();
         $outputFields = new FieldList();
 
+        $this->FormID = $this->FormID ?: uniqid();
+        $outputFields->push(HiddenField::create('Widget[' . $this->FormID . '][FormID]', 'FormID',
+            $this->FormID)->addExtraClass('formid'));
+
         foreach ($fields as $field) {
             $name = $field->getName();
             $value = $this->getField($name);
             if ($value) {
                 $field->setValue($value);
             }
-            $name = preg_replace("/([A-Za-z0-9\-_]+)/", "Widget[" . $this->ID . "][\\1]", $name);
-            $field->setName($name);
+            $namefiltered = preg_replace("/([A-Za-z0-9\-_]+)/", "Widget[" . $this->FormID . "][\\1]", $name);
+
+            $field->setName($namefiltered);
             $outputFields->push($field);
         }
 
@@ -241,7 +249,7 @@ class Widget extends DataObject
      */
     public function Name()
     {
-        return "Widget[".$this->ID."]";
+        return "Widget[" . $this->ID . "]";
     }
 
     /**
@@ -257,13 +265,13 @@ class Widget extends DataObject
 
         foreach (array_reverse(ClassInfo::ancestry($this->class)) as $widgetClass) {
             $controllerClass = "{$widgetClass}_Controller";
-            
+
             if (class_exists($controllerClass)) {
                 break;
             }
 
             $controllerClass = "{$widgetClass}Controller";
-        
+
             if (class_exists($controllerClass)) {
                 break;
             }
@@ -277,7 +285,7 @@ class Widget extends DataObject
 
         return $this->controller;
     }
-    
+
     /**
      * @param array $data
      */
@@ -294,7 +302,7 @@ class Widget extends DataObject
                 }
             }
         }
-        
+
         //Look for checkbox fields not present in the data
         foreach ($fields as $field) {
             if ($field instanceof CheckboxField && !array_key_exists($field->getName(), $data)) {
@@ -302,11 +310,11 @@ class Widget extends DataObject
                 $field->saveInto($this);
             }
         }
-        
+
         $this->write();
-        
+
         // The field must be written to ensure a unique ID.
-        $this->Name = $this->class.$this->ID;
+        $this->Name = $this->class . $this->ID;
         $this->write();
     }
 }
