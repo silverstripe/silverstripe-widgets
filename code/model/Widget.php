@@ -217,7 +217,7 @@ class Widget extends DataObject
         $fields = $this->getCMSFields();
         $outputFields = new FieldList();
 
-        $this->FormID = $this->FormID ?: uniqid();
+        $this->FormID = $this->ID ?: uniqid();
         $outputFields->push(HiddenField::create('Widget[' . $this->FormID . '][FormID]', 'FormID',
             $this->FormID)->addExtraClass('formid'));
 
