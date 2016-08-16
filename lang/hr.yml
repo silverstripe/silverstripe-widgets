@@ -1,0 +1,17 @@
+hr:
+  Widget:
+    PLURALNAME: Widgeti
+    SINGULARNAME: Widget
+  WidgetArea:
+    PLURALNAME: 'Zone widgeta'
+    SINGULARNAME: 'Zona widgeta'
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Dostupni widgeti'
+    AVAILWIDGETS: 'Kliknite na naziv widgeta ispod za korištenje na ovoj stranici'
+    INUSE: 'Trenutno korišteni widgeti'
+    NOAVAIL: 'Trenutno nema dostupnih widgeta.'
+    TOSORT: 'Za sortiranje trenutno korištenih widgeta na ovoj stranici, rasporedite ih povlačeći gore i dolje.'
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Klikni za dodavanje ovog widgeta'
+  WidgetEditor_ss:
+    DELETE: Obriši
