@@ -17,7 +17,6 @@ class Widget extends DataObject
      */
     private static $db = array(
         "Title" => "Varchar(255)",
-        "Title" => "Varchar(255)",
         "Sort" => "Int",
         "Enabled" => "Boolean",
     );
