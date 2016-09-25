@@ -33,10 +33,12 @@ class WidgetArea extends DataObject
         $items = $this->ItemsToRender();
         if (!is_null($items)){
             foreach ($items as $widget) {
-                $controller = $widget->getController();
+                if ($widget->canView()) {
+                    $controller = $widget->getController();
 
-                $controller->init();
-                $controllers->push($controller);
+                    $controller->init();
+                    $controllers->push($controller);
+                }
             }
         }
         return $controllers;
