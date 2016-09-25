@@ -316,4 +316,9 @@ class Widget extends DataObject
         $this->Name = $this->class . $this->ID;
         $this->write();
     }
+    
+    public function canView($member = null)
+    {
+        return true;
+    }
 }
