@@ -1,0 +1,17 @@
+sk:
+  Widget:
+    PLURALNAME: Widgety
+    SINGULARNAME: Widget
+  WidgetArea:
+    PLURALNAME: 'Oblasti widgetu'
+    SINGULARNAME: 'Oblasť widgetu'
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Dostupné widgety'
+    AVAILWIDGETS: 'Kliknite na názov widgetu pre jeho použitie na tejto stránke.'
+    INUSE: 'Momentálne používané widgety.'
+    NOAVAIL: 'Momentálne nie sú dostupné žiadne widgety.'
+    TOSORT: 'Pre zotriedenie momentálne používaných widgetov na tejto stránke, potiahnite ich hore alebo dole.'
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Kliknite pre pridanie tohto widgetu'
+  WidgetEditor_ss:
+    DELETE: Vymazať
