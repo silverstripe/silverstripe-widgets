@@ -1,25 +1,25 @@
 {
-	"name": "silverstripe/widgets",
-	"description": "Widgets are small pieces of functionality such as showing the latest Comments or Flickr Photos. They normally display on the sidebar of your website.",
-	"type": "silverstripe-module",
-	"keywords": ["silverstripe", "widgets", "blog"],
-	"authors": [
-		{
-			"name": "Ingo Schommer",
-			"email": "ingo@silverstripe.com"
-		}
-	],
-	"require": {
-		"silverstripe/framework": ">=3.2",
-		"silverstripe/cms": ">=3.2"
-	},
-	"require-dev": {
-		"phpunit/PHPUnit": "~3.7@stable"
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "1.2.x-dev"
-		}
-	},
-	"license": "BSD-3-Clause"
+    "name": "silverstripe/widgets",
+    "description": "Widgets are small pieces of functionality such as showing the latest Comments or Flickr Photos. They normally display on the sidebar of your website.",
+    "type": "silverstripe-module",
+    "keywords": [
+        "silverstripe",
+        "widgets",
+        "blog"
+    ],
+    "authors": [
+        {
+            "name": "Ingo Schommer",
+            "email": "ingo@silverstripe.com"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": ">=3.2",
+        "silverstripe/cms": ">=3.2"
+    },
+    "require-dev": {
+        "phpunit/PHPUnit": "~3.7@stable"
+    },
+    "extra": [],
+    "license": "BSD-3-Clause"
 }
