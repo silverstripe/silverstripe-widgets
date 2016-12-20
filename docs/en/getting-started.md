@@ -156,3 +156,14 @@ An example widget is below:
 		<a href="$Link" rel="lightbox" title="$Title"><img src="$Image" alt="$Title" /></a>
 	<% end_control %>
 
+## Limiting Allowed Widgets for a Pagetype
+
+You can lock down a particular `WidgetAreaEditor` to only allow adding certain widgets by passing them as a second parameter.
+
+**GreatPage.php**
+
+    :::php
+    $fields->addFieldToTab(
+        'Root.Widgets',
+        new WidgetAreaEditor('PhenomenalWidgetArea', ['ParticularlyEpicWidget', 'LessGreatWidget'])
+    );
