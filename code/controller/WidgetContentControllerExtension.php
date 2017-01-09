@@ -63,6 +63,10 @@ class WidgetContentControllerExtension extends Extension
             user_error('No widget found', E_USER_ERROR);
         }
         
+        if (!$widget->canView()) {
+            return Security::permissionFailure();
+        }
+        
         return $widget->getController();
     }
 }
