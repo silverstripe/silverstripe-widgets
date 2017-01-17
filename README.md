@@ -1,6 +1,6 @@
 # Widgets Module
 
-[![Build Status](https://secure.travis-ci.org/silverstripe/silverstripe-widgets.png?branch=1.1)](http://travis-ci.org/silverstripe/silverstripe-widgets)
+[![Build Status](https://secure.travis-ci.org/silverstripe/silverstripe-widgets.png?branch=master)](http://travis-ci.org/silverstripe/silverstripe-widgets)
 
 ## Overview
 
@@ -9,7 +9,7 @@ the sidebar of your website.
 
 ## Requirements
 
- * SilverStripe 3.2
+ * SilverStripe 4.0
 
 
 ### Installation
@@ -55,18 +55,28 @@ e.g.
 
 **mysite/code/Page.php**
 
-	class Page extends SiteTree {
-	...
-	    private static $has_one = array(
-				"MyWidgetArea" => "WidgetArea",
-	    );
+```php
+<?php
 
-	  public function getCMSFields() {
-			$fields = parent::getCMSFields();
-			$fields->addFieldToTab("Root.Widgets", new WidgetAreaEditor("MyWidgetArea"));
-			return $fields;
-	  }
-	}
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Widgets\Form\WidgetAreaEditor;
+use SilverStripe\Widgets\Model\WidgetArea;
+
+class Page extends SiteTree
+{
+    // ...
+    private static $has_one = array(
+        'MyWidgetArea' => WidgetArea::class
+    );
+
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+        $fields->addFieldToTab('Root.Widgets', new WidgetAreaEditor('MyWidgetArea'));
+        return $fields;
+    }
+}
+```
 
 In this case, you need to alter your templates to include the `$MyWidgetArea` placeholder.
 
@@ -94,71 +104,91 @@ An example widget is below:
 
 **FlickrWidget.php**
 
-	:::php
-	<?php
-	class FlickrWidget extends Widget {
-		private static $db = array(
-			"User" => "Varchar",
-			"Photoset" => "Varchar",
-			"Tags" => "Varchar",
-			"NumberToShow" => "Int"
-		);
+```php
+<?php
 
+namespace Yourname\MyWidget;
 
-		private static $defaults = array(
-			"NumberToShow" => 8
-		);
+use FlickrService;
+use SilverStripe\Widgets\Model\Widget;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\NumericField;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\View\ArrayData;
+use SilverStripe\View\Requirements;
 
-		private static $title = "Photos";
-		private static $cmsTitle = "Flickr Photos";
-		private static $description = "Shows flickr photos.";
+class FlickrWidget extends Widget
+{
+    private static $db = array(
+        'User' => 'Varchar',
+        'Photoset' => 'Varchar',
+        'Tags' => 'Varchar',
+        'NumberToShow' => 'Int'
+    );
 
-		public function Photos() {
-			Requirements::javascript(THIRDPARTY_DIR . "/prototype/prototype.js");
-			Requirements::javascript(THIRDPARTY_DIR . "/scriptaculous/effects.js");
-			Requirements::javascript("mashups/javascript/lightbox.js");
-			Requirements::css("mashups/css/lightbox.css");
+    private static $defaults = array(
+        'NumberToShow' => 8
+    );
 
-			$flickr = new FlickrService();
-			if($this->Photoset == "") {
-				$photos = $flickr->getPhotos($this->Tags, $this->User, $this->NumberToShow, 1);
-			} else {
-				$photos = $flickr->getPhotoSet($this->Photoset, $this->User, $this->NumberToShow, 1);
-			}
+    private static $title = 'Photos';
+    private static $cmsTitle = 'Flickr Photos';
+    private static $description = 'Shows flickr photos.';
 
-			$output = new ArrayList();
-			foreach($photos->PhotoItems as $photo) {
-				$output->push(new ArrayData(array(
-					"Title" => $photo->title,
-					"Link" => "http://farm1.static.flickr.com/" . $photo->image_path .".jpg",
-					"Image" => "http://farm1.static.flickr.com/" .$photo->image_path. "_s.jpg"
-				)));
-			}
-			return $output;
-		}
+    public function Photos()
+    {
+        // You'll need to install these yourself
+        Requirements::javascript(THIRDPARTY_DIR . '/prototype/prototype.js');
+        Requirements::javascript(THIRDPARTY_DIR . '/scriptaculous/effects.js');
+        Requirements::javascript('mashups/javascript/lightbox.js');
+        Requirements::css('mashups/css/lightbox.css');
 
-		public function getCMSFields() {
-			return new FieldList(
-				new TextField("User", "User"),
-				new TextField("PhotoSet", "Photo Set"),
-				new TextField("Tags", "Tags"),
-				new NumericField("NumberToShow", "Number to Show")
-			);
-		}
-	}
+        $flickr = new FlickrService();
+        if ($this->Photoset == '') {
+            $photos = $flickr->getPhotos($this->Tags, $this->User, $this->NumberToShow, 1);
+        } else {
+            $photos = $flickr->getPhotoSet($this->Photoset, $this->User, $this->NumberToShow, 1);
+        }
 
+        $output = new ArrayList();
+        foreach ($photos->PhotoItems as $photo) {
+            $output->push(
+                new ArrayData(
+                    array(
+                        'Title' => $photo->title,
+                        'Link'  => 'http://farm1.static.flickr.com/' . $photo->image_path .'.jpg',
+                        'Image' => 'http://farm1.static.flickr.com/' .$photo->image_path. '_s.jpg'
+                    )
+                )
+            );
+        }
+        return $output;
+    }
+
+    public function getCMSFields()
+    {
+        return new FieldList(
+            new TextField('User', 'User'),
+            new TextField('PhotoSet', 'Photo Set'),
+            new TextField('Tags', 'Tags'),
+            new NumericField('NumberToShow', 'Number to Show')
+        );
+    }
+}
+```
 
 **FlickrWidget.ss**
 
-	:::ss
-	<% control Photos %>
-		<a href="$Link" rel="lightbox" title="$Title"><img src="$Image" alt="$Title" /></a>
-	<% end_control %>
+```
+<% control Photos %>
+    <a href="$Link" rel="lightbox" title="$Title"><img src="$Image" alt="$Title" /></a>
+<% end_control %>
+```
 
 
 ## Releasing a widget
 
-Follow the [standard procedures defined for releasing a SilverStripe module](http://doc.silverstripe.org/framework/en/3.1/topics/module-development).
+Follow the [standard procedures defined for releasing a SilverStripe module](https://docs.silverstripe.org/en/4/developer_guides/extending/how_tos/publish_a_module).
 
 Here is a composer template you can use.
 
@@ -178,8 +208,8 @@ You need to finish off / change:
     "type": "silverstripe-module",
     "keywords" : ["widget"],
     "require": {
-        "silverstripe/framework": "3.*",
-        "silverstripe/cms": "3.*"
+        "silverstripe/framework": "^4.0",
+        "silverstripe/cms": "^4.0"
     },
     "license": "BSD-2-Clause",
     "authors": [
@@ -190,6 +220,11 @@ You need to finish off / change:
     ],
     "extra" : {
         "installer-name": "widgets_"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yourname\\MyWidget\\": "src/"
+        }
     }
 }
 ```
@@ -203,27 +238,30 @@ define a merge variable in the Page Controller and include it in the Page Templa
 
 This example creates an RSSWidget with the SilverStripe blog feed.
 
-	:::php
-	public function SilverStripeFeed() {
-		$widget = new RSSWidget();
-		$widget->RssUrl = "http://feeds.feedburner.com/silverstripe-blog";
-		return $widget->renderWith("WidgetHolder");
-	}
+```php
+public function SilverStripeFeed()
+{
+    $widget = new RSSWidget();
+    $widget->RssUrl = 'http://feeds.feedburner.com/silverstripe-blog';
+    return $widget->renderWith('WidgetHolder');
+}
+```
 
-To render the widget, simply include $SilverStripeFeed in your template:
+To render the widget, simply include `$SilverStripeFeed` in your template:
 
-	  $SilverStripeFeed
+```
+$SilverStripeFeed
+```
 
+As directed in the definition of `SilverStripeFeed()`, the Widget will be rendered through the WidgetHolder template. This
+is pre-defined at `widgets/templates/WidgetHolder.ss` and simply consists of:
 
-As directed in the definition of SilverStripeFeed(), the Widget will be rendered through the WidgetHolder template. This
-is pre-defined at `framework/templates/WidgetHolder.ss` and simply consists of:
-
-	:::ss
-	<div class="WidgetHolder">
-		<h3>$Title</h3>
-		$Content
-	</div>
-
+```
+<div class="WidgetHolder">
+    <h3>$Title</h3>
+    $Content
+</div>
+```
 
 You can override the WidgetHolder.ss and Widget.ss templates in your theme too by adding WidgetHolder and Widget
 templates to `themes/myThemeName/templates/Includes/`
@@ -233,25 +271,27 @@ templates to `themes/myThemeName/templates/Includes/`
 To change the title of your widget, you need to override the Title() method. By default, this simply returns the $title
 variable. For example, to set your widgets title to 'Hello World!', you could use:
 
-**widgets_yourWidget/YourWidgetWidget.php**
+**widgets_yourWidget/src/YourWidgetWidget.php**
 
-	:::php
-	public function Title() {
-		return "Hello World!";
-	}
+```php
+public function Title()
+{
+    return 'Hello World!';
+}
+```
 
-
-but, you can do exactly the same by setting your $title variable.
+but, you can do exactly the same by setting your `$title` variable.
 
 A more common reason for overriding Title() is to allow the title to be set in the CMS. Say you had a text field in your
 widget called WidgetTitle, that you wish to use as your title. If nothing is set, then you'll use your default title.
 This is similar to the RSS Widget in the blog module.
 
-	:::php
-	public function Title() {
-		return $this->WidgetTitle ? $this->WidgetTitle : self::$title;
-	}
-
+```php
+public function Title()
+{
+    return $this->WidgetTitle ? $this->WidgetTitle : self::$title;
+}
+```
 
 This returns the value inputted in the CMS, if it's set or what is in the $title variable if it isn't.
 
@@ -263,69 +303,97 @@ sure that your controller follows the usual naming conventions, and it will be a
 
 **mysite/code/MyWidget.php**
 
-	:::php
-	class MyWidget extends Widget {
-	  private static $db = array(
-	    'TestValue' => 'Text'
-	  );
-	}
+```php
+<?php
 
-	class MyWidget_Controller extends WidgetController {
-	  public function MyFormName() {
-	    return new Form(
-	      $this,
-	      'MyFormName',
-	      new FieldList(
-	        new TextField('TestValue')
-	      ),
-	      new FieldList(
-	        new FormAction('doAction')
-	      )
-	    );
-	  }
+namespace Yourname\MyWidget;
 
-	  public function doAction($data, $form) {
-	    // $this->widget points to the widget
-	  }
-	}
+use SilverStripe\Widgets\Model\Widget;
 
+class MyWidget extends Widget
+{
+    private static $db = array(
+        'TestValue' => 'Text'
+    );
+}
+```
+
+```php
+<?php
+
+namespace Yourname\MyWidget;
+
+use SilverStripe\Widgets\Controllers\WidgetController;
+use SilverStripe\Forms\Form;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TextField;
+
+class MyWidgetController extends WidgetController
+{
+    public function MyFormName()
+    {
+        return new Form(
+            $this,
+            'MyFormName',
+            new FieldList(
+                new TextField('TestValue')
+            ),
+            new FieldList(
+                new FormAction('doAction')
+            )
+        );
+    }
+
+    public function doAction($data, $form)
+    {
+        // $this->widget points to the widget
+    }
+}
+```
 
 To output this form, modify your widget template.
 
-**mysite/templates/MyWidget.ss**
+**mysite/templates/Yourname/MyWidget/MyWidget.ss**
 
-	:::ss
-	$Content
-	$MyFormName
+```
+$Content
+$MyFormName
+```
 
-**Note:** The necessary controller actions are only present in subclasses of `Page_Controller`. To use
-widget forms in other controller subclasses, have a look at *ContentController->handleWidget()* and
-*ContentController::$url_handlers*.
+**Note:** The necessary controller actions are only present in subclasses of `PageController`. To use
+widget forms in other controller subclasses, have a look at `ContentController->handleWidget()` and
+`ContentController::$url_handlers`.
 
 ## But what if I have widgets on my blog currently??
 
+**Note:** This applies to old versions of the blog module. The latest version of this module does not contain `BlogHolder.php`.
+
 If you currently have a blog installed, the widget fields are going to double up on those pages (as the blog extends the
-Page class). One way to fix this is to comment out line 30 in BlogHolder.php and remove the DB entry by running a
+Page class). One way to fix this is to comment out line 30 in `BlogHolder.php` and remove the DB entry by running a
 `http://www.mysite.com/db/build`.
 
 **blog/code/BlogHolder.php**
 
-	:::php
-	<?php
-	class BlogHolder extends Page {
-
-	      ........
-		static $has_one = array(
-		//	"Sidebar" => "WidgetArea", COMMENT OUT
-			'Newsletter' => 'NewsletterType'
-	      .......
-		public function getCMSFields() {
-			$fields = parent::getCMSFields();
-			$fields->removeFieldFromTab("Root.Content","Content");
-		//	$fields->addFieldToTab("Root.Widgets", new WidgetAreaEditor("Sidebar")); COMMENT OUT
-
-		........
-
+```php
+<?php
+class BlogHolder extends Page
+{
+    // ........
+    static $has_one = array(
+        // "Sidebar" => "WidgetArea", COMMENT OUT
+        'Newsletter' => 'NewsletterType'
+    );
+    // .......
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+        $fields->removeFieldFromTab("Root.Content","Content");
+        // $fields->addFieldToTab("Root.Widgets", new WidgetAreaEditor("Sidebar")); COMMENT OUT
+    }
+    // ...
+}
+```
 
 Then you can use the Widget area you defined on Page.php
 
@@ -339,4 +407,4 @@ and any new translations will be merged back to the project source code.
 Please use [https://www.transifex.com/projects/p/silverstripe-widgets/](https://www.transifex.com/projects/p/silverstripe-widgets/) to contribute translations,
 rather than sending pull requests with YAML files.
 
-See the ["i18n" topic](https://docs.silverstripe.org/en/3.2/developer_guides/i18n/) on doc.silverstripe.org for more details.
+See the ["i18n" topic](https://docs.silverstripe.org/en/4/developer_guides/i18n/) on doc.silverstripe.org for more details.
