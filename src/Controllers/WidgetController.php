@@ -1,5 +1,15 @@
 <?php
 
+namespace SilverStripe\Widgets\Controllers;
+
+use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\Director;
+use SilverStripe\Core\ClassInfo;
+use SilverStripe\i18n\i18n;
+use SilverStripe\Security\Member;
+use SilverStripe\Widgets\Model\Widget;
+
 /**
  * Optional controller for every widget which has its own logic, e.g. in forms.
  *
@@ -52,13 +62,15 @@ class WidgetController extends Controller
 	public function Link($action = null)
     {
         $id = ($this->widget) ? $this->widget->ID : null;
-		$segment = Controller::join_links('widget', $id, $action);
+        $segment = Controller::join_links('widget', $id, $action);
 
-		$page = Director::get_current_page();
-			if($page && !($page instanceof WidgetController)) {return $page->Link($segment);
-		}
+        $page = Director::get_current_page();
+		if ($page && !($page instanceof WidgetController)) {
+            return $page->Link($segment);
+        }
 
-		if ($controller = $this->getParentController()) {return $controller->Link($segment);
+		if ($controller = $this->getParentController()) {
+            return $controller->Link($segment);
 		}
 
 		return $segment;
@@ -73,19 +85,50 @@ class WidgetController extends Controller
 	 */
 	public function getParentController()
     {
-		foreach(Controller::$controller_stack as $controller) {
-			if (!($controller instanceof WidgetController)) {
-				return $controller;
-			}
-		}
-		return false;
-	}
+        foreach (Controller::$controller_stack as $controller) {
+            if (!($controller instanceof WidgetController)) {
+                return $controller;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return Widget
+     */
+    public function getWidget()
+    {
+        return $this->widget;
+    }
+
+    /**
+     * Overloaded from {@link Widget->Content()} to allow for controller / form
+     * linking.
+     *
+     * @return string HTML
+     */
+    public function Content()
+    {
+        return $this->renderWith(array_reverse(ClassInfo::ancestry($this->widget->class)));
+    }
+
+    /**
+     * Overloaded from {@link Widget->WidgetHolder()} to allow for controller/
+     * form linking.
+     *
+     * @return string HTML
+     */
+    public function WidgetHolder()
+    {
+        return $this->renderWith("WidgetHolder");
+    }
 
 	/**
 	 * @return Widget
 	 */
 	public function getWidget()
-		{return $this->widget;
+	{
+        return $this->widget;
 	}
 
 	/**
@@ -95,7 +138,8 @@ class WidgetController extends Controller
 	 * @return string HTML
 	 */
 	public function Content()
-		{return $this->renderWith(array_reverse(ClassInfo::ancestry($this->widget->class)));
+	{
+        return $this->renderWith(array_reverse(ClassInfo::ancestry($this->widget->class)));
 	}
 
 	/**
@@ -105,7 +149,8 @@ class WidgetController extends Controller
 	 * @return string HTML
 	 */
 	public function WidgetHolder()
-		{return $this->renderWith("WidgetHolder");
+	{
+        return $this->renderWith("WidgetHolder");
 	}
 
 	/**
@@ -116,30 +161,24 @@ class WidgetController extends Controller
 	 *
 	 * @return string HTML
 	 */
-	public function editablesegment() {
+	public function editablesegment()
+    {
         // use left and main to set the html config
         $leftandmain = LeftAndMain::create();
-        $leftandmain->init();
-		$className = $this->urlParams['ID'];
-		if (class_exists('Translatable') && Member::currentUserID()) {
-			// set current locale based on logged in user's locale
-			$locale = Member::currentUser()->Locale;
-			i18n::set_locale($locale);
-		}
-		if(class_exists($className) && is_subclass_of($className, 'Widget')) {
-			$obj = new $className();
-			return $obj->EditableSegment();
-		} else {
-			user_error("Bad widget class: $className", E_USER_WARNING);
-			return "Bad widget class name given";
-		}
-	}
-}
+        $leftandmain->doInit();
 
-/**
- * @deprecated Use WidgetController
- * @package widgets
- */
-class Widget_Controller extends WidgetController
-{
+        $className = $this->urlParams['ID'];
+        if (class_exists('Translatable') && Member::currentUserID()) {
+            // set current locale based on logged in user's locale
+            $locale = Member::currentUser()->Locale;
+            i18n::set_locale($locale);
+        }
+        if (class_exists($className) && is_subclass_of($className, Widget::class)) {
+            $obj = new $className();
+            return $obj->EditableSegment();
+        } else {
+            user_error("Bad widget class: $className", E_USER_WARNING);
+            return "Bad widget class name given";
+        }
+    }
 }

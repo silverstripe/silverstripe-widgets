@@ -1,5 +1,11 @@
 <?php
 
+namespace SilverStripe\Widgets\Model;
+
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Widgets\Model\Widget;
+
 /**
  * Represents a set of widgets shown on a page.
  *
@@ -11,31 +17,36 @@ class WidgetArea extends DataObject
      * @var array
      */
     private static $has_many = array(
-        "Widgets" => "Widget"
+        "Widgets" => Widget::class
     );
+
+    /**
+     * @var string
+     */
+    private static $table_name = 'WidgetArea';
 
     /**
      *
      * @var string
      */
     public $template = __CLASS__;
-    
+
     /**
-     * Used in template instead of {@link Widgets()} to wrap each widget in its 
-     * controller, making it easier to access and process form logic and 
+     * Used in template instead of {@link Widgets()} to wrap each widget in its
+     * controller, making it easier to access and process form logic and
      * actions stored in {@link WidgetController}.
-     * 
+     *
      * @return SS_List - Collection of {@link WidgetController} instances.
      */
     public function WidgetControllers()
     {
         $controllers = new ArrayList();
         $items = $this->ItemsToRender();
-        if (!is_null($items)){
+        if (!is_null($items)) {
             foreach ($items as $widget) {
                 $controller = $widget->getController();
 
-                $controller->init();
+                $controller->doInit();
                 $controllers->push($controller);
             }
         }

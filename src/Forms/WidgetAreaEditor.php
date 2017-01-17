@@ -1,5 +1,18 @@
 <?php
 
+namespace SilverStripe\Widgets\Forms;
+
+use Exception;
+use SilverStripe\Core\ClassInfo;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Forms\FormField;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataObjectInterface;
+use SilverStripe\Widgets\Forms\WidgetAreaEditor;
+use SilverStripe\Widgets\Model\Widget;
+use SilverStripe\View\Requirements;
+
 /**
  * Special field type for selecting and configuring widgets on a page.
  *
@@ -12,11 +25,11 @@ class WidgetAreaEditor extends FormField
      * @param array $widgetClasses
      * @param int $maxWidgets
      */
-    public function __construct($name, $widgetClasses = array('Widget'), $maxWidgets = 0)
+    public function __construct($name, $widgetClasses = array(Widget::class), $maxWidgets = 0)
     {
         $this->MaxWidgets = $maxWidgets;
         $this->widgetClasses = $widgetClasses;
-        
+
         parent::__construct($name);
     }
 
@@ -30,7 +43,7 @@ class WidgetAreaEditor extends FormField
         Requirements::css('widgets/css/WidgetAreaEditor.css');
         Requirements::javascript('widgets/javascript/WidgetAreaEditor.js');
 
-        return $this->renderWith("WidgetAreaEditor");
+        return $this->renderWith(WidgetAreaEditor::class);
     }
 
     /**
@@ -44,15 +57,15 @@ class WidgetAreaEditor extends FormField
         foreach ($this->widgetClasses as $widgetClass) {
             $classes = ClassInfo::subclassesFor($widgetClass);
 
-            if (isset($classes['Widget'])) {
-                unset($classes['Widget']);
-            } elseif (isset($classes[0]) && $classes[0] == 'Widget') {
+            if (isset($classes[Widget::class])) {
+                unset($classes[Widget::class]);
+            } elseif (isset($classes[0]) && $classes[0] == Widget::class) {
                 unset($classes[0]);
             }
-            
+
             foreach ($classes as $class) {
                 $available = Config::inst()->get($class, 'only_available_in');
-                
+
                 if (!empty($available) && is_array($available)) {
                     if (in_array($this->Name, $available)) {
                         $widgets->push(singleton($class));
@@ -62,7 +75,7 @@ class WidgetAreaEditor extends FormField
                 }
             }
         }
-        
+
         return $widgets;
     }
 
@@ -72,8 +85,8 @@ class WidgetAreaEditor extends FormField
     public function UsedWidgets()
     {
         // Call class_exists() to load Widget.php earlier and avoid a segfault
-        class_exists('Widget');
-        
+        class_exists(Widget::class);
+
         $relationName = $this->name;
         $widgets = $this->form->getRecord()->getComponent($relationName)->Items();
 
@@ -101,6 +114,7 @@ class WidgetAreaEditor extends FormField
 
     /**
      * @param DataObjectInterface $record
+     * @throws Exception if no form could be retrieved
      */
     public function saveInto(DataObjectInterface $record)
     {
@@ -109,15 +123,15 @@ class WidgetAreaEditor extends FormField
 
         $widgetarea = $record->getComponent($name);
         $widgetarea->write();
-        
+
         $record->$idName = $widgetarea->ID;
-    
+
         $widgets = $widgetarea->Items();
-    
+
         // store the field IDs and delete the missing fields
         // alternatively, we could delete all the fields and re add them
         $missingWidgets = array();
-        
+
         if ($widgets) {
             foreach ($widgets as $existingWidget) {
                 $missingWidgets[$existingWidget->ID] = $existingWidget;
@@ -128,12 +142,11 @@ class WidgetAreaEditor extends FormField
             throw new Exception("no form");
         }
 
-        $widgetData = $this->getForm()->getRequest()->requestVar('Widget');
+        $widgetData = $this->getForm()->getRequest()->requestVar(Widget::class);
         if ($widgetData && isset($widgetData[$this->getName()])) {
             $widgetAreaData = $widgetData[$this->getName()];
 
             foreach ($widgetAreaData as $newWidgetID => $newWidgetData) {
-
                 // Sometimes the id is "new-1" or similar, ensure this doesn't get into the query
                 if (!is_numeric($newWidgetID)) {
                     $newWidgetID = 0;
@@ -156,7 +169,7 @@ class WidgetAreaEditor extends FormField
                 if (!$widget
                     && !empty($newWidgetData['Type'])
                     && class_exists($newWidgetData['Type'])
-                    && is_subclass_of($newWidgetData['Type'], 'Widget')
+                    && is_subclass_of($newWidgetData['Type'], Widget::class)
                 ) {
                     $widget = Injector::inst()->create($newWidgetData['Type']);
                     $widget->ID = 0;
@@ -172,7 +185,7 @@ class WidgetAreaEditor extends FormField
                 }
             }
         }
-        
+
         // remove the fields not saved
         if ($missingWidgets) {
             foreach ($missingWidgets as $removedWidget) {

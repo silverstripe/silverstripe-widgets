@@ -1,4 +1,18 @@
 <?php
+
+namespace SilverStripe\Widgets\Tests;
+
+use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\Widgets\Model\Widget;
+use SilverStripe\Dev\TestOnly;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\Forms\Form;
+use SilverStripe\Widgets\Controllers\WidgetController;
+use SilverStripe\Widgets\Tests\WidgetControllerTest\TestPage;
+use SilverStripe\Widgets\Tests\WidgetControllerTest\TestWidget;
+
 /**
  * @package widgets
  * @subpackage tests
@@ -8,19 +22,19 @@ class WidgetControllerTest extends FunctionalTest
     protected static $fixture_file = 'WidgetControllerTest.yml';
 
     protected $extraDataObjects = array(
-        'WidgetControllerTestPage',
-        'WidgetControllerTest_Widget',
+        TestPage::class,
+        TestWidget::class,
     );
-    
+
     public function testWidgetFormRendering()
     {
-        $page = $this->objFromFixture('WidgetControllerTestPage', 'page1');
-        $page->publish('Stage', 'Live');
-        
-        $widget = $this->objFromFixture('WidgetControllerTest_Widget', 'widget1');
-        
+        $page = $this->objFromFixture(TestPage::class, 'page1');
+        $page->copyVersionToStage('Stage', 'Live');
+
+        $widget = $this->objFromFixture(TestWidget::class, 'widget1');
+
         $response = $this->get($page->URLSegment);
-        
+
         $formAction = sprintf('%s/widget/%d/Form', $page->URLSegment, $widget->ID);
         $this->assertContains(
             $formAction,
@@ -28,16 +42,16 @@ class WidgetControllerTest extends FunctionalTest
             "Widget forms are rendered through WidgetArea templates"
         );
     }
-    
+
     public function testWidgetFormSubmission()
     {
-        $page = $this->objFromFixture('WidgetControllerTestPage', 'page1');
-        $page->publish('Stage', 'Live');
-        
-        $widget = $this->objFromFixture('WidgetControllerTest_Widget', 'widget1');
-        
+        $page = $this->objFromFixture(TestPage::class, 'page1');
+        $page->copyVersionToStage('Stage', 'Live');
+
+        $widget = $this->objFromFixture(TestWidget::class, 'widget1');
+
         $response = $this->get($page->URLSegment);
-        $response = $this->submitForm('Form_Form', null, array('TestValue'=>'Updated'));
+        $response = $this->submitForm('Form_Form', null, array('TestValue' => 'Updated'));
 
         $this->assertContains(
             'TestValue: Updated',
@@ -48,52 +62,6 @@ class WidgetControllerTest extends FunctionalTest
             sprintf('Widget ID: %d', $widget->ID),
             $response->getBody(),
             "Widget form acts on correct widget, as identified in the URL"
-        );
-    }
-}
-
-/**
- * @package widgets
- * @subpackage tests
- */
-class WidgetControllerTest_Widget extends Widget implements TestOnly
-{
-    private static $db = array(
-        'TestValue' => 'Text'
-    );
-}
-
-/**
- * @package widgets
- * @subpackage tests
- */
-class WidgetControllerTest_WidgetController extends WidgetController implements TestOnly
-{
-    private static $allowed_actions = array(
-        'Form'
-    );
-
-    public function Form()
-    {
-        $widgetform = new Form(
-            $this,
-            'Form',
-            new FieldList(
-                new TextField('TestValue')
-            ),
-            new FieldList(
-                new FormAction('doAction')
-            )
-        );
-
-        return $widgetform;
-    }
-    
-    public function doAction($data, $form)
-    {
-        return sprintf('TestValue: %s\nWidget ID: %d',
-            $data['TestValue'],
-            $this->widget->ID
         );
     }
 }
