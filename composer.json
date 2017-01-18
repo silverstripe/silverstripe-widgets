@@ -24,8 +24,10 @@
     "autoload": {
         "psr-4": {
             "SilverStripe\\Widgets\\": "src/",
-            "SilverStripe\\Widgets\\Tests\\": "tests/",
+            "SilverStripe\\Widgets\\Tests\\": "tests/"
         }
     },
-    "license": "BSD-3-Clause"
+    "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

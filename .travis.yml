@@ -11,14 +11,12 @@ php:
   - 7.1
 
 env:
-  - DB=MYSQL CORE_RELEASE=master
+  - DB=MYSQL CORE_RELEASE=4
 
 matrix:
   include:
     - php: 5.6
-      env: DB=MYSQL CORE_RELEASE=master
-    - php: 5.6
-      env: DB=PGSQL CORE_RELEASE=master
+      env: DB=PGSQL CORE_RELEASE=4
 
 before_script:
   - composer self-update || true

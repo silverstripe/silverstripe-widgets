@@ -147,7 +147,7 @@ class Widget extends DataObject
     public function getTitle()
     {
         return $this->getField('Title')
-            ?: _t($this->ClassName() . '.TITLE', $this->config()->title);
+            ?: _t($this->class . '.TITLE', $this->config()->title);
     }
 
     /**
@@ -155,7 +155,7 @@ class Widget extends DataObject
      */
     public function getCMSTitle()
     {
-        return _t($this->ClassName() . '.CMSTITLE', $this->config()->cmsTitle);
+        return _t($this->class . '.CMSTITLE', $this->config()->cmsTitle);
     }
 
     /**
@@ -163,7 +163,7 @@ class Widget extends DataObject
      */
     public function getDescription()
     {
-        return _t($this->ClassName() . '.DESCRIPTION', $this->config()->description);
+        return _t($this->class . '.DESCRIPTION', $this->config()->description);
     }
 
     /**
@@ -231,11 +231,14 @@ class Widget extends DataObject
     }
 
     /**
+     * A fully qualified class name is returned with underscores instead of backslashes so it is HTML safe. Dashes
+     * can't be used as they're handled in the Javascript for other purposes.
+     *
      * @return string
      */
     public function ClassName()
     {
-        return $this->class;
+        return str_replace('\\', '_', $this->class);
     }
 
     /**

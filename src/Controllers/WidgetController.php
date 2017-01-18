@@ -93,36 +93,6 @@ class WidgetController extends Controller
         return false;
     }
 
-    /**
-     * @return Widget
-     */
-    public function getWidget()
-    {
-        return $this->widget;
-    }
-
-    /**
-     * Overloaded from {@link Widget->Content()} to allow for controller / form
-     * linking.
-     *
-     * @return string HTML
-     */
-    public function Content()
-    {
-        return $this->renderWith(array_reverse(ClassInfo::ancestry($this->widget->class)));
-    }
-
-    /**
-     * Overloaded from {@link Widget->WidgetHolder()} to allow for controller/
-     * form linking.
-     *
-     * @return string HTML
-     */
-    public function WidgetHolder()
-    {
-        return $this->renderWith("WidgetHolder");
-    }
-
 	/**
 	 * @return Widget
 	 */
@@ -167,7 +137,8 @@ class WidgetController extends Controller
         $leftandmain = LeftAndMain::create();
         $leftandmain->doInit();
 
-        $className = $this->urlParams['ID'];
+        // Decode if fully qualified - @see Widget::ClassName
+        $className = str_replace('_', '\\', $this->urlParams['ID']);
         if (class_exists('Translatable') && Member::currentUserID()) {
             // set current locale based on logged in user's locale
             $locale = Member::currentUser()->Locale;

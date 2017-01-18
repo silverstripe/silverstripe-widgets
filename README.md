@@ -62,7 +62,7 @@ e.g.
 <?php
 
 use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Widgets\Form\WidgetAreaEditor;
+use SilverStripe\Widgets\Forms\WidgetAreaEditor;
 use SilverStripe\Widgets\Model\WidgetArea;
 
 class Page extends SiteTree
@@ -100,7 +100,7 @@ The class should extend the Widget class, and must specify three config variable
 Flickr). The class may also specify functions to be used in the template like a page type can.
 
 If a Widget has configurable options, then it can specify a number of database fields to store these options in via the
-static $db array, and also specify a getCMSFields function that returns a !FieldList, much the same way as a page type
+static `$db` array, and also specify a `getCMSFields` function that returns a `FieldList`, much the same way as a page type
 does.
 
 An example widget is below:
@@ -271,13 +271,13 @@ templates to `themes/myThemeName/templates/Includes/`
 
 ### Changing the title of your widget
 
-To change the title of your widget, you need to override the Title() method. By default, this simply returns the $title
+To change the title of your widget, you need to override the `getTitle()` method. By default, this simply returns the `$title`
 variable. For example, to set your widgets title to 'Hello World!', you could use:
 
 **widgets_yourWidget/src/YourWidgetWidget.php**
 
 ```php
-public function Title()
+public function getTitle()
 {
     return 'Hello World!';
 }
@@ -285,12 +285,12 @@ public function Title()
 
 but, you can do exactly the same by setting your `$title` variable.
 
-A more common reason for overriding Title() is to allow the title to be set in the CMS. Say you had a text field in your
+A more common reason for overriding `getTitle()` is to allow the title to be set in the CMS. Say you had a text field in your
 widget called WidgetTitle, that you wish to use as your title. If nothing is set, then you'll use your default title.
 This is similar to the RSS Widget in the blog module.
 
 ```php
-public function Title()
+public function getTitle()
 {
     return $this->WidgetTitle ? $this->WidgetTitle : self::$title;
 }

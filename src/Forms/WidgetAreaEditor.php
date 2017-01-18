@@ -142,7 +142,7 @@ class WidgetAreaEditor extends FormField
             throw new Exception("no form");
         }
 
-        $widgetData = $this->getForm()->getRequest()->requestVar(Widget::class);
+        $widgetData = $this->getForm()->getRequest()->requestVar('Widget');
         if ($widgetData && isset($widgetData[$this->getName()])) {
             $widgetAreaData = $widgetData[$this->getName()];
 
@@ -180,7 +180,6 @@ class WidgetAreaEditor extends FormField
                     if ($widget->ParentID == 0) {
                         $widget->ParentID = $record->$name()->ID;
                     }
-
                     $widget->populateFromPostData($newWidgetData);
                 }
             }

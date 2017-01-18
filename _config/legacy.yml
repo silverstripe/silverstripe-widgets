@@ -1,0 +1,7 @@
+---
+Name: widgetslegacymapping
+---
+SilverStripe\ORM\DatabaseAdmin:
+  classname_value_remapping:
+    Widget: SilverStripe\Widgets\Model\Widget
+    WidgetArea: SilverStripe\Widgets\Model\WidgetArea

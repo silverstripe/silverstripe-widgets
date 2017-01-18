@@ -25,7 +25,7 @@ can enable through your `config.yml`:
 ```yaml
 Page:
   extensions:
-    - WidgetPageExtension
+    - SilverStripe\Widgets\Extensions\WidgetPageExtension
 ```
 
 Run a `dev/build`, and adjust your templates to include the resulting sidebar view.
@@ -63,7 +63,7 @@ e.g.
 <?php
 
 use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Widgets\Form\WidgetAreaEditor;
+use SilverStripe\Widgets\Forms\WidgetAreaEditor;
 use SilverStripe\Widgets\Model\WidgetArea;
 
 class Page extends SiteTree
@@ -101,7 +101,7 @@ The class should extend the Widget class, and must specify three config variable
 Flickr). The class may also specify functions to be used in the template like a page type can.
 
 If a Widget has configurable options, then it can specify a number of database fields to store these options in via the
-static $db array, and also specify a getCMSFields function that returns a !FieldList, much the same way as a page type
+static `$db` array, and also specify a `getCMSFields` function that returns a `FieldList`, much the same way as a page type
 does.
 
 An example widget is below:

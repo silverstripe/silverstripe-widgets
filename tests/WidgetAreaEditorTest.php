@@ -41,7 +41,7 @@ class WidgetAreaEditorTest extends SapphireTest
     public function testFillingOneArea()
     {
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'BottomBar' => array(
                     'new-1' => array(
                         'Title' => 'MyTestWidget',
@@ -78,7 +78,7 @@ class WidgetAreaEditorTest extends SapphireTest
     public function testFillingTwoAreas()
     {
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                     'new-1' => array(
                         'Title' => 'MyTestWidgetSide',
@@ -128,7 +128,7 @@ class WidgetAreaEditorTest extends SapphireTest
     {
         // First get some widgets in there
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                     'new-1' => array(
                         'Title' => 'MyTestWidgetSide',
@@ -168,7 +168,7 @@ class WidgetAreaEditorTest extends SapphireTest
 
         // Save again (after removing the SideBar's widget)
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                 ),
                 'BottomBar' => array(
@@ -200,7 +200,7 @@ class WidgetAreaEditorTest extends SapphireTest
     {
         // First get some widgets in there
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                     'new-1' => array(
                         'Title' => 'MyTestWidgetSide',
@@ -240,7 +240,7 @@ class WidgetAreaEditorTest extends SapphireTest
 
         // Save again (after removing the SideBar's widget)
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                 ),
                 'BottomBar' => array(
@@ -266,7 +266,7 @@ class WidgetAreaEditorTest extends SapphireTest
     {
         // First get some widgets in there
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                     'new-1' => array(
                         'Title' => 'MyTestWidgetSide',
@@ -306,7 +306,7 @@ class WidgetAreaEditorTest extends SapphireTest
 
         // Save again (after removing the SideBar's widget)
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                     $sideWidgets[0]->ID => array(
                         'Title' => 'MyTestWidgetSide-edited',
@@ -344,7 +344,7 @@ class WidgetAreaEditorTest extends SapphireTest
     {
         // First get some widgets in there
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                     'new-1' => array(
                         'Title' => 'MyTestWidgetSide',
@@ -384,7 +384,7 @@ class WidgetAreaEditorTest extends SapphireTest
 
         // Save again (after removing the SideBar's widget)
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                     $sideWidgets[0]->ID => array(
                         'Title' => 'MyTestWidgetSide-edited',
@@ -422,7 +422,7 @@ class WidgetAreaEditorTest extends SapphireTest
     {
         // First get some widgets in there
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                     'new-1' => array(
                         'Title' => 'MyTestWidgetSide',
@@ -463,7 +463,7 @@ class WidgetAreaEditorTest extends SapphireTest
 
         // Save again (after removing the SideBar's widget)
         $data = array(
-            Widget::class => array(
+            'Widget' => array(
                 'SideBar' => array(
                     $sideWidgets[0]->ID => array(
                         'Title' => 'MyTestWidgetSide-edited',
