@@ -1,6 +1,9 @@
 # Widgets Module
 
-[![Build Status](https://secure.travis-ci.org/silverstripe/silverstripe-widgets.png?branch=master)](http://travis-ci.org/silverstripe/silverstripe-widgets)
+[![Build Status](http://img.shields.io/travis/silverstripe/silverstripe-widgets.svg?style=flat-square)](https://travis-ci.org/silverstripe/silverstripe-widgets)
+[![Code Quality](http://img.shields.io/scrutinizer/g/silverstripe/silverstripe-widgets.svg?style=flat-square)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-widgets)
+[![Version](http://img.shields.io/packagist/v/silverstripe/widgets.svg?style=flat-square)](https://packagist.org/packages/silverstripe/widgets)
+[![License](http://img.shields.io/packagist/l/silverstripe/widgets.svg?style=flat-square)](LICENSE.md)
 
 ## Overview
 
