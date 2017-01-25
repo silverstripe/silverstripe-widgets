@@ -18,7 +18,6 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "1.2.x-dev"
 		}
 	},
 	"license": "BSD-3-Clause"
