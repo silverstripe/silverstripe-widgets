@@ -1,6 +1,6 @@
 fa_IR:
   Widget:
-    PLURALNAME: ویجت ها
+    PLURALNAME: 'ویجت ها'
     SINGULARNAME: ویجت
   WidgetArea:
     PLURALNAME: 'محیط ویجت ها'

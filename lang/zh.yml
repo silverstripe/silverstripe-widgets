@@ -1,7 +1,7 @@
 zh:
   Widget:
-    PLURALNAME: 小工具
-    SINGULARNAME: 小工具
+    PLURALNAME: '小工具'
+    SINGULARNAME: '小工具'
   WidgetArea:
     PLURALNAME: '小工具区域'
     SINGULARNAME: '小工具区域'
@@ -14,4 +14,4 @@ zh:
   WidgetDescription_ss:
     CLICKTOADDWIDGET: '点击添加该小工具'
   WidgetEditor_ss:
-    DELETE: 删除
+    DELETE: '删除'

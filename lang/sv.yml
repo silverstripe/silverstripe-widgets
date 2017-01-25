@@ -3,8 +3,8 @@ sv:
     PLURALNAME: Widgets
     SINGULARNAME: Widget
   WidgetArea:
-    PLURALNAME: 'Widgetområden'
-    SINGULARNAME: 'Widgetområde'
+    PLURALNAME: Widgetområden
+    SINGULARNAME: Widgetområde
   WidgetAreaEditor_ss:
     AVAILABLE: 'Tillgängliga widgets'
     AVAILWIDGETS: 'Klicka på en widget nedan för att använda den på sidan.'
