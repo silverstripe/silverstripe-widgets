@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Widgets let CMS authors drag and drop small pieces of functionality into  
+ * Widgets let CMS authors drag and drop small pieces of functionality into
  * defined areas of their websites.
- * 
+ *
  * You can use forms in widgets by implementing a {@link WidgetController}.
- * 
+ *
  * See {@link Widget_Controller} for more information.
- * 
+ *
  * @package widgets
  */
 class Widget extends DataObject {
@@ -35,7 +35,7 @@ class Widget extends DataObject {
 		'CMSTitle' => 'Text',
 		'Description' => 'Text',
 	);
-	
+
 	private static $only_available_in = array();
 
 	/**
@@ -81,10 +81,10 @@ class Widget extends DataObject {
 		parent::populateDefaults();
 		$this->setField('Title', $this->getTitle());
 	}
-	
+
 	/**
 	 * Note: Overloaded in {@link WidgetController}.
-	 * 
+	 *
 	 * @return string HTML
 	 */
 	public function WidgetHolder() {
@@ -101,16 +101,16 @@ class Widget extends DataObject {
 		}
 		return $this->Content();
 	}
-	
+
 	/**
-	 * Renders the widget content in a custom template with the same name as the 
+	 * Renders the widget content in a custom template with the same name as the
 	 * current class. This should be the main point of output customization.
-	 * 
-	 * Invoked from within WidgetHolder.ss, which contains the "framing" around 
+	 *
+	 * Invoked from within WidgetHolder.ss, which contains the "framing" around
 	 * the custom content, like a title.
-	 * 
+	 *
 	 * Note: Overloaded in {@link WidgetController}.
-	 * 
+	 *
 	 * @return string HTML
 	 */
 	public function Content() {
@@ -169,16 +169,16 @@ class Widget extends DataObject {
 	 * @return string - HTML
 	 */
 	public function DescriptionSegment() {
-		return $this->renderWith('WidgetDescription'); 
+		return $this->renderWith('WidgetDescription');
 	}
-	
+
 	/**
 	 * @see WidgetController::editablesegment()
 	 *
 	 * @return string - HTML
 	 */
 	public function EditableSegment() {
-		return $this->renderWith('WidgetEditor'); 
+		return $this->renderWith('WidgetEditor');
 	}
 
 	/**
@@ -192,7 +192,7 @@ class Widget extends DataObject {
 		$this->extend('updateCMSFields', $fields);
 		return $fields;
 	}
-	
+
 	/**
 	 * @return FieldList
 	 */
@@ -240,13 +240,13 @@ class Widget extends DataObject {
 
 		foreach(array_reverse(ClassInfo::ancestry($this->class)) as $widgetClass) {
 			$controllerClass = "{$widgetClass}_Controller";
-			
+
 			if(class_exists($controllerClass)) {
 				break;
 			}
 
 			$controllerClass = "{$widgetClass}Controller";
-		
+
 			if(class_exists($controllerClass)) {
 				break;
 			}
@@ -260,7 +260,7 @@ class Widget extends DataObject {
 
 		return $this->controller;
 	}
-	
+
 	/**
 	 * @param array $data
 	 */
@@ -277,7 +277,7 @@ class Widget extends DataObject {
 				}
 			}
 		}
-		
+
 		//Look for checkbox fields not present in the data
 		foreach($fields as $field) {
 			if($field instanceof CheckboxField && !array_key_exists($field->getName(), $data)) {
@@ -285,12 +285,12 @@ class Widget extends DataObject {
 				$field->saveInto($this);
 			}
 		}
-		
+
 		$this->write();
-		
+
 		// The field must be written to ensure a unique ID.
 		$this->Name = $this->class.$this->ID;
 		$this->write();
-	}	
+	}
 }
 
