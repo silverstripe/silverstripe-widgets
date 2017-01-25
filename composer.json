@@ -10,15 +10,12 @@
 		}
 	],
 	"require": {
-		"silverstripe/framework": ">=3.2",
-		"silverstripe/cms": ">=3.2"
-	},
-	"require-dev": {
-		"phpunit/PHPUnit": "~3.7@stable"
+		"silverstripe/framework": "^4",
+		"silverstripe/cms": "^4"
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "1.2.x-dev"
+			"dev-master": "2.0.x-dev"
 		}
 	},
 	"license": "BSD-3-Clause"
