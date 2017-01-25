@@ -3,8 +3,8 @@ de:
     PLURALNAME: Widgets
     SINGULARNAME: Widget
   WidgetArea:
-    PLURALNAME: 'Widgetbereiche'
-    SINGULARNAME: 'Widgetbereich'
+    PLURALNAME: Widgetbereiche
+    SINGULARNAME: Widgetbereich
   WidgetAreaEditor_ss:
     AVAILABLE: 'Vorhandene Widgets'
     AVAILWIDGETS: 'Klicke den Widget Titel, um es zu benutzen.'

@@ -1,7 +1,7 @@
 ar:
   Widget:
-    PLURALNAME: تطبيقات مصغرة
-    SINGULARNAME: تطبيق مصغر
+    PLURALNAME: 'تطبيقات مصغرة'
+    SINGULARNAME: 'تطبيق مصغر'
   WidgetArea:
     PLURALNAME: 'مساحات التطبيقات المصغرة'
     SINGULARNAME: 'مساحة التطبيقات المصغرة'
@@ -14,4 +14,4 @@ ar:
   WidgetDescription_ss:
     CLICKTOADDWIDGET: 'اضغط لإضافة هذا التطبيق المصغر'
   WidgetEditor_ss:
-    DELETE: مسح
+    DELETE: 'مسح'
