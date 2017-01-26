@@ -1,8 +1,8 @@
 ---
 Name: contentcontrollerurlhandler
 ---
-ContentController:
+SilverStripe\CMS\Controllers\ContentController:
   extensions:
-    - WidgetContentControllerExtension
+    - SilverStripe\Widgets\Controllers\WidgetContentControllerExtension
   url_handlers:
     'widget/$ID!': 'handleWidget'

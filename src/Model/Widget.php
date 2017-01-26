@@ -1,12 +1,24 @@
 <?php
 
+namespace SilverStripe\Widgets\Model;
+
+use Exception;
+use SilverStripe\Core\ClassInfo;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\HiddenField;
+use SilverStripe\Forms\TextField;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Widgets\Model\WidgetArea;
+
 /**
  * Widgets let CMS authors drag and drop small pieces of functionality into
  * defined areas of their websites.
  *
  * You can use forms in widgets by implementing a {@link WidgetController}.
  *
- * See {@link Widget_Controller} for more information.
+ * See {@link WidgetController} for more information.
  *
  * @package widgets
  */
@@ -42,7 +54,7 @@ class Widget extends DataObject
      * @var array
      */
     private static $has_one = array(
-        "Parent" => "WidgetArea",
+        "Parent" => WidgetArea::class,
     );
 
     /**
@@ -71,6 +83,11 @@ class Widget extends DataObject
     private static $summary_fields = array(
         'CMSTitle' => 'Title'
     );
+
+    /**
+     * @var string
+     */
+    private static $table_name = 'Widget';
 
     /**
      * @var WidgetController
@@ -123,15 +140,6 @@ class Widget extends DataObject
     }
 
     /**
-     * @return string
-     * @deprecated
-     */
-    public function Title()
-    {
-        return $this->getTitle();
-    }
-
-    /**
      * Get the frontend title for this widget
      *
      * @return string
@@ -144,28 +152,10 @@ class Widget extends DataObject
 
     /**
      * @return string
-     * @deprecated
-     */
-    public function CMSTitle()
-    {
-        return $this->getCMSTitle();
-    }
-
-    /**
-     * @return string
      */
     public function getCMSTitle()
     {
         return _t($this->class . '.CMSTITLE', $this->config()->cmsTitle);
-    }
-
-    /**
-     * @return string
-     * @deprecated
-     */
-    public function Description()
-    {
-        return $this->getDescription();
     }
 
     /**
@@ -217,8 +207,13 @@ class Widget extends DataObject
         $outputFields = new FieldList();
 
         $this->FormID = $this->ID ?: uniqid();
-        $outputFields->push(HiddenField::create('Widget[' . $this->FormID . '][FormID]', 'FormID',
-            $this->FormID)->addExtraClass('formid'));
+        $outputFields->push(
+            HiddenField::create(
+                'Widget[' . $this->FormID . '][FormID]',
+                'FormID',
+                $this->FormID
+            )->addExtraClass('formid')
+        );
 
         foreach ($fields as $field) {
             $name = $field->getName();
@@ -236,11 +231,14 @@ class Widget extends DataObject
     }
 
     /**
+     * A fully qualified class name is returned with underscores instead of backslashes so it is HTML safe. Dashes
+     * can't be used as they're handled in the Javascript for other purposes.
+     *
      * @return string
      */
     public function ClassName()
     {
-        return $this->class;
+        return str_replace('\\', '_', $this->class);
     }
 
     /**
@@ -263,14 +261,7 @@ class Widget extends DataObject
         }
 
         foreach (array_reverse(ClassInfo::ancestry($this->class)) as $widgetClass) {
-            $controllerClass = "{$widgetClass}_Controller";
-
-            if (class_exists($controllerClass)) {
-                break;
-            }
-
             $controllerClass = "{$widgetClass}Controller";
-
             if (class_exists($controllerClass)) {
                 break;
             }

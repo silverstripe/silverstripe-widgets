@@ -5,8 +5,8 @@ the sidebar of your website. To check out a what a [Widget](http://silverstripe.
 [demo site](http://demo.silverstripe.org/)
 [![Build Status](http://img.shields.io/travis/silverstripe/silverstripe-widgets.svg?style=flat-square)](https://travis-ci.org/silverstripe/silverstripe-widgets)
 [![Code Quality](http://img.shields.io/scrutinizer/g/silverstripe/silverstripe-widgets.svg?style=flat-square)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-widgets)
-[![Version](http://img.shields.io/packagist/v/silverstripe/silverstripe-widgets.svg?style=flat-square)](https://packagist.org/packages/silverstripe/silverstripe-widgets)
-[![License](http://img.shields.io/packagist/l/silverstripe/silverstripe-widgets.svg?style=flat-square)](LICENSE.md)
+[![Version](http://img.shields.io/packagist/v/silverstripe/widgets.svg?style=flat-square)](https://packagist.org/packages/silverstripe/widgets)
+[![License](http://img.shields.io/packagist/l/silverstripe/widgets.svg?style=flat-square)](LICENSE.md)
 
 ## Share Links
 

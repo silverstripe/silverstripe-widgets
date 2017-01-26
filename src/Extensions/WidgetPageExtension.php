@@ -1,4 +1,13 @@
 <?php
+
+namespace SilverStripe\Widgets\Extensions;
+
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\Widgets\Forms\WidgetAreaEditor;
+use SilverStripe\Widgets\Model\WidgetArea;
+
 /**
  * Adds a single {@link WidgetArea} called "SideBar" to {@link Page} classes.
  * Adjust your templates to render the resulting
@@ -19,7 +28,7 @@ class WidgetPageExtension extends DataExtension
     );
 
     private static $has_one = array(
-        'SideBar' => 'WidgetArea'
+        'SideBar' => WidgetArea::class
     );
 
     public function updateCMSFields(FieldList $fields)
@@ -39,8 +48,7 @@ class WidgetPageExtension extends DataExtension
      */
     public function SideBarView()
     {
-        if (
-            $this->owner->InheritSideBar
+        if ($this->owner->InheritSideBar
             && ($parent = $this->owner->getParent())
             && $parent->hasMethod('SideBarView')
         ) {
@@ -49,7 +57,7 @@ class WidgetPageExtension extends DataExtension
             return $this->owner->SideBar();
         }
     }
-    
+
     public function onBeforeDuplicate($duplicatePage)
     {
         if ($this->owner->hasField('SideBarID')) {

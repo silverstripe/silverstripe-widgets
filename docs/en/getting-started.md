@@ -12,7 +12,9 @@ You'll also need to run `dev/build`.
 
 Install the module through [composer](http://getcomposer.org):
 
-	composer require silverstripe/widgets
+```sh
+$ composer require silverstripe/widgets
+```
 
 Widgets are essentially database relations to other models, mostly page types.
 By default, they're not added to any of your own models. The easiest and most common
@@ -20,10 +22,11 @@ way to get started would be to create a single collection of widgets under the
 name "SideBar" on your `Page` class. This is handled by an extension which you
 can enable through your `config.yml`:
 
-	:::yml
-	Page:
-	  extensions:
-	    - WidgetPageExtension
+```yaml
+Page:
+  extensions:
+    - SilverStripe\Widgets\Extensions\WidgetPageExtension
+```
 
 Run a `dev/build`, and adjust your templates to include the resulting sidebar view.
 The placeholder is called `$SideBarView`, and loops through all widgets assigned
@@ -31,7 +34,7 @@ to the current page.
 
 Alternatively, you can add one or more widget collections to your own page types.
 Here's an example on how to just add widgets to a `MyPage` type, and call it
-`MyWidgetArea` instead.
+`MyWidgetArea` instead. Please ensure you add the correct namespaces for your module.
 
 ### Installing a widget
 
@@ -56,18 +59,28 @@ e.g.
 
 **mysite/code/Page.php**
 
-	class Page extends SiteTree {
-	...
-	    private static $has_one = array(
-				"MyWidgetArea" => "WidgetArea",
-	    );
+```php
+<?php
 
-	  public function getCMSFields() {
-			$fields = parent::getCMSFields();
-			$fields->addFieldToTab("Root.Widgets", new WidgetAreaEditor("MyWidgetArea"));
-			return $fields;
-	  }
-	}
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Widgets\Forms\WidgetAreaEditor;
+use SilverStripe\Widgets\Model\WidgetArea;
+
+class Page extends SiteTree
+{
+    // ...
+    private static $has_one = array(
+        'MyWidgetArea' => WidgetArea::class
+    );
+
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+        $fields->addFieldToTab('Root.Widgets', new WidgetAreaEditor('MyWidgetArea'));
+        return $fields;
+    }
+}
+```
 
 In this case, you need to alter your templates to include the `$MyWidgetArea` placeholder.
 
@@ -88,73 +101,93 @@ The class should extend the Widget class, and must specify three config variable
 Flickr). The class may also specify functions to be used in the template like a page type can.
 
 If a Widget has configurable options, then it can specify a number of database fields to store these options in via the
-static $db array, and also specify a getCMSFields function that returns a !FieldList, much the same way as a page type
+static `$db` array, and also specify a `getCMSFields` function that returns a `FieldList`, much the same way as a page type
 does.
 
 An example widget is below:
 
 **FlickrWidget.php**
 
-	:::php
-	<?php
-	class FlickrWidget extends Widget {
-		private static $db = array(
-			"User" => "Varchar",
-			"Photoset" => "Varchar",
-			"Tags" => "Varchar",
-			"NumberToShow" => "Int"
-		);
+```php
+<?php
 
+namespace Yourname\MyWidget;
 
-		private static $defaults = array(
-			"NumberToShow" => 8
-		);
+use FlickrService;
+use SilverStripe\Widgets\Model\Widget;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\NumericField;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\View\ArrayData;
+use SilverStripe\View\Requirements;
 
-		private static $title = "Photos";
-		private static $cmsTitle = "Flickr Photos";
-		private static $description = "Shows flickr photos.";
+class FlickrWidget extends Widget
+{
+    private static $db = array(
+        'User' => 'Varchar',
+        'Photoset' => 'Varchar',
+        'Tags' => 'Varchar',
+        'NumberToShow' => 'Int'
+    );
 
-		public function Photos() {
-			Requirements::javascript(THIRDPARTY_DIR . "/prototype/prototype.js");
-			Requirements::javascript(THIRDPARTY_DIR . "/scriptaculous/effects.js");
-			Requirements::javascript("mashups/javascript/lightbox.js");
-			Requirements::css("mashups/css/lightbox.css");
+    private static $defaults = array(
+        'NumberToShow' => 8
+    );
 
-			$flickr = new FlickrService();
-			if($this->Photoset == "") {
-				$photos = $flickr->getPhotos($this->Tags, $this->User, $this->NumberToShow, 1);
-			} else {
-				$photos = $flickr->getPhotoSet($this->Photoset, $this->User, $this->NumberToShow, 1);
-			}
+    private static $title = 'Photos';
+    private static $cmsTitle = 'Flickr Photos';
+    private static $description = 'Shows flickr photos.';
 
-			$output = new ArrayList();
-			foreach($photos->PhotoItems as $photo) {
-				$output->push(new ArrayData(array(
-					"Title" => $photo->title,
-					"Link" => "http://farm1.static.flickr.com/" . $photo->image_path .".jpg",
-					"Image" => "http://farm1.static.flickr.com/" .$photo->image_path. "_s.jpg"
-				)));
-			}
-			return $output;
-		}
+    public function Photos()
+    {
+        // You'll need to install these yourself
+        Requirements::javascript(THIRDPARTY_DIR . '/prototype/prototype.js');
+        Requirements::javascript(THIRDPARTY_DIR . '/scriptaculous/effects.js');
+        Requirements::javascript('mashups/javascript/lightbox.js');
+        Requirements::css('mashups/css/lightbox.css');
 
-		public function getCMSFields() {
-			return new FieldList(
-				new TextField("User", "User"),
-				new TextField("PhotoSet", "Photo Set"),
-				new TextField("Tags", "Tags"),
-				new NumericField("NumberToShow", "Number to Show")
-			);
-		}
-	}
+        $flickr = new FlickrService();
+        if ($this->Photoset == '') {
+            $photos = $flickr->getPhotos($this->Tags, $this->User, $this->NumberToShow, 1);
+        } else {
+            $photos = $flickr->getPhotoSet($this->Photoset, $this->User, $this->NumberToShow, 1);
+        }
 
+        $output = new ArrayList();
+        foreach ($photos->PhotoItems as $photo) {
+            $output->push(
+                new ArrayData(
+                    array(
+                        'Title' => $photo->title,
+                        'Link'  => 'http://farm1.static.flickr.com/' . $photo->image_path .'.jpg',
+                        'Image' => 'http://farm1.static.flickr.com/' .$photo->image_path. '_s.jpg'
+                    )
+                )
+            );
+        }
+        return $output;
+    }
+
+    public function getCMSFields()
+    {
+        return new FieldList(
+            new TextField('User', 'User'),
+            new TextField('PhotoSet', 'Photo Set'),
+            new TextField('Tags', 'Tags'),
+            new NumericField('NumberToShow', 'Number to Show')
+        );
+    }
+}
+```
 
 **FlickrWidget.ss**
 
-	:::ss
-	<% control Photos %>
-		<a href="$Link" rel="lightbox" title="$Title"><img src="$Image" alt="$Title" /></a>
-	<% end_control %>
+```
+<% control Photos %>
+    <a href="$Link" rel="lightbox" title="$Title"><img src="$Image" alt="$Title" /></a>
+<% end_control %>
+```
 
 ## Limiting Allowed Widgets for a Pagetype
 
@@ -162,8 +195,15 @@ You can lock down a particular `WidgetAreaEditor` to only allow adding certain w
 
 **GreatPage.php**
 
-    :::php
-    $fields->addFieldToTab(
-        'Root.Widgets',
-        new WidgetAreaEditor('PhenomenalWidgetArea', ['ParticularlyEpicWidget', 'LessGreatWidget'])
-    );
+```php
+$fields->addFieldToTab(
+    'Root.Widgets',
+    new WidgetAreaEditor(
+        'PhenomenalWidgetArea',
+        [
+            'Fully\\Qualified\\ParticularlyEpicWidget',
+            'Yourname\\MyModule\\LessGreatWidget'
+        ]
+    )
+);
+```

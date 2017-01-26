@@ -1,22 +1,33 @@
 {
-	"name": "silverstripe/widgets",
-	"description": "Widgets are small pieces of functionality such as showing the latest Comments or Flickr Photos. They normally display on the sidebar of your website.",
-	"type": "silverstripe-module",
-	"keywords": ["silverstripe", "widgets", "blog"],
-	"authors": [
-		{
-			"name": "Ingo Schommer",
-			"email": "ingo@silverstripe.com"
-		}
-	],
-	"require": {
-		"silverstripe/framework": "^4",
-		"silverstripe/cms": "^4"
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "2.0.x-dev"
-		}
-	},
-	"license": "BSD-3-Clause"
+    "name": "silverstripe/widgets",
+    "description": "Widgets are small pieces of functionality such as showing the latest Comments or Flickr Photos. They normally display on the sidebar of your website.",
+    "type": "silverstripe-module",
+    "keywords": ["silverstripe", "widgets", "blog"],
+    "authors": [
+        {
+            "name": "Ingo Schommer",
+            "email": "ingo@silverstripe.com"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": "^4.0@dev",
+        "silverstripe/cms": "^4.0@dev"
+    },
+    "require-dev": {
+        "phpunit/PHPUnit": "~4.8"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SilverStripe\\Widgets\\": "src/",
+            "SilverStripe\\Widgets\\Tests\\": "tests/"
+        }
+    },
+    "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

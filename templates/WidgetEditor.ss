@@ -10,5 +10,5 @@
 	<% end_if %>
 	<input type="hidden" name="$Name[Type]" value="$ClassName" />
 	<input type="hidden" name="$Name[Sort]" value="$Sort" />
-	<p class="deleteWidget"><span class="widgetDelete ss-ui-button"><% _t('WidgetEditor_ss.DELETE', 'Delete') %></span></p>
+	<p class="deleteWidget"><span class="widgetDelete btn btn-danger"><% _t('WidgetEditor_ss.DELETE', 'Delete') %></span></p>
 </div>
