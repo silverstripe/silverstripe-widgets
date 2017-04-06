@@ -26,7 +26,7 @@ class WidgetPageExtension extends DataExtension
     {
         $fields->addFieldToTab(
             "Root.Widgets",
-            new CheckboxField("InheritSideBar", 'Inherit Sidebar From Parent')
+            new CheckboxField("InheritSideBar", _t('WidgetPageExtension.INHERITSIDEBAR', 'Inherit Sidebar From Parent'))
         );
         $fields->addFieldToTab(
             "Root.Widgets",
