@@ -15,3 +15,5 @@ en:
     CLICKTOADDWIDGET: 'Click to add this widget'
   WidgetEditor_ss:
     DELETE: Delete
+  WidgetPageExtension:
+    INHERITSIDEBAR: 'Inherit Sidebar From Parent'
