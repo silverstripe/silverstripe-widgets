@@ -5,7 +5,7 @@
 				var parentName=$(this).attr('name');
 				this.rewriteWidgetAreaAttributes();
 
-				var availableWidgets=$('#availableWidgets-'+$(this).attr('name')).children().each(function() {
+				var availableWidgets=$('#availableWidgets-'+parentName).children().each(function() {
 					// Don't run on comments, whitespace, etc
 					if($(this)[0].nodeType==1) {
 						// Gotta change their ID's because otherwise we get clashes between two tabs
