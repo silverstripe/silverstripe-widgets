@@ -2,6 +2,7 @@
 
 [![Build Status](http://img.shields.io/travis/silverstripe/silverstripe-widgets.svg?style=flat-square)](https://travis-ci.org/silverstripe/silverstripe-widgets)
 [![Code Quality](http://img.shields.io/scrutinizer/g/silverstripe/silverstripe-widgets.svg?style=flat-square)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-widgets)
+[![Code Coverage](https://codecov.io/gh/silverstripe/silverstripe-widgets/branch/master/graph/badge.svg)](https://codecov.io/gh/silverstripe/silverstripe-widgets)
 [![Version](http://img.shields.io/packagist/v/silverstripe/widgets.svg?style=flat-square)](https://packagist.org/packages/silverstripe/widgets)
 [![License](http://img.shields.io/packagist/l/silverstripe/widgets.svg?style=flat-square)](LICENSE.md)
 

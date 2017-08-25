@@ -142,7 +142,7 @@ class WidgetAreaEditor extends FormField
             throw new Exception("no form");
         }
 
-        $widgetData = $this->getForm()->getRequest()->requestVar('Widget');
+        $widgetData = $this->getForm()->getController()->getRequest()->requestVar('Widget');
         if ($widgetData && isset($widgetData[$this->getName()])) {
             $widgetAreaData = $widgetData[$this->getName()];
 

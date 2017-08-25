@@ -21,10 +21,10 @@ class WidgetControllerTest extends FunctionalTest
 {
     protected static $fixture_file = 'WidgetControllerTest.yml';
 
-    protected $extraDataObjects = array(
+    protected static $extra_dataobjects = [
         TestPage::class,
         TestWidget::class,
-    );
+    ];
 
     public function testWidgetFormRendering()
     {

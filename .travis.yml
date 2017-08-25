@@ -18,13 +18,12 @@ before_script:
   - phpenv config-rm xdebug.ini
 
   - composer install --prefer-dist
-  - composer require --prefer-dist --no-update silverstripe/framework:4.0.x-dev
+  - composer require --prefer-dist --no-update silverstripe/recipe-cms:1.0.x-dev
+  - if [[ $DB == PGSQL ]]; then composer require --prefer-dist --no-update silverstripe/postgresql:2.0.x-dev; fi
   - composer update
 
-  - if [[ $DB == PGSQL ]]; then composer require silverstripe/postgresql:2.0.x-dev --prefer-dist; fi
-
 script:
-  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit tests/; fi
+  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit; fi
   - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.xml; fi
   - if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs --standard=framework/phpcs.xml.dist src/ tests/ ; fi
 

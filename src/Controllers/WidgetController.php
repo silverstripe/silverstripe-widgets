@@ -109,7 +109,7 @@ class WidgetController extends Controller
      */
     public function Content()
     {
-        return $this->renderWith(array_reverse(ClassInfo::ancestry($this->widget->class)));
+        return $this->renderWith(array_reverse(ClassInfo::ancestry(get_class($this->widget))));
     }
 
     /**

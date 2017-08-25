@@ -1,10 +1,10 @@
 SilverStripe\Widgets\Tests\WidgetControllerTest\TestWidget:
-   widget1:
-      Title: Widget 1
+  widget1:
+    Title: Widget 1
 SilverStripe\Widgets\Model\WidgetArea:
-   area1:
-      Widgets: =>SilverStripe\Widgets\Tests\WidgetControllerTest\TestWidget.widget1
+  area1:
+    Widgets: =>SilverStripe\Widgets\Tests\WidgetControllerTest\TestWidget.widget1
 SilverStripe\Widgets\Tests\WidgetControllerTest\TestPage:
-   page1:
-      Title: Page1
-      WidgetControllerTestSidebar: =>SilverStripe\Widgets\Model\WidgetArea.area1
+  page1:
+    Title: Page1
+    WidgetControllerTestSidebar: =>SilverStripe\Widgets\Model\WidgetArea.area1

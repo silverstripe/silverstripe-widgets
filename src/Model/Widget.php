@@ -136,7 +136,7 @@ class Widget extends DataObject
      */
     public function Content()
     {
-        return $this->renderWith(array_reverse(ClassInfo::ancestry($this->class)));
+        return $this->renderWith(array_reverse(ClassInfo::ancestry(__CLASS__)));
     }
 
     /**
@@ -147,7 +147,7 @@ class Widget extends DataObject
     public function getTitle()
     {
         return $this->getField('Title')
-            ?: _t($this->class . '.TITLE', $this->config()->title);
+            ?: _t(__CLASS__ . '.TITLE', $this->config()->get('title'));
     }
 
     /**
@@ -155,7 +155,7 @@ class Widget extends DataObject
      */
     public function getCMSTitle()
     {
-        return _t($this->class . '.CMSTITLE', $this->config()->cmsTitle);
+        return _t(__CLASS__ . '.CMSTITLE', $this->config()->get('cmsTitle'));
     }
 
     /**
@@ -163,7 +163,7 @@ class Widget extends DataObject
      */
     public function getDescription()
     {
-        return _t($this->class . '.DESCRIPTION', $this->config()->description);
+        return _t(__CLASS__ . '.DESCRIPTION', $this->config()->get('description'));
     }
 
     /**
@@ -238,7 +238,7 @@ class Widget extends DataObject
      */
     public function ClassName()
     {
-        return str_replace('\\', '_', $this->class);
+        return str_replace('\\', '_', get_class($this));
     }
 
     /**
@@ -260,7 +260,7 @@ class Widget extends DataObject
             return $this->controller;
         }
 
-        foreach (array_reverse(ClassInfo::ancestry($this->class)) as $widgetClass) {
+        foreach (array_reverse(ClassInfo::ancestry(get_class($this))) as $widgetClass) {
             $controllerClass = "{$widgetClass}Controller";
             if (class_exists($controllerClass)) {
                 break;
@@ -268,7 +268,7 @@ class Widget extends DataObject
         }
 
         if (!class_exists($controllerClass)) {
-            throw new Exception("Could not find controller class for $this->classname");
+            throw new Exception("Could not find controller class for get_class($this)name");
         }
 
         $this->controller = Injector::inst()->create($controllerClass, $this);
@@ -304,7 +304,7 @@ class Widget extends DataObject
         $this->write();
 
         // The field must be written to ensure a unique ID.
-        $this->Name = $this->class . $this->ID;
+        $this->Name = get_class($this) . $this->ID;
         $this->write();
     }
 }

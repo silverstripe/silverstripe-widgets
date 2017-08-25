@@ -11,7 +11,7 @@ use SilverStripe\Widgets\Model\Widget;
  */
 class TestWidget extends Widget implements TestOnly
 {
-    private static $table_name = 'TestWidgetB';
+    private static $table_name = 'WidgetControllerTest_TestWidget';
 
     private static $db = array(
         'TestValue' => 'Text'
