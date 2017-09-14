@@ -40,8 +40,9 @@ class WidgetAreaEditor extends FormField
      */
     public function FieldHolder($properties = array())
     {
-        Requirements::css('widgets/css/WidgetAreaEditor.css');
-        Requirements::javascript('widgets/javascript/WidgetAreaEditor.js');
+        $module = ModuleLoader::getModule('silverstripe/widgets');
+        Requirements::css($module->getRelativeResourcePath('css/WidgetAreaEditor.css'));
+        Requirements::javascript($module->getRelativeResourcePath('javascript/WidgetAreaEditor.js'));
 
         return $this->renderWith(WidgetAreaEditor::class);
     }
@@ -142,7 +143,7 @@ class WidgetAreaEditor extends FormField
             throw new Exception("no form");
         }
 
-        $widgetData = $this->getForm()->getRequest()->requestVar('Widget');
+        $widgetData = $this->getForm()->getController()->getRequest()->requestVar('Widget');
         if ($widgetData && isset($widgetData[$this->getName()])) {
             $widgetAreaData = $widgetData[$this->getName()];
 

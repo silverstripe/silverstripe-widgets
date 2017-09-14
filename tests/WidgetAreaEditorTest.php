@@ -27,16 +27,16 @@ class WidgetAreaEditorTest extends SapphireTest
      */
     protected $widgetToTest = TestWidget::class;
 
-    protected $extraDataObjects = array(
+    protected static $extra_dataobjects = [
         FakePage::class,
         TestWidget::class,
-    );
+    ];
 
     protected $usesDatabase = true;
 
-    protected $requiredExtensions = array(
-        SiteTree::class => array(WidgetPageExtension::class)
-    );
+    protected static $required_extensions = [
+        SiteTree::class => [WidgetPageExtension::class]
+    ];
 
     public function testFillingOneArea()
     {
@@ -56,12 +56,14 @@ class WidgetAreaEditorTest extends SapphireTest
         $editorSide = new WidgetAreaEditor('SideBar');
         $editorBott = new WidgetAreaEditor('BottomBar');
         $form = new Form(
-            new ContentController(),
+            $controller = new ContentController(),
             Form::class,
             new FieldList($editorSide, $editorBott),
             new FieldList()
         );
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
 
         $page = new FakePage();
 
@@ -100,12 +102,13 @@ class WidgetAreaEditorTest extends SapphireTest
         $editorSide = new WidgetAreaEditor('SideBar');
         $editorBott = new WidgetAreaEditor('BottomBar');
         $form = new Form(
-            new ContentController(),
+            $controller = new ContentController(),
             Form::class,
             new FieldList($editorSide, $editorBott),
             new FieldList()
         );
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $page = new FakePage();
 
         $form->saveInto($page);
@@ -150,12 +153,13 @@ class WidgetAreaEditorTest extends SapphireTest
         $editorSide = new WidgetAreaEditor('SideBar');
         $editorBott = new WidgetAreaEditor('BottomBar');
         $form = new Form(
-            new ContentController(),
+            $controller = new ContentController(),
             Form::class,
             new FieldList($editorSide, $editorBott),
             new FieldList()
         );
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $page = new FakePage();
 
         $form->saveInto($page);
@@ -181,7 +185,8 @@ class WidgetAreaEditorTest extends SapphireTest
             )
         );
         $request = new HTTPRequest('get', 'post', array(), $data);
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $form->saveInto($page);
 
         $page->write();
@@ -222,12 +227,13 @@ class WidgetAreaEditorTest extends SapphireTest
         $editorSide = new WidgetAreaEditor('SideBar');
         $editorBott = new WidgetAreaEditor('BottomBar');
         $form = new Form(
-            new ContentController(),
+            $controller = new ContentController(),
             Form::class,
             new FieldList($editorSide, $editorBott),
             new FieldList()
         );
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $page = new FakePage();
 
         $form->saveInto($page);
@@ -248,7 +254,8 @@ class WidgetAreaEditorTest extends SapphireTest
             )
         );
         $request = new HTTPRequest('get', 'post', array(), $data);
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $form->saveInto($page);
 
         $page->write();
@@ -288,12 +295,13 @@ class WidgetAreaEditorTest extends SapphireTest
         $editorSide = new WidgetAreaEditor('SideBar');
         $editorBott = new WidgetAreaEditor('BottomBar');
         $form = new Form(
-            new ContentController(),
+            $controller = new ContentController(),
             Form::class,
             new FieldList($editorSide, $editorBott),
             new FieldList()
         );
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $page = new FakePage();
 
         $form->saveInto($page);
@@ -324,7 +332,8 @@ class WidgetAreaEditorTest extends SapphireTest
             )
         );
         $request = new HTTPRequest('get', 'post', array(), $data);
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $form->saveInto($page);
 
         $page->write();
@@ -366,12 +375,13 @@ class WidgetAreaEditorTest extends SapphireTest
         $editorSide = new WidgetAreaEditor('SideBar');
         $editorBott = new WidgetAreaEditor('BottomBar');
         $form = new Form(
-            new ContentController(),
+            $controller = new ContentController(),
             Form::class,
             new FieldList($editorSide, $editorBott),
             new FieldList()
         );
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $page = new FakePage();
 
         $form->saveInto($page);
@@ -402,7 +412,8 @@ class WidgetAreaEditorTest extends SapphireTest
             )
         );
         $request = new HTTPRequest('get', 'post', array(), $data);
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $form->saveInto($page);
 
         $page->write();
@@ -444,12 +455,13 @@ class WidgetAreaEditorTest extends SapphireTest
         $editorSide = new WidgetAreaEditor('SideBar');
         $editorBott = new WidgetAreaEditor('BottomBar');
         $form = new Form(
-            new ContentController(),
+            $controller = new ContentController(),
             Form::class,
             new FieldList($editorSide, $editorBott),
             new FieldList()
         );
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $page = new FakePage();
 
         $editorSide->saveInto($page);
@@ -476,7 +488,8 @@ class WidgetAreaEditorTest extends SapphireTest
             )
         );
         $request = new HTTPRequest('get', 'post', array(), $data);
-        $form->setRequest($request);
+        $controller->setRequest($request);
+        $form->setController($controller);
         $form->saveInto($page);
 
         $page->write();
