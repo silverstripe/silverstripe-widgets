@@ -250,7 +250,7 @@ class Widget extends DataObject
     }
 
     /**
-     * @throws Exception
+     * @throws Exception If the widget controller's class name couldn't be found
      *
      * @return WidgetController
      */
@@ -268,7 +268,7 @@ class Widget extends DataObject
         }
 
         if (!class_exists($controllerClass)) {
-            throw new Exception("Could not find controller class for get_class($this)name");
+            throw new Exception('Could not find controller class for ' . $controllerClass);
         }
 
         $this->controller = Injector::inst()->create($controllerClass, $this);
