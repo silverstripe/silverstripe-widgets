@@ -19,12 +19,7 @@ class TestPageController extends PageController implements TestOnly
      */
     public function getViewer($action)
     {
-        if (file_exists('widgets')) {
-            SSViewer::add_themes(['silverstripe/widgets:tests/WidgetControllerTest']);
-        } else {
-            // When installed as the root project, e.g. Travis
-            SSViewer::add_themes(['tests/WidgetControllerTest']);
-        }
+        SSViewer::add_themes(['silverstripe/widgets:/tests/WidgetControllerTest']);
         return new SSViewer(TestPage::class);
     }
 }
