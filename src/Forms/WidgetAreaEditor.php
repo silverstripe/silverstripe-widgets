@@ -11,7 +11,6 @@ use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObjectInterface;
 use SilverStripe\Widgets\Forms\WidgetAreaEditor;
 use SilverStripe\Widgets\Model\Widget;
-use SilverStripe\View\Requirements;
 
 /**
  * Special field type for selecting and configuring widgets on a page.
@@ -40,9 +39,8 @@ class WidgetAreaEditor extends FormField
      */
     public function FieldHolder($properties = array())
     {
-        $module = ModuleLoader::getModule('silverstripe/widgets');
-        Requirements::css($module->getRelativeResourcePath('css/WidgetAreaEditor.css'));
-        Requirements::javascript($module->getRelativeResourcePath('javascript/WidgetAreaEditor.js'));
+        Requirements::css('silverstripe/widgets:css/WidgetAreaEditor.css');
+        Requirements::javascript('silverstripe/widgets:javascript/WidgetAreaEditor.js');
 
         return $this->renderWith(WidgetAreaEditor::class);
     }
