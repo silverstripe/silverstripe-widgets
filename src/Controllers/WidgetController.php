@@ -135,15 +135,11 @@ class WidgetController extends Controller
     {
         // use left and main to set the html config
         $leftandmain = LeftAndMain::create();
+        $leftandmain->setRequest($this->getRequest());
         $leftandmain->doInit();
 
         // Decode if fully qualified - @see Widget::ClassName
         $className = str_replace('_', '\\', $this->urlParams['ID']);
-        if (class_exists('Translatable') && Member::currentUserID()) {
-            // set current locale based on logged in user's locale
-            $locale = Member::currentUser()->Locale;
-            i18n::set_locale($locale);
-        }
         if (class_exists($className) && is_subclass_of($className, Widget::class)) {
             $obj = new $className();
             return $obj->EditableSegment();
