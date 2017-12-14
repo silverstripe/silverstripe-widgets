@@ -10,7 +10,6 @@ use SilverStripe\Forms\FormField;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObjectInterface;
 use SilverStripe\View\Requirements;
-use SilverStripe\Widgets\Forms\WidgetAreaEditor;
 use SilverStripe\Widgets\Model\Widget;
 
 /**
@@ -57,8 +56,8 @@ class WidgetAreaEditor extends FormField
         foreach ($this->widgetClasses as $widgetClass) {
             $classes = ClassInfo::subclassesFor($widgetClass);
 
-            if (isset($classes[Widget::class])) {
-                unset($classes[Widget::class]);
+            if (isset($classes[strtolower(Widget::class)])) {
+                unset($classes[strtolower(Widget::class)]);
             } elseif (isset($classes[0]) && $classes[0] == Widget::class) {
                 unset($classes[0]);
             }
@@ -164,6 +163,12 @@ class WidgetAreaEditor extends FormField
                         unset($missingWidgets[$widget->ID]);
                     }
                 }
+
+                // unsantise the class name
+                if (empty($newWidgetData['Type'])) {
+                    $newWidgetData['Type'] = '';
+                }
+                $newWidgetData['Type'] = str_replace('_', '\\', $newWidgetData['Type']);
 
                 // create a new object
                 if (!$widget
