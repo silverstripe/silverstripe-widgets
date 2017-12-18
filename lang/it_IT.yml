@@ -1,8 +1,8 @@
 it_IT:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: Widgets
     SINGULARNAME: Widget
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Aree Widget'
     SINGULARNAME: 'Area Widget'
   WidgetAreaEditor_ss:

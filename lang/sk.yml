@@ -1,8 +1,8 @@
 sk:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: Widgety
     SINGULARNAME: Widget
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Oblasti widgetu'
     SINGULARNAME: 'Oblasť widgetu'
   WidgetAreaEditor_ss:

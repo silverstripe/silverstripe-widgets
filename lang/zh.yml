@@ -1,8 +1,8 @@
 zh:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: 小工具
     SINGULARNAME: 小工具
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 小工具区域
     SINGULARNAME: 小工具区域
   WidgetAreaEditor_ss:

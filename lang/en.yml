@@ -1,4 +1,6 @@
 en:
+  SilverStripe\Widgets\Extensions\WidgetPageExtension:
+    INHERITSIDEBAR: 'Inherit Sidebar From Parent'
   SilverStripe\Widgets\Model\Widget:
     PLURALNAME: Widgets
     SINGULARNAME: Widget
@@ -15,5 +17,3 @@ en:
     CLICKTOADDWIDGET: 'Click to add this widget'
   SilverStripe\Widgets\Templates\WidgetEditor_ss:
     DELETE: Delete
-  WidgetPageExtension:
-    INHERITSIDEBAR: 'Inherit Sidebar From Parent'

@@ -1,8 +1,8 @@
 fa_IR:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: 'ویجت ها'
     SINGULARNAME: ویجت
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'محیط ویجت ها'
     SINGULARNAME: 'محیط ویجت'
   WidgetAreaEditor_ss:

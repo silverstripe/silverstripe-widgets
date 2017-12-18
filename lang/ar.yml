@@ -1,8 +1,8 @@
 ar:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: 'تطبيقات مصغرة'
     SINGULARNAME: 'تطبيق مصغر'
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'مساحات التطبيقات المصغرة'
     SINGULARNAME: 'مساحة التطبيقات المصغرة'
   WidgetAreaEditor_ss:

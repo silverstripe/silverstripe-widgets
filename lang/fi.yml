@@ -1,8 +1,8 @@
 fi:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: Vimpaimet
     SINGULARNAME: Vimpain
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Vimpain alueet'
     SINGULARNAME: 'Vimpain alue'
   WidgetAreaEditor_ss:

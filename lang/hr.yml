@@ -1,8 +1,8 @@
 hr:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: Widgeti
     SINGULARNAME: Widget
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Zone widgeta'
     SINGULARNAME: 'Zona widgeta'
   WidgetAreaEditor_ss:
