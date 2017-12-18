@@ -3,13 +3,7 @@
 namespace SilverStripe\Widgets\Tests;
 
 use SilverStripe\Dev\FunctionalTest;
-use SilverStripe\Widgets\Model\Widget;
-use SilverStripe\Dev\TestOnly;
-use SilverStripe\Forms\TextField;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\FormAction;
 use SilverStripe\Forms\Form;
-use SilverStripe\Widgets\Controllers\WidgetController;
 use SilverStripe\Widgets\Tests\WidgetControllerTest\TestPage;
 use SilverStripe\Widgets\Tests\WidgetControllerTest\TestWidget;
 
@@ -35,7 +29,7 @@ class WidgetControllerTest extends FunctionalTest
 
         $response = $this->get($page->URLSegment);
 
-        $formAction = sprintf('%s/widget/%d/Form', $page->URLSegment, $widget->ID);
+        $formAction = sprintf('%s/widget/%d/%s', $page->URLSegment, $widget->ID, 'Form');
         $this->assertContains(
             $formAction,
             $response->getBody(),

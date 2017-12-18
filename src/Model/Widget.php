@@ -10,7 +10,6 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\Widgets\Model\WidgetArea;
 
 /**
  * Widgets let CMS authors drag and drop small pieces of functionality into

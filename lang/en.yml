@@ -1,19 +1,19 @@
 en:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: Widgets
     SINGULARNAME: Widget
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Widget Areas'
     SINGULARNAME: 'Widget Area'
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Templates\SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Available Widgets'
     AVAILWIDGETS: 'Click a widget title below to use it on this page.'
     INUSE: 'Widgets currently used'
     NOAVAIL: 'There are currently no widgets available.'
     TOSORT: 'To sort currently used widgets on this page, drag them up and down.'
-  WidgetDescription_ss:
+  SilverStripe\Widgets\Templates\WidgetDescription_ss:
     CLICKTOADDWIDGET: 'Click to add this widget'
-  WidgetEditor_ss:
+  SilverStripe\Widgets\Templates\WidgetEditor_ss:
     DELETE: Delete
   WidgetPageExtension:
     INHERITSIDEBAR: 'Inherit Sidebar From Parent'

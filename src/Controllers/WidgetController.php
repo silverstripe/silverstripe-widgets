@@ -6,8 +6,6 @@ use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\ClassInfo;
-use SilverStripe\i18n\i18n;
-use SilverStripe\Security\Member;
 use SilverStripe\Widgets\Model\Widget;
 
 /**

@@ -4,7 +4,6 @@ namespace SilverStripe\Widgets\Model;
 
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\Widgets\Model\Widget;
 
 /**
  * Represents a set of widgets shown on a page.
