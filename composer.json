@@ -1,7 +1,7 @@
 {
     "name": "silverstripe/widgets",
     "description": "Widgets are small pieces of functionality such as showing the latest Comments or Flickr Photos. They normally display on the sidebar of your website.",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "keywords": ["silverstripe", "widgets", "blog"],
     "authors": [
         {
