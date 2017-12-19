@@ -2,32 +2,36 @@
 
 namespace SilverStripe\Widgets\Model;
 
+use SilverStripe\Control\Controller;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\HasManyList;
+use SilverStripe\ORM\SS_List;
+use SilverStripe\Versioned\Versioned;
 
 /**
  * Represents a set of widgets shown on a page.
- *
- * @package widgets
  */
 class WidgetArea extends DataObject
 {
-    /**
-     * @var array
-     */
-    private static $has_many = array(
+    private static $has_many = [
         "Widgets" => Widget::class
-    );
+    ];
 
-    /**
-     * @var string
-     */
+    private static $owns = [
+        'Widgets',
+    ];
+
+    private static $cascade_deletes = [
+        'Widgets',
+    ];
+
+    private static $extensions = [
+        Versioned::class . '.versioned',
+    ];
+
     private static $table_name = 'WidgetArea';
 
-    /**
-     *
-     * @var string
-     */
     public $template = __CLASS__;
 
     /**
@@ -43,6 +47,9 @@ class WidgetArea extends DataObject
         $items = $this->ItemsToRender();
         if (!is_null($items)) {
             foreach ($items as $widget) {
+                /** @var Widget $widget */
+
+                /** @var Controller $controller */
                 $controller = $widget->getController();
 
                 $controller->doInit();
@@ -57,7 +64,7 @@ class WidgetArea extends DataObject
      */
     public function Items()
     {
-        return $this->getComponents('Widgets');
+        return $this->Widgets();
     }
 
     /**
@@ -65,8 +72,7 @@ class WidgetArea extends DataObject
      */
     public function ItemsToRender()
     {
-        return $this->getComponents('Widgets')
-            ->filter("Enabled", 1);
+        return $this->Items()->filter('Enabled', 1);
     }
 
     /**
@@ -84,16 +90,5 @@ class WidgetArea extends DataObject
     public function setTemplate($template)
     {
         $this->template = $template;
-    }
-
-    /**
-     * Delete all connected Widgets when this WidgetArea gets deleted
-     */
-    public function onBeforeDelete()
-    {
-        parent::onBeforeDelete();
-        foreach ($this->Widgets() as $widget) {
-            $widget->delete();
-        }
     }
 }

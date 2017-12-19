@@ -7,7 +7,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FormAction;
 use SilverStripe\Forms\TextField;
-use SilverStripe\Widgets\Controllers\WidgetController;
+use SilverStripe\Widgets\Model\WidgetController;
 
 /**
  * @package widgets

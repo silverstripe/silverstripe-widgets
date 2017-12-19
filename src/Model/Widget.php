@@ -3,6 +3,7 @@
 namespace SilverStripe\Widgets\Model;
 
 use Exception;
+use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\CheckboxField;
@@ -10,6 +11,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Versioned\Versioned;
 
 /**
  * Widgets let CMS authors drag and drop small pieces of functionality into
@@ -23,42 +25,27 @@ use SilverStripe\ORM\DataObject;
  */
 class Widget extends DataObject
 {
-    /**
-     * @var array
-     */
-    private static $db = array(
+    private static $db = [
         "Title" => "Varchar(255)",
         "Sort" => "Int",
         "Enabled" => "Boolean",
-    );
+    ];
 
-    /**
-     * @var array
-     */
-    private static $defaults = array(
+    private static $defaults = [
         'Enabled' => true,
-    );
+    ];
 
-    /**
-     * @var array
-     */
-    private static $casting = array(
+    private static $casting = [
         'CMSTitle' => 'Text',
         'Description' => 'Text',
-    );
+    ];
 
-    private static $only_available_in = array();
+    private static $only_available_in = [];
 
-    /**
-     * @var array
-     */
-    private static $has_one = array(
+    private static $has_one = [
         "Parent" => WidgetArea::class,
-    );
+    ];
 
-    /**
-     * @var string
-     */
     private static $default_sort = "\"Sort\"";
 
     /**
@@ -76,17 +63,15 @@ class Widget extends DataObject
      */
     private static $description = "Description of what this widget does.";
 
-    /**
-     * @var array
-     */
-    private static $summary_fields = array(
+    private static $summary_fields = [
         'CMSTitle' => 'Title'
-    );
+    ];
 
-    /**
-     * @var string
-     */
     private static $table_name = 'Widget';
+
+    private static $extensions = [
+        Versioned::class . '.versioned',
+    ];
 
     /**
      * @var WidgetController
@@ -267,10 +252,13 @@ class Widget extends DataObject
         }
 
         if (!class_exists($controllerClass)) {
-            throw new Exception('Could not find controller class for ' . $controllerClass);
+            throw new Exception('Could not find controller class for ' . static::class);
         }
 
         $this->controller = Injector::inst()->create($controllerClass, $this);
+        if (Injector::inst()->has(HTTPRequest::class)) {
+            $this->controller->setRequest(Injector::inst()->get(HTTPRequest::class));
+        }
 
         return $this->controller;
     }
