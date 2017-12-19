@@ -1,5 +1,5 @@
 pl_PL:
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Dostępne widżety'
     AVAILWIDGETS: 'Kliknij w tytuł widżetu, aby używać go na tej stronie.'
     INUSE: 'Obecnie stosowane widżety'

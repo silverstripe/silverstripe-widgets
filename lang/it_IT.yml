@@ -5,7 +5,7 @@ it_IT:
   SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Aree Widget'
     SINGULARNAME: 'Area Widget'
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Widgets disponibili'
     AVAILWIDGETS: 'Clicca sul titolo di un widget qui sotto per usarlo in questa pagina'
     INUSE: 'Widgets attualmente utilizzati'

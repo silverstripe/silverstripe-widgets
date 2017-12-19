@@ -5,7 +5,7 @@ fi:
   SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Vimpain alueet'
     SINGULARNAME: 'Vimpain alue'
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Käytettävissä olevat vimpaimet'
     AVAILWIDGETS: 'Napsauta vimpaimen otsikkoa alla ottaaksesi se käyttöön tällä sivulla.'
     INUSE: 'Käytössä olevat vimpaimet'

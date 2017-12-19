@@ -5,7 +5,7 @@ hr:
   SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Zone widgeta'
     SINGULARNAME: 'Zona widgeta'
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Dostupni widgeti'
     AVAILWIDGETS: 'Kliknite na naziv widgeta ispod za korištenje na ovoj stranici'
     INUSE: 'Trenutno korišteni widgeti'

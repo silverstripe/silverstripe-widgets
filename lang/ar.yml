@@ -5,7 +5,7 @@ ar:
   SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'مساحات التطبيقات المصغرة'
     SINGULARNAME: 'مساحة التطبيقات المصغرة'
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'التطبيقات المصغرة المتاحة'
     AVAILWIDGETS: 'اضغط على عنوان تطبيق مصغر بالأسفل لاستخدامه بهذه الصفحة.'
     INUSE: 'التطبيقات المصغرة المستخدمة حاليا'
