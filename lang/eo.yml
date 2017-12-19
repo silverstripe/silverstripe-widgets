@@ -1,11 +1,11 @@
 eo:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: Fenestraĵoj
     SINGULARNAME: Fenestraĵo
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Fenestraĵaj zonoj'
     SINGULARNAME: 'Fenestraĵa zono'
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Disponeblaj fenestraĵoj'
     AVAILWIDGETS: 'Alklaku sube titolon de fenestraĵo por uzi ĝin en ĉi tiu paĝo.'
     INUSE: 'Fenestraĵoj aktuale uzataj'

@@ -23,7 +23,7 @@ class TestWidgetController extends WidgetController implements TestOnly
     {
         $widgetform = new Form(
             $this,
-            'Form',
+            __FUNCTION__,
             new FieldList(
                 new TextField('TestValue')
             ),

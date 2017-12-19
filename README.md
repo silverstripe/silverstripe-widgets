@@ -1,10 +1,8 @@
 # Widgets Module
 
-[![Build Status](http://img.shields.io/travis/silverstripe/silverstripe-widgets.svg?style=flat-square)](https://travis-ci.org/silverstripe/silverstripe-widgets)
-[![Code Quality](http://img.shields.io/scrutinizer/g/silverstripe/silverstripe-widgets.svg?style=flat-square)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-widgets)
-[![Code Coverage](https://codecov.io/gh/silverstripe/silverstripe-widgets/branch/master/graph/badge.svg)](https://codecov.io/gh/silverstripe/silverstripe-widgets)
-[![Version](http://img.shields.io/packagist/v/silverstripe/widgets.svg?style=flat-square)](https://packagist.org/packages/silverstripe/widgets)
-[![License](http://img.shields.io/packagist/l/silverstripe/widgets.svg?style=flat-square)](LICENSE.md)
+[![Build Status](http://img.shields.io/travis/silverstripe/silverstripe-widgets.svg)](https://travis-ci.org/silverstripe/silverstripe-widgets)
+[![Code Quality](http://img.shields.io/scrutinizer/g/silverstripe/silverstripe-widgets.svg)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-widgets)
+[![Code Coverage](https://img.shields.io/codecov/c/github/silverstripe/silverstripe-widgets.svg)](https://codecov.io/gh/silverstripe/silverstripe-widgets)
 
 ## Overview
 
@@ -13,8 +11,9 @@ the sidebar of your website.
 
 ## Requirements
 
- * SilverStripe 4.0
-
+* SilverStripe 4.0
+ 
+**Note:** this version is compatible with SilverStripe 4. For SilverStripe 3, please see [the 1.x release line](https://github.com/silverstripe/silverstripe-widgets/tree/1.3).
 
 ### Installation
 

@@ -1,5 +1,5 @@
 nl:
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Beschikbare Widgets'
     AVAILWIDGETS: 'Klik op een widget titel hieronder, om de widget te gebruiken op deze pagina.'
     INUSE: 'Huidige gebruikte Widgets'

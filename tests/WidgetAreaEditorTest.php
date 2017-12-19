@@ -2,17 +2,14 @@
 
 namespace SilverStripe\Widgets\Tests;
 
-use Page;
 use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
-use SilverStripe\Dev\SapphireTest;
-use SilverStripe\Dev\TestOnly;
 use SilverStripe\Widgets\Extensions\WidgetPageExtension;
 use SilverStripe\Widgets\Forms\WidgetAreaEditor;
-use SilverStripe\Widgets\Model\Widget;
 use SilverStripe\Widgets\Tests\WidgetAreaEditorTest\FakePage;
 use SilverStripe\Widgets\Tests\WidgetAreaEditorTest\TestWidget;
 
