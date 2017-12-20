@@ -27,7 +27,7 @@ class WidgetArea extends DataObject
     ];
 
     private static $extensions = [
-        Versioned::class . '.versioned',
+        Versioned::class,
     ];
 
     private static $table_name = 'WidgetArea';

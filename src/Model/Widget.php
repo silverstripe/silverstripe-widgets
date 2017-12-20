@@ -70,7 +70,7 @@ class Widget extends DataObject
     private static $table_name = 'Widget';
 
     private static $extensions = [
-        Versioned::class . '.versioned',
+        Versioned::class,
     ];
 
     /**
