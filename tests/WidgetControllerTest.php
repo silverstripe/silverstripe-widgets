@@ -3,14 +3,9 @@
 namespace SilverStripe\Widgets\Tests;
 
 use SilverStripe\Dev\FunctionalTest;
-use SilverStripe\Forms\Form;
 use SilverStripe\Widgets\Tests\WidgetControllerTest\TestPage;
 use SilverStripe\Widgets\Tests\WidgetControllerTest\TestWidget;
 
-/**
- * @package widgets
- * @subpackage tests
- */
 class WidgetControllerTest extends FunctionalTest
 {
     protected static $fixture_file = 'WidgetControllerTest.yml';
@@ -20,11 +15,18 @@ class WidgetControllerTest extends FunctionalTest
         TestWidget::class,
     ];
 
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->actWithPermission('ADMIN', function () {
+            $this->objFromFixture(TestPage::class, 'page1')->publishRecursive();
+        });
+    }
+
     public function testWidgetFormRendering()
     {
         $page = $this->objFromFixture(TestPage::class, 'page1');
-        $page->copyVersionToStage('Stage', 'Live');
-
         $widget = $this->objFromFixture(TestWidget::class, 'widget1');
 
         $response = $this->get($page->URLSegment);
@@ -40,11 +42,9 @@ class WidgetControllerTest extends FunctionalTest
     public function testWidgetFormSubmission()
     {
         $page = $this->objFromFixture(TestPage::class, 'page1');
-        $page->copyVersionToStage('Stage', 'Live');
-
         $widget = $this->objFromFixture(TestWidget::class, 'widget1');
 
-        $response = $this->get($page->URLSegment);
+        $this->get($page->URLSegment);
         $response = $this->submitForm('Form_Form', null, array('TestValue' => 'Updated'));
 
         $this->assertContains(

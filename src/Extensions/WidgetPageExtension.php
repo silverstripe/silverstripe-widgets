@@ -19,17 +19,25 @@ use SilverStripe\Widgets\Model\WidgetArea;
  */
 class WidgetPageExtension extends DataExtension
 {
-    private static $db = array(
+    private static $db = [
         'InheritSideBar' => 'Boolean',
-    );
+    ];
 
-    private static $defaults = array(
+    private static $defaults = [
         'InheritSideBar' => true
-    );
+    ];
 
-    private static $has_one = array(
-        'SideBar' => WidgetArea::class
-    );
+    private static $has_one = [
+        'SideBar' => WidgetArea::class,
+    ];
+
+    private static $owns = [
+        'SideBar',
+    ];
+
+    private static $cascade_deletes = [
+        'SideBar',
+    ];
 
     public function updateCMSFields(FieldList $fields)
     {

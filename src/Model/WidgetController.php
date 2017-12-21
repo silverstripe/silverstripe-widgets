@@ -1,12 +1,11 @@
 <?php
 
-namespace SilverStripe\Widgets\Controllers;
+namespace SilverStripe\Widgets\Model;
 
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\ClassInfo;
-use SilverStripe\Widgets\Model\Widget;
 
 /**
  * Optional controller for every widget which has its own logic, e.g. in forms.

@@ -1,3 +1,6 @@
+---
+Name: widgetsroutes
+---
 SilverStripe\Control\Director:
   rules:
-    'WidgetController//$Action/$ID/$OtherID': 'SilverStripe\Widgets\Controllers\WidgetController'
+    'WidgetController//$Action/$ID/$OtherID': 'SilverStripe\Widgets\Model\WidgetController'

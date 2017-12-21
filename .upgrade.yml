@@ -1,16 +1,7 @@
 mappings:
   WidgetContentControllerExtension: SilverStripe\Widgets\Controllers\WidgetContentControllerExtension
-  WidgetController: SilverStripe\Widgets\Controllers\WidgetController
-  Widget_Controller: SilverStripe\Widgets\Controllers\Widget_Controller
+  Widget_Controller: SilverStripe\Widgets\Models\WidgetController
   WidgetPageExtension: SilverStripe\Widgets\Extensions\WidgetPageExtension
   WidgetAreaEditor: SilverStripe\Widgets\Forms\WidgetAreaEditor
   Widget: SilverStripe\Widgets\Model\Widget
   WidgetArea: SilverStripe\Widgets\Model\WidgetArea
-  WidgetAreaEditorTest: SilverStripe\Widgets\Tests\WidgetAreaEditorTest
-  WidgetAreaEditorTest_FakePage: SilverStripe\Widgets\Tests\WidgetAreaEditorTest\FakePage
-  WidgetAreaEditorTest_TestWidget: SilverStripe\Widgets\Tests\WidgetAreaEditorTest\TestWidget
-  WidgetControllerTest: SilverStripe\Widgets\Tests\WidgetControllerTest
-  WidgetControllerTest_Widget: SilverStripe\Widgets\Tests\WidgetControllerTest\TestWidget
-  WidgetControllerTest_WidgetController: SilverStripe\Widgets\Tests\WidgetControllerTest\TestWidgetController
-  WidgetControllerTestPage: SilverStripe\Widgets\Tests\WidgetControllerTest\TestPage
-  WidgetControllerTestPage_Controller: SilverStripe\Widgets\Tests\WidgetControllerTest\TestPageController
