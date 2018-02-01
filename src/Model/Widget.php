@@ -11,6 +11,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\Versioned\Versioned;
 
 /**
@@ -47,11 +48,6 @@ class Widget extends DataObject
     ];
 
     private static $default_sort = "\"Sort\"";
-
-    /**
-     * @var string
-     */
-    private static $title = "Widget Title";
 
     /**
      * @var string
@@ -121,17 +117,6 @@ class Widget extends DataObject
     public function Content()
     {
         return $this->renderWith(array_reverse(ClassInfo::ancestry(__CLASS__)));
-    }
-
-    /**
-     * Get the frontend title for this widget
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->getField('Title')
-            ?: _t(__CLASS__ . '.TITLE', $this->config()->get('title'));
     }
 
     /**
