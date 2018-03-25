@@ -29,13 +29,21 @@ way to get started would be to create a single collection of widgets under the
 name "SideBar" on your `Page` class. This is handled by an extension which you
 can enable through your `config.yml`:
 
-## Documentation
+```yaml
+Page:
+  extensions:
+    - SilverStripe\Widgets\Extensions\WidgetPageExtension
+```
 
-See the [docs/en](docs/en/introduction.md) folder.
+Run a `dev/build`, and adjust your templates to include the resulting sidebar view.
+The placeholder is called `$SideBarView`, and loops through all widgets assigned
+to the current page.
 
-## Versioning
+Alternatively, you can add one or more widget collections to your own page types.
+Here's an example on how to just add widgets to a `MyPage` type, and call it
+`MyWidgetArea` instead. Please ensure you add the correct namespaces for your module.
 
-This library follows [Semver](http://semver.org). According to Semver, you will be able to upgrade to any minor or patch version of this library without any breaking changes to the public API. Semver also requires that we clearly define the public API for this library.
+### Installing a widget
 
 By following the "Packaging" rules below, widgets are easily installed. This example uses the Blog module which by default has widgets already enabled.
 
@@ -46,10 +54,17 @@ will contain a few files, which generally won't need editing or reading.
 * Login to the CMS and go to the 'Blog' page. Choose the "widgets" tab and click the new widget to activate it.
 * Your blog will now have the widget shown
 
+## Documentation
+
+See the [docs/en](docs/en/introduction.md) folder.
+
+## Versioning
+
+This library follows [Semver](http://semver.org). According to Semver, you will be able to upgrade to any minor or patch version of this library without any breaking changes to the public API. Semver also requires that we clearly define the public API for this library.
+
 ## Reporting Issues
 
 Please [create an issue](http://github.com/silverstripe/silverstripe-widgets/issues) for any bugs you've found, or features you're missing.
-
 
 * Install the Widgets Module, see above.
 * Add a WidgetArea field to your Page.
