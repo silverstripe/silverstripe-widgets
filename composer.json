@@ -20,6 +20,9 @@
         "squizlabs/php_codesniffer": "^3.0"
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        },
         "expose": [
             "css",
             "javascript"
