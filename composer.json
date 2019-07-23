@@ -14,7 +14,7 @@
 		"silverstripe/cms": "^3.2"
 	},
 	"require-dev": {
-		"phpunit/PHPUnit": "~3.7@stable"
+		"phpunit/phpunit": "^5.7"
 	},
 	"extra": {
 		"branch-alias": {
