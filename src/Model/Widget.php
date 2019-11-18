@@ -13,6 +13,7 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\Versioned\Versioned;
+use SilverStripe\View\SSViewer;
 
 /**
  * Widgets let CMS authors drag and drop small pieces of functionality into
@@ -116,7 +117,7 @@ class Widget extends DataObject
      */
     public function Content()
     {
-        return $this->renderWith(array_reverse(ClassInfo::ancestry(__CLASS__)));
+        return $this->renderWith(SSViewer::get_templates_by_class(static::class));
     }
 
     /**
