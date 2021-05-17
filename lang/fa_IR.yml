@@ -1,11 +1,11 @@
 fa_IR:
-  SilverStripe\Widgets\Model\Widget:
+  Widget:
     PLURALNAME: 'ویجت ها'
     SINGULARNAME: ویجت
-  SilverStripe\Widgets\Model\WidgetArea:
+  WidgetArea:
     PLURALNAME: 'محیط ویجت ها'
     SINGULARNAME: 'محیط ویجت'
-  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
+  WidgetAreaEditor_ss:
     AVAILABLE: 'ویجت های موجود'
     AVAILWIDGETS: 'بر روی عنوان یک ویجت در پایین کلیک کنید تا آن را در این صفحه بکار بگیرید.'
     INUSE: 'ویجت هایی که در حال حاضر استفاده می شوند'

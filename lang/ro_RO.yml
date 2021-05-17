@@ -1,5 +1,5 @@
 ro_RO:
-  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
+  WidgetAreaEditor_ss:
     AVAILABLE: 'Widget-uri disponibile'
     AVAILWIDGETS: 'Faceți clic pe un titlu widget de mai jos pentru a-l folosi pe aceasta pagina.'
     INUSE: 'Widget-uri utilizate în prezent'

@@ -1,11 +1,11 @@
 ru:
-  SilverStripe\Widgets\Model\Widget:
+  Widget:
     PLURALNAME: Виджеты
     SINGULARNAME: Виджет
-  SilverStripe\Widgets\Model\WidgetArea:
+  WidgetArea:
     PLURALNAME: 'Области виджетов'
     SINGULARNAME: 'Область виджета'
-  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
+  WidgetAreaEditor_ss:
     AVAILABLE: 'Доступные виджеты'
     AVAILWIDGETS: 'Щелкните заголовок виджета ниже, чтобы использовать его на этой странице.'
     INUSE: 'Используемые виджеты'

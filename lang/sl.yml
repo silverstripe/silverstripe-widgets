@@ -1,0 +1,17 @@
+sl:
+  Widget:
+    PLURALNAME: Vtičniki
+    SINGULARNAME: Vtičnik
+  WidgetArea:
+    PLURALNAME: 'Prostori za vtičnike'
+    SINGULARNAME: 'Prostor za vtičnike'
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Vtičniki, ki so na voljo'
+    AVAILWIDGETS: 'Spodaj izberite vtičnik, ki ga želite uporabiti na strani.'
+    INUSE: 'Vtičniki v uporabi'
+    NOAVAIL: 'Na voljo ni nobenega vtičnika.'
+    TOSORT: 'Za razvrstitev vtičnikov na strani jih povlecite na ustrezno mesto. '
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Kliknite na ta vtičnik, če ga želite dodati'
+  WidgetEditor_ss:
+    DELETE: Odstrani
