@@ -1,11 +1,11 @@
 de:
-  SilverStripe\Widgets\Model\Widget:
+  Widget:
     PLURALNAME: Widgets
     SINGULARNAME: Widget
-  SilverStripe\Widgets\Model\WidgetArea:
+  WidgetArea:
     PLURALNAME: Widgetbereiche
     SINGULARNAME: Widgetbereich
-  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
+  WidgetAreaEditor_ss:
     AVAILABLE: 'Vorhandene Widgets'
     AVAILWIDGETS: 'Klicke den Widget Titel, um es zu benutzen.'
     INUSE: 'Benutzte Widgets'

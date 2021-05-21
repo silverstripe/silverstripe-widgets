@@ -1,0 +1,17 @@
+it:
+  Widget:
+    PLURALNAME: Widget
+    SINGULARNAME: Widget
+  WidgetArea:
+    PLURALNAME: 'Aree Widget'
+    SINGULARNAME: 'Area Widget'
+  WidgetAreaEditor_ss:
+    AVAILABLE: 'Widget Disponibili'
+    AVAILWIDGETS: 'Clickare sul titolo di un widget per usarlo in questa pagina'
+    INUSE: 'Widget attualmente in uso'
+    NOAVAIL: 'Attualmente non ci sono widget disponibili'
+    TOSORT: 'Per riordinare i widget usati in questa pagina, trascinarli in alto o in basso.'
+  WidgetDescription_ss:
+    CLICKTOADDWIDGET: 'Clickare per aggiungere questo widget'
+  WidgetEditor_ss:
+    DELETE: Elimina
