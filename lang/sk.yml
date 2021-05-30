@@ -1,11 +1,11 @@
 sk:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: Widgety
     SINGULARNAME: Widget
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Oblasti widgetu'
     SINGULARNAME: 'Oblasť widgetu'
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Dostupné widgety'
     AVAILWIDGETS: 'Kliknite na názov widgetu pre jeho použitie na tejto stránke.'
     INUSE: 'Momentálne používané widgety.'

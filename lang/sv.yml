@@ -1,11 +1,11 @@
 sv:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: Widgets
     SINGULARNAME: Widget
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: Widgetområden
     SINGULARNAME: Widgetområde
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Tillgängliga widgets'
     AVAILWIDGETS: 'Klicka på en widget nedan för att använda den på sidan.'
     INUSE: 'Använda widgets'
