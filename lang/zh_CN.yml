@@ -1,11 +1,11 @@
 zh_CN:
-  Widget:
+  SilverStripe\Widgets\Model\Widget:
     PLURALNAME: 插件
     SINGULARNAME: 插件
-  WidgetArea:
+  SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 插件区域
     SINGULARNAME: 插件区域
-  WidgetAreaEditor_ss:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 有效插件
     AVAILWIDGETS: 点击一个插件标题应用在当前页面
     INUSE: 当前已使用插件
