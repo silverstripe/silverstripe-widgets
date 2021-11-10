@@ -15,7 +15,7 @@ class WidgetControllerTest extends FunctionalTest
         TestWidget::class,
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -32,7 +32,7 @@ class WidgetControllerTest extends FunctionalTest
         $response = $this->get($page->URLSegment);
 
         $formAction = sprintf('%s/widget/%d/%s', $page->URLSegment, $widget->ID, 'Form');
-        $this->assertContains(
+        $this->assertStringContainsString(
             $formAction,
             $response->getBody(),
             "Widget forms are rendered through WidgetArea templates"
@@ -47,12 +47,12 @@ class WidgetControllerTest extends FunctionalTest
         $this->get($page->URLSegment);
         $response = $this->submitForm('Form_Form', null, array('TestValue' => 'Updated'));
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'TestValue: Updated',
             $response->getBody(),
             "Form values are submitted to correct widget form"
         );
-        $this->assertContains(
+        $this->assertStringContainsString(
             sprintf('Widget ID: %d', $widget->ID),
             $response->getBody(),
             "Widget form acts on correct widget, as identified in the URL"
