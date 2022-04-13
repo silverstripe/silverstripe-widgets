@@ -106,7 +106,7 @@ class WidgetController extends Controller
      */
     public function Content()
     {
-        return $this->renderWith(array_reverse(ClassInfo::ancestry(get_class($this->widget))));
+        return $this->renderWith(array_reverse(ClassInfo::ancestry(get_class($this->widget)) ?? []));
     }
 
     /**
@@ -136,8 +136,8 @@ class WidgetController extends Controller
         $leftandmain->doInit();
 
         // Decode if fully qualified - @see Widget::ClassName
-        $className = str_replace('_', '\\', $this->urlParams['ID']);
-        if (class_exists($className) && is_subclass_of($className, Widget::class)) {
+        $className = str_replace('_', '\\', $this->urlParams['ID'] ?? '');
+        if (class_exists($className ?? '') && is_subclass_of($className, Widget::class)) {
             $obj = new $className();
             return $obj->EditableSegment();
         } else {
