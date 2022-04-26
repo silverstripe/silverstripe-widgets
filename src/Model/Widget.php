@@ -191,7 +191,7 @@ class Widget extends DataObject
             if ($value) {
                 $field->setValue($value);
             }
-            $namefiltered = preg_replace("/([A-Za-z0-9\-_]+)/", "Widget[" . $this->FormID . "][\\1]", $name);
+            $namefiltered = preg_replace("/([A-Za-z0-9\-_]+)/", "Widget[" . $this->FormID . "][\\1]", $name ?? '');
 
             $field->setName($namefiltered);
             $outputFields->push($field);
@@ -230,14 +230,14 @@ class Widget extends DataObject
             return $this->controller;
         }
 
-        foreach (array_reverse(ClassInfo::ancestry(get_class($this))) as $widgetClass) {
+        foreach (array_reverse(ClassInfo::ancestry(get_class($this)) ?? []) as $widgetClass) {
             $controllerClass = "{$widgetClass}Controller";
-            if (class_exists($controllerClass)) {
+            if (class_exists($controllerClass ?? '')) {
                 break;
             }
         }
 
-        if (!class_exists($controllerClass)) {
+        if (!class_exists($controllerClass ?? '')) {
             throw new Exception('Could not find controller class for ' . static::class);
         }
 
@@ -268,7 +268,7 @@ class Widget extends DataObject
 
         //Look for checkbox fields not present in the data
         foreach ($fields as $field) {
-            if ($field instanceof CheckboxField && !array_key_exists($field->getName(), $data)) {
+            if ($field instanceof CheckboxField && !array_key_exists($field->getName(), $data ?? [])) {
                 $field->setValue(false);
                 $field->saveInto($this);
             }

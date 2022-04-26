@@ -66,7 +66,7 @@ class WidgetAreaEditor extends FormField
                 $available = Config::inst()->get($class, 'only_available_in');
 
                 if (!empty($available) && is_array($available)) {
-                    if (in_array($this->Name, $available)) {
+                    if (in_array($this->Name, $available ?? [])) {
                         $widgets->push(singleton($class));
                     }
                 } else {
@@ -168,12 +168,12 @@ class WidgetAreaEditor extends FormField
                 if (empty($newWidgetData['Type'])) {
                     $newWidgetData['Type'] = '';
                 }
-                $newWidgetData['Type'] = str_replace('_', '\\', $newWidgetData['Type']);
+                $newWidgetData['Type'] = str_replace('_', '\\', $newWidgetData['Type'] ?? '');
 
                 // create a new object
                 if (!$widget
                     && !empty($newWidgetData['Type'])
-                    && class_exists($newWidgetData['Type'])
+                    && class_exists($newWidgetData['Type'] ?? '')
                     && is_subclass_of($newWidgetData['Type'], Widget::class)
                 ) {
                     $widget = Injector::inst()->create($newWidgetData['Type']);
