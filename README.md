@@ -1,6 +1,6 @@
 # Widgets Module
 
-[![Build Status](https://api.travis-ci.com/silverstripe/silverstripe-widgets.svg?branch=2)](https://travis-ci.com/silverstripe/silverstripe-widgets)
+[![CI](https://github.com/silverstripe/silverstripe-widgets/actions/workflows/ci.yml/badge.svg)](https://github.com/silverstripe/silverstripe-widgets/actions/workflows/ci.yml)
 [![SilverStripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
 [![Code Quality](http://img.shields.io/scrutinizer/g/silverstripe/silverstripe-widgets.svg)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-widgets)
 [![Code Coverage](https://img.shields.io/codecov/c/github/silverstripe/silverstripe-widgets.svg)](https://codecov.io/gh/silverstripe/silverstripe-widgets)
