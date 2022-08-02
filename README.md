@@ -1,9 +1,7 @@
 # Widgets Module
 
 [![CI](https://github.com/silverstripe/silverstripe-widgets/actions/workflows/ci.yml/badge.svg)](https://github.com/silverstripe/silverstripe-widgets/actions/workflows/ci.yml)
-[![SilverStripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
-[![Code Quality](http://img.shields.io/scrutinizer/g/silverstripe/silverstripe-widgets.svg)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-widgets)
-[![Code Coverage](https://img.shields.io/codecov/c/github/silverstripe/silverstripe-widgets.svg)](https://codecov.io/gh/silverstripe/silverstripe-widgets)
+[![Silverstripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
 
 ## Overview
 
@@ -12,9 +10,9 @@ the sidebar of your website.
 
 ## Requirements
 
-* SilverStripe 4.0
+* Silverstripe 4.0
  
-**Note:** this version is compatible with SilverStripe 4. For SilverStripe 3, please see [the 1.x release line](https://github.com/silverstripe/silverstripe-widgets/tree/1.3).
+**Note:** this version is compatible with Silverstripe 4. For Silverstripe 3, please see [the 1.x release line](https://github.com/silverstripe/silverstripe-widgets/tree/1.3).
 
 ### Installation
 
@@ -49,7 +47,7 @@ Here's an example on how to just add widgets to a `MyPage` type, and call it
 By following the "Packaging" rules below, widgets are easily installed. This example uses the Blog module which by default has widgets already enabled.
 
 * Install the [blog module](https://github.com/silverstripe/silverstripe-blog/).
-* Download the widget and unzip to the main folder of your SilverStripe website, e.g. to `/widget_<widget-name>/`. The folder
+* Download the widget and unzip to the main folder of your Silverstripe website, e.g. to `/widget_<widget-name>/`. The folder
 will contain a few files, which generally won't need editing or reading.
 * Run `http://my-website.com/dev/build`
 * Login to the CMS and go to the 'Blog' page. Choose the "widgets" tab and click the new widget to activate it.
@@ -204,10 +202,9 @@ class FlickrWidget extends Widget
 <% end_control %>
 ```
 
-
 ## Releasing a widget
 
-Follow the [standard procedures defined for releasing a SilverStripe module](https://docs.silverstripe.org/en/4/developer_guides/extending/how_tos/publish_a_module).
+Follow the [standard procedures defined for releasing a Silverstripe module](https://docs.silverstripe.org/en/4/developer_guides/extending/how_tos/publish_a_module).
 
 Here is a composer template you can use.
 
@@ -255,7 +252,7 @@ You need to finish off / change:
 To call a single Widget in a page - without adding a widget area in the CMS for you to add / delete the widgets, you can
 define a merge variable in the Page Controller and include it in the Page Template.
 
-This example creates an RSSWidget with the SilverStripe blog feed.
+This example creates an RSSWidget with the Silverstripe blog feed.
 
 ```php
 public function SilverStripeFeed()
