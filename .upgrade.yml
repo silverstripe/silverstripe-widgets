@@ -1,7 +1,0 @@
-mappings:
-  WidgetContentControllerExtension: SilverStripe\Widgets\Controllers\WidgetContentControllerExtension
-  Widget_Controller: SilverStripe\Widgets\Models\WidgetController
-  WidgetPageExtension: SilverStripe\Widgets\Extensions\WidgetPageExtension
-  WidgetAreaEditor: SilverStripe\Widgets\Forms\WidgetAreaEditor
-  Widget: SilverStripe\Widgets\Model\Widget
-  WidgetArea: SilverStripe\Widgets\Model\WidgetArea
