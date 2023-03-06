@@ -1,0 +1,5 @@
+id_ID:
+  SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
+    AVAILABLE: 'Widget Tersedia'
+  WidgetEditor_ss:
+    DELETE: Hapus
