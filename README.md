@@ -8,19 +8,13 @@
 Widgets are small pieces of functionality such as showing the latest comments or Flickr photos. They normally display on
 the sidebar of your website.
 
-## Requirements
+## Installation
 
-* Silverstripe 4.0
- 
-**Note:** this version is compatible with Silverstripe 4. For Silverstripe 3, please see [the 1.x release line](https://github.com/silverstripe/silverstripe-widgets/tree/1.3).
-
-### Installation
-
-Install the module through [composer](http://getcomposer.org):
-
+```sh
+composer require silverstripe/widgets
 ```
-$ composer require silverstripe/widgets
-```
+
+## Setup
 
 Widgets are essentially database relations to other models, mostly page types.
 By default, they're not added to any of your own models. The easiest and most common
@@ -204,7 +198,7 @@ class FlickrWidget extends Widget
 
 ## Releasing a widget
 
-Follow the [standard procedures defined for releasing a Silverstripe module](https://docs.silverstripe.org/en/4/developer_guides/extending/how_tos/publish_a_module).
+Follow the [standard procedures defined for releasing a Silverstripe module](https://docs.silverstripe.org/en/developer_guides/extending/how_tos/publish_a_module).
 
 Here is a composer template you can use.
 
@@ -215,17 +209,18 @@ You need to finish off / change:
  * keywords
  * license
  * author
- * installer-name (eg: `widgets_carousel`)
 
 ```json
 {
     "name": "",
     "description": "",
     "type": "silverstripe-module",
-    "keywords" : ["widget"],
+    "keywords" : [
+        "widget"
+    ],
     "require": {
-        "silverstripe/framework": "^4.0",
-        "silverstripe/cms": "^4.0"
+        "silverstripe/framework": "^5.0",
+        "silverstripe/cms": "^5.0"
     },
     "license": "BSD-2-Clause",
     "authors": [
@@ -234,9 +229,6 @@ You need to finish off / change:
             "email": ""
         }
     ],
-    "extra" : {
-        "installer-name": "widgets_"
-    },
     "autoload": {
         "psr-4": {
             "Yourname\\MyWidget\\": "src/"
@@ -423,4 +415,4 @@ and any new translations will be merged back to the project source code.
 Please use [https://www.transifex.com/projects/p/silverstripe-widgets/](https://www.transifex.com/projects/p/silverstripe-widgets/) to contribute translations,
 rather than sending pull requests with YAML files.
 
-See the ["i18n" topic](https://docs.silverstripe.org/en/4/developer_guides/i18n/) on doc.silverstripe.org for more details.
+See the ["i18n" topic](https://docs.silverstripe.org/en/developer_guides/i18n/) on docs.silverstripe.org for more details.
