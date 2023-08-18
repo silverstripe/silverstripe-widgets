@@ -1,16 +1,16 @@
 fi_FI:
-  SilverStripe\Widgets\Model\Widget:
-    PLURALNAME: Vimpaimet
-    SINGULARNAME: Vimpain
-  SilverStripe\Widgets\Model\WidgetArea:
-    PLURALNAME: 'Vimpain alueet'
-    SINGULARNAME: 'Vimpain alue'
   SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Käytettävissä olevat vimpaimet'
     AVAILWIDGETS: 'Napsauta vimpaimen otsikkoa alla ottaaksesi se käyttöön tällä sivulla.'
     INUSE: 'Käytössä olevat vimpaimet'
     NOAVAIL: 'Tällä hetkellä ei vimpaimia tarjolla.'
     TOSORT: 'Järjestääksesi käytössä olevat vimpaimet, raahaa ja pudota ne paikoilleen.'
+  SilverStripe\Widgets\Model\Widget:
+    PLURALNAME: Vimpaimet
+    SINGULARNAME: Vimpain
+  SilverStripe\Widgets\Model\WidgetArea:
+    PLURALNAME: 'Vimpain alueet'
+    SINGULARNAME: 'Vimpain alue'
   WidgetDescription_ss:
     CLICKTOADDWIDGET: 'Napsauta lisätäksesi tämä vimpain'
   WidgetEditor_ss:
