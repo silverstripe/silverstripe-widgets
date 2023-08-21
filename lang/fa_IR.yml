@@ -1,16 +1,16 @@
 fa_IR:
-  SilverStripe\Widgets\Model\Widget:
-    PLURALNAME: 'ویجت ها'
-    SINGULARNAME: ویجت
-  SilverStripe\Widgets\Model\WidgetArea:
-    PLURALNAME: 'محیط ویجت ها'
-    SINGULARNAME: 'محیط ویجت'
   SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'ویجت های موجود'
     AVAILWIDGETS: 'بر روی عنوان یک ویجت در پایین کلیک کنید تا آن را در این صفحه بکار بگیرید.'
     INUSE: 'ویجت هایی که در حال حاضر استفاده می شوند'
     NOAVAIL: 'در حال حاضر هیچ ویجتی موجود نیست.'
     TOSORT: 'برای مرتب سازی ویجت های این صفحه، آنها را بالا و پایین بکشید.'
+  SilverStripe\Widgets\Model\Widget:
+    PLURALNAME: 'ویجت ها'
+    SINGULARNAME: ویجت
+  SilverStripe\Widgets\Model\WidgetArea:
+    PLURALNAME: 'محیط ویجت ها'
+    SINGULARNAME: 'محیط ویجت'
   WidgetDescription_ss:
     CLICKTOADDWIDGET: 'برای افزودن این ویجت کلیک کنید'
   WidgetEditor_ss:
