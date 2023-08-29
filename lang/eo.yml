@@ -1,25 +1,25 @@
 eo:
-  SilverStripe\Widgets\Model\Widget:
-    PLURALNAME: Fenestraĵoj
-    SINGULARNAME: Fenestraĵo
-    PLURALS:
-      one: 'Unu fenestraĵo'
-      other: '{count} fenestraĵoj'
-  SilverStripe\Widgets\Model\WidgetArea:
-    PLURALNAME: 'Fenestraĵaj zonoj'
-    SINGULARNAME: 'Fenestraĵa zono'
-    PLURALS:
-      one: 'Unu fenestraĵa zono'
-      other: '{count} fenestraĵaj zonoj'
+  SilverStripe\Widgets\Extensions\WidgetPageExtension:
+    INHERITSIDEBAR: 'Heredi flankpanelon el patro'
   SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Disponeblaj fenestraĵoj'
     AVAILWIDGETS: 'Alklaku sube titolon de fenestraĵo por uzi ĝin en ĉi tiu paĝo.'
     INUSE: 'Fenestraĵoj aktuale uzataj'
     NOAVAIL: 'Aktuale mankas disponeblaj fenestraĵoj.'
     TOSORT: 'Por ordigi aktuale uzatajn fenestraĵojn en ĉi tiu paĝo, ŝovu ilin supren kaj malsupren.'
+  SilverStripe\Widgets\Model\Widget:
+    PLURALNAME: Fenestraĵoj
+    PLURALS:
+      one: 'Unu fenestraĵo'
+      other: '{count} fenestraĵoj'
+    SINGULARNAME: Fenestraĵo
+  SilverStripe\Widgets\Model\WidgetArea:
+    PLURALNAME: 'Fenestraĵaj zonoj'
+    PLURALS:
+      one: 'Unu fenestraĵa zono'
+      other: '{count} fenestraĵaj zonoj'
+    SINGULARNAME: 'Fenestraĵa zono'
   WidgetDescription_ss:
     CLICKTOADDWIDGET: 'Alklaku por aldoni la fenestraĵon'
   WidgetEditor_ss:
     DELETE: Forigi
-  SilverStripe\Widgets\Extensions\WidgetPageExtension:
-    INHERITSIDEBAR: 'Heredi flankpanelon el patro'
