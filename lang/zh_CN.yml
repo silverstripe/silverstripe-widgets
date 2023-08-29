@@ -1,16 +1,16 @@
 zh_CN:
-  SilverStripe\Widgets\Model\Widget:
-    PLURALNAME: 插件
-    SINGULARNAME: 插件
-  SilverStripe\Widgets\Model\WidgetArea:
-    PLURALNAME: 插件区域
-    SINGULARNAME: 插件区域
   SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 有效插件
     AVAILWIDGETS: 点击一个插件标题应用在当前页面
     INUSE: 当前已使用插件
     NOAVAIL: 当前无有效插件
     TOSORT: 请上下拖动当前页面的对应插件进行排序
+  SilverStripe\Widgets\Model\Widget:
+    PLURALNAME: 插件
+    SINGULARNAME: 插件
+  SilverStripe\Widgets\Model\WidgetArea:
+    PLURALNAME: 插件区域
+    SINGULARNAME: 插件区域
   WidgetDescription_ss:
     CLICKTOADDWIDGET: 点击增加该插件
   WidgetEditor_ss:
