@@ -1,16 +1,16 @@
 sl:
-  SilverStripe\Widgets\Model\Widget:
-    PLURALNAME: Vtičniki
-    SINGULARNAME: Vtičnik
-  SilverStripe\Widgets\Model\WidgetArea:
-    PLURALNAME: 'Prostori za vtičnike'
-    SINGULARNAME: 'Prostor za vtičnike'
   SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Vtičniki, ki so na voljo'
     AVAILWIDGETS: 'Spodaj izberite vtičnik, ki ga želite uporabiti na strani.'
     INUSE: 'Vtičniki v uporabi'
     NOAVAIL: 'Na voljo ni nobenega vtičnika.'
     TOSORT: 'Za razvrstitev vtičnikov na strani jih povlecite na ustrezno mesto. '
+  SilverStripe\Widgets\Model\Widget:
+    PLURALNAME: Vtičniki
+    SINGULARNAME: Vtičnik
+  SilverStripe\Widgets\Model\WidgetArea:
+    PLURALNAME: 'Prostori za vtičnike'
+    SINGULARNAME: 'Prostor za vtičnike'
   WidgetDescription_ss:
     CLICKTOADDWIDGET: 'Kliknite na ta vtičnik, če ga želite dodati'
   WidgetEditor_ss:

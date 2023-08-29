@@ -1,16 +1,16 @@
 de:
-  SilverStripe\Widgets\Model\Widget:
-    PLURALNAME: Widgets
-    SINGULARNAME: Widget
-  SilverStripe\Widgets\Model\WidgetArea:
-    PLURALNAME: Widgetbereiche
-    SINGULARNAME: Widgetbereich
   SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Vorhandene Widgets'
     AVAILWIDGETS: 'Klicke den Widget Titel, um es zu benutzen.'
     INUSE: 'Benutzte Widgets'
     NOAVAIL: 'Es sind derzeit keine Widgets verfügbar.'
     TOSORT: 'Um die Widgets auf dieser Seite zu sortieren, ziehe sie nach oben oder unten.'
+  SilverStripe\Widgets\Model\Widget:
+    PLURALNAME: Widgets
+    SINGULARNAME: Widget
+  SilverStripe\Widgets\Model\WidgetArea:
+    PLURALNAME: Widgetbereiche
+    SINGULARNAME: Widgetbereich
   WidgetDescription_ss:
     CLICKTOADDWIDGET: 'Klicke um dieses Widget hinzuzufügen'
   WidgetEditor_ss:

@@ -1,16 +1,16 @@
 sv:
-  SilverStripe\Widgets\Model\Widget:
-    PLURALNAME: Widgets
-    SINGULARNAME: Widget
-  SilverStripe\Widgets\Model\WidgetArea:
-    PLURALNAME: Widgetområden
-    SINGULARNAME: Widgetområde
   SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Tillgängliga widgets'
     AVAILWIDGETS: 'Klicka på en widget nedan för att använda den på sidan.'
     INUSE: 'Använda widgets'
     NOAVAIL: 'Inga widgets tillängliga.'
     TOSORT: 'För att sortera widgetar på denna sida, dra dem uppåt eller nedåt.'
+  SilverStripe\Widgets\Model\Widget:
+    PLURALNAME: Widgets
+    SINGULARNAME: Widget
+  SilverStripe\Widgets\Model\WidgetArea:
+    PLURALNAME: Widgetområden
+    SINGULARNAME: Widgetområde
   WidgetDescription_ss:
     CLICKTOADDWIDGET: 'Klicka för att lägga till denna widget'
   WidgetEditor_ss:
