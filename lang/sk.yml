@@ -1,4 +1,6 @@
 sk:
+  SilverStripe\Widgets\Extensions\WidgetPageExtension:
+    INHERITSIDEBAR: 'Zdediť bočný panel od rodiča'
   SilverStripe\Widgets\Forms\WidgetAreaEditor_ss:
     AVAILABLE: 'Dostupné widgety'
     AVAILWIDGETS: 'Kliknite na názov widgetu pre jeho použitie na tejto stránke.'
@@ -7,11 +9,21 @@ sk:
     TOSORT: 'Pre zotriedenie momentálne používaných widgetov na tejto stránke, potiahnite ich hore alebo dole.'
   SilverStripe\Widgets\Model\Widget:
     PLURALNAME: Widgety
+    PLURALS:
+      few: '{count} widgety'
+      many: '{count} widgetov'
+      one: Widget
+      other: '{count} widgetov'
     SINGULARNAME: Widget
   SilverStripe\Widgets\Model\WidgetArea:
     PLURALNAME: 'Oblasti widgetu'
+    PLURALS:
+      few: '{count} oblasti widgetu'
+      many: '{count} oblastí widgetu'
+      one: 'Oblasť widgetu'
+      other: '{count} oblastí widgetu'
     SINGULARNAME: 'Oblasť widgetu'
   WidgetDescription_ss:
     CLICKTOADDWIDGET: 'Kliknite pre pridanie tohto widgetu'
   WidgetEditor_ss:
-    DELETE: Vymazať
+    DELETE: Odstrániť
