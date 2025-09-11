@@ -7,9 +7,9 @@ use SilverStripe\Widgets\Model\Widget;
 
 class TestWidget extends Widget implements TestOnly
 {
-    private static $table_name = 'WidgetControllerTest_TestWidget';
+    private static string $table_name = 'WidgetControllerTest_TestWidget';
 
-    private static $db = [
+    private static array $db = [
         'TestValue' => 'Text',
     ];
 }

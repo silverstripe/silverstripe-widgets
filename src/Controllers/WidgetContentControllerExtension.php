@@ -16,9 +16,9 @@ class WidgetContentControllerExtension extends Extension
      *
      * @var array
      */
-    private static $allowed_actions = array(
-        'handleWidget'
-    );
+    private static array $allowed_actions =[
+        'handleWidget',
+    ];
 
     /**
      * Handles widgets attached to a page through one or more {@link WidgetArea}
@@ -29,16 +29,19 @@ class WidgetContentControllerExtension extends Extension
      *
      * Assumes URLs in the following format: <URLSegment>/widget/<Widget-ID>.
      *
-     * @return RequestHandler
+     * @return bool|RequestHandler
      */
-    public function handleWidget()
+    public function handleWidget(): bool|RequestHandler
     {
         $SQL_id = $this->owner->getRequest()->param('ID');
+
         if (!$SQL_id) {
             return false;
         }
+
         /** @var SiteTree $widgetOwner */
         $widgetOwner = $this->owner->data();
+
         while ($widgetOwner->InheritSideBar && $widgetOwner->Parent()->exists()) {
             $widgetOwner = $widgetOwner->Parent();
         }
@@ -52,9 +55,11 @@ class WidgetContentControllerExtension extends Extension
         }
 
         foreach ($hasOnes as $hasOneName => $hasOneClass) {
-            if ($hasOneClass == WidgetArea::class || is_subclass_of($hasOneClass, WidgetArea::class)) {
-                $widgetAreaRelations[] = $hasOneName;
+            if ($hasOneClass !== WidgetArea::class && !is_subclass_of($hasOneClass, WidgetArea::class)) {
+                continue;
             }
+
+            $widgetAreaRelations[] = $hasOneName;
         }
 
         // find widget

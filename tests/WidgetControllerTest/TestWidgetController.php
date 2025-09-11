@@ -15,13 +15,13 @@ use SilverStripe\Widgets\Model\WidgetController;
  */
 class TestWidgetController extends WidgetController implements TestOnly
 {
-    private static $allowed_actions = array(
-        'Form'
-    );
+    private static array $allowed_actions = [
+        'Form',
+    ];
 
     public function Form()
     {
-        $widgetform = new Form(
+        return new Form(
             $this,
             __FUNCTION__,
             new FieldList(
@@ -31,11 +31,9 @@ class TestWidgetController extends WidgetController implements TestOnly
                 new FormAction('doAction')
             )
         );
-
-        return $widgetform;
     }
 
-    public function doAction($data, $form)
+    public function doAction(array $data, mixed $form): string
     {
         return sprintf(
             'TestValue: %s\nWidget ID: %d',

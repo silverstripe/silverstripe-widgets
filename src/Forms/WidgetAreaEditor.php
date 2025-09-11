@@ -7,8 +7,9 @@ use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\FormField;
-use SilverStripe\ORM\ArrayList;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\ORM\DataObjectInterface;
+use SilverStripe\ORM\HasManyList;
 use SilverStripe\View\Requirements;
 use SilverStripe\Widgets\Model\Widget;
 
@@ -37,7 +38,7 @@ class WidgetAreaEditor extends FormField
      *
      * @return string - HTML
      */
-    public function FieldHolder($properties = array())
+    public function FieldHolder(array $properties = []): string
     {
         Requirements::css('silverstripe/widgets:client/dist/styles/WidgetAreaEditor.css');
         Requirements::javascript('silverstripe/widgets:client/dist/js/WidgetAreaEditor.js');
@@ -49,7 +50,7 @@ class WidgetAreaEditor extends FormField
      *
      * @return ArrayList
      */
-    public function AvailableWidgets()
+    public function AvailableWidgets(): ArrayList
     {
         $widgets= new ArrayList();
 
@@ -58,7 +59,7 @@ class WidgetAreaEditor extends FormField
 
             if (isset($classes[strtolower(Widget::class)])) {
                 unset($classes[strtolower(Widget::class)]);
-            } elseif (isset($classes[0]) && $classes[0] == Widget::class) {
+            } elseif (isset($classes[0]) && $classes[0] === Widget::class) {
                 unset($classes[0]);
             }
 
@@ -81,21 +82,19 @@ class WidgetAreaEditor extends FormField
     /**
      * @return HasManyList
      */
-    public function UsedWidgets()
+    public function UsedWidgets(): HasManyList
     {
         // Call class_exists() to load Widget.php earlier and avoid a segfault
         class_exists(Widget::class);
-
         $relationName = $this->name;
-        $widgets = $this->form->getRecord()->getComponent($relationName)->Items();
 
-        return $widgets;
+        return $this->form->getRecord()->getComponent($relationName)->Items();
     }
 
     /**
      * @return string
      */
-    public function IdxField()
+    public function IdxField(): string
     {
         return $this->id() . 'ID';
     }
@@ -104,7 +103,7 @@ class WidgetAreaEditor extends FormField
      *
      * @return int
      */
-    public function Value()
+    public function Value(): int
     {
         $relationName = $this->name;
 
@@ -115,7 +114,7 @@ class WidgetAreaEditor extends FormField
      * @param DataObjectInterface $record
      * @throws Exception if no form could be retrieved
      */
-    public function saveInto(DataObjectInterface $record)
+    public function saveInto(DataObjectInterface $record): void
     {
         $name = $this->name;
         $idName = $name . "ID";
@@ -142,6 +141,7 @@ class WidgetAreaEditor extends FormField
         }
 
         $widgetData = $this->getForm()->getController()->getRequest()->requestVar('Widget');
+
         if ($widgetData && isset($widgetData[$this->getName()])) {
             $widgetAreaData = $widgetData[$this->getName()];
 
@@ -152,6 +152,7 @@ class WidgetAreaEditor extends FormField
                 }
 
                 $widget = null;
+
                 if ($newWidgetID) {
                     // \"ParentID\" = '0' is for the new page
                     $widget = Widget::get()
@@ -168,6 +169,7 @@ class WidgetAreaEditor extends FormField
                 if (empty($newWidgetData['Type'])) {
                     $newWidgetData['Type'] = '';
                 }
+
                 $newWidgetData['Type'] = str_replace('_', '\\', $newWidgetData['Type'] ?? '');
 
                 // create a new object
@@ -182,7 +184,7 @@ class WidgetAreaEditor extends FormField
                 }
 
                 if ($widget) {
-                    if ($widget->ParentID == 0) {
+                    if ($widget->ParentID === 0) {
                         $widget->ParentID = $record->$name()->ID;
                     }
                     $widget->populateFromPostData($newWidgetData);
@@ -191,12 +193,16 @@ class WidgetAreaEditor extends FormField
         }
 
         // remove the fields not saved
-        if ($missingWidgets) {
-            foreach ($missingWidgets as $removedWidget) {
-                if (isset($removedWidget) && is_numeric($removedWidget->ID)) {
-                    $removedWidget->delete();
-                }
+        if (!$missingWidgets) {
+            return;
+        }
+
+        foreach ($missingWidgets as $removedWidget) {
+            if (!isset($removedWidget) || !is_numeric($removedWidget->ID)) {
+                continue;
             }
+
+            $removedWidget->delete();
         }
     }
 }

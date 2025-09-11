@@ -24,30 +24,30 @@ class WidgetAreaEditorTest extends SapphireTest
      */
     protected $widgetToTest = TestWidget::class;
 
-    protected static $extra_dataobjects = [
+    protected static array $extra_dataobjects = [
         FakePage::class,
         TestWidget::class,
     ];
 
-    protected $usesDatabase = true;
+    protected bool $usesDatabase = true;
 
-    protected static $required_extensions = [
+    protected static array $required_extensions = [
         SiteTree::class => [WidgetPageExtension::class]
     ];
 
-    public function testFillingOneArea()
+    public function testFillingOneArea(): void
     {
-        $data = array(
-            'Widget' => array(
-                'BottomBar' => array(
-                    'new-1' => array(
+        $data = [
+            'Widget' => [
+                'BottomBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidget',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
         $request = new HTTPRequest('get', 'post', array(), $data);
 
         $editorSide = new WidgetAreaEditor('SideBar');
@@ -74,26 +74,26 @@ class WidgetAreaEditorTest extends SapphireTest
         $this->assertEquals($page->SideBar()->Widgets()->Count(), 0);
     }
 
-    public function testFillingTwoAreas()
+    public function testFillingTwoAreas(): void
     {
-        $data = array(
-            'Widget' => array(
-                'SideBar' => array(
-                    'new-1' => array(
+        $data = [
+            'Widget' => [
+                'SideBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetSide',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                ),
-                'BottomBar' => array(
-                    'new-1' => array(
+                    ]
+                ],
+                'BottomBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetBottom',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
         $request = new HTTPRequest('get', 'post', array(), $data);
 
         $editorSide = new WidgetAreaEditor('SideBar');
@@ -124,27 +124,27 @@ class WidgetAreaEditorTest extends SapphireTest
         $this->assertEquals($bottWidgets[0]->getTitle(), 'MyTestWidgetBottom');
     }
 
-    public function testDeletingOneWidgetFromOneArea()
+    public function testDeletingOneWidgetFromOneArea(): void
     {
         // First get some widgets in there
-        $data = array(
-            'Widget' => array(
-                'SideBar' => array(
-                    'new-1' => array(
+        $data = [
+            'Widget' => [
+                'SideBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetSide',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                ),
-                'BottomBar' => array(
-                    'new-1' => array(
+                    ]
+                ],
+                'BottomBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetBottom',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
         $request = new HTTPRequest('get', 'post', array(), $data);
 
         $editorSide = new WidgetAreaEditor('SideBar');
@@ -164,7 +164,6 @@ class WidgetAreaEditorTest extends SapphireTest
         $page->flushCache();
         $page->BottomBar()->flushCache();
         $page->SideBar()->flushCache();
-        $sideWidgets = $page->SideBar()->Widgets()->toArray();
         $bottWidgets = $page->BottomBar()->Widgets()->toArray();
 
         // Save again (after removing the SideBar's widget)
@@ -190,7 +189,6 @@ class WidgetAreaEditorTest extends SapphireTest
         $page->flushCache();
         $page->BottomBar()->flushCache();
         $page->SideBar()->flushCache();
-        $sideWidgets = $page->SideBar()->Widgets()->toArray();
         $bottWidgets = $page->BottomBar()->Widgets()->toArray();
 
         $this->assertEquals($page->BottomBar()->Widgets()->Count(), 1);
@@ -198,27 +196,27 @@ class WidgetAreaEditorTest extends SapphireTest
         $this->assertEquals($page->SideBar()->Widgets()->Count(), 0);
     }
 
-    public function testDeletingAWidgetFromEachArea()
+    public function testDeletingAWidgetFromEachArea(): void
     {
         // First get some widgets in there
-        $data = array(
-            'Widget' => array(
-                'SideBar' => array(
-                    'new-1' => array(
+        $data = [
+            'Widget' => [
+                'SideBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetSide',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                ),
-                'BottomBar' => array(
-                    'new-1' => array(
+                    ]
+                ],
+                'BottomBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetBottom',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
         $request = new HTTPRequest('get', 'post', array(), $data);
 
         $editorSide = new WidgetAreaEditor('SideBar');
@@ -238,8 +236,6 @@ class WidgetAreaEditorTest extends SapphireTest
         $page->flushCache();
         $page->BottomBar()->flushCache();
         $page->SideBar()->flushCache();
-        $sideWidgets = $page->SideBar()->Widgets()->toArray();
-        $bottWidgets = $page->BottomBar()->Widgets()->toArray();
 
         // Save again (after removing the SideBar's widget)
         $data = array(
@@ -259,34 +255,32 @@ class WidgetAreaEditorTest extends SapphireTest
         $page->flushCache();
         $page->BottomBar()->flushCache();
         $page->SideBar()->flushCache();
-        $sideWidgets = $page->SideBar()->Widgets()->toArray();
-        $bottWidgets = $page->BottomBar()->Widgets()->toArray();
 
         $this->assertEquals($page->BottomBar()->Widgets()->Count(), 0);
         $this->assertEquals($page->SideBar()->Widgets()->Count(), 0);
     }
 
-    public function testEditingOneWidget()
+    public function testEditingOneWidget(): void
     {
         // First get some widgets in there
-        $data = array(
-            'Widget' => array(
-                'SideBar' => array(
-                    'new-1' => array(
+        $data = [
+            'Widget' => [
+                'SideBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetSide',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                ),
-                'BottomBar' => array(
-                    'new-1' => array(
+                    ]
+                ],
+                'BottomBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetBottom',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
         $request = new HTTPRequest('get', 'post', array(), $data);
 
         $editorSide = new WidgetAreaEditor('SideBar');
@@ -346,27 +340,27 @@ class WidgetAreaEditorTest extends SapphireTest
         $this->assertEquals($sideWidgets[0]->getTitle(), 'MyTestWidgetSide-edited');
     }
 
-    public function testEditingAWidgetFromEachArea()
+    public function testEditingAWidgetFromEachArea(): void
     {
         // First get some widgets in there
-        $data = array(
-            'Widget' => array(
-                'SideBar' => array(
-                    'new-1' => array(
+        $data = [
+            'Widget' => [
+                'SideBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetSide',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                ),
-                'BottomBar' => array(
-                    'new-1' => array(
+                    ]
+                ],
+                'BottomBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetBottom',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
         $request = new HTTPRequest('get', 'post', array(), $data);
 
         $editorSide = new WidgetAreaEditor('SideBar');
@@ -426,27 +420,27 @@ class WidgetAreaEditorTest extends SapphireTest
         $this->assertEquals($sideWidgets[0]->getTitle(), 'MyTestWidgetSide-edited');
     }
 
-    public function testEditAWidgetFromOneAreaAndDeleteAWidgetFromAnotherArea()
+    public function testEditAWidgetFromOneAreaAndDeleteAWidgetFromAnotherArea(): void
     {
         // First get some widgets in there
-        $data = array(
-            'Widget' => array(
-                'SideBar' => array(
-                    'new-1' => array(
+        $data = [
+            'Widget' => [
+                'SideBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetSide',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                ),
-                'BottomBar' => array(
-                    'new-1' => array(
+                    ]
+                ],
+                'BottomBar' => [
+                    'new-1' => [
                         'Title' => 'MyTestWidgetBottom',
                         'Type' => $this->widgetToTest,
                         'Sort' => 0
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
         $request = new HTTPRequest('get', 'post', array(), $data);
 
         $editorSide = new WidgetAreaEditor('SideBar');
@@ -468,7 +462,6 @@ class WidgetAreaEditorTest extends SapphireTest
         $page->BottomBar()->flushCache();
         $page->SideBar()->flushCache();
         $sideWidgets = $page->SideBar()->Widgets()->toArray();
-        $bottWidgets = $page->BottomBar()->Widgets()->toArray();
 
         // Save again (after removing the SideBar's widget)
         $data = array(
@@ -494,7 +487,6 @@ class WidgetAreaEditorTest extends SapphireTest
         $page->BottomBar()->flushCache();
         $page->SideBar()->flushCache();
         $sideWidgets = $page->SideBar()->Widgets()->toArray();
-        $bottWidgets = $page->BottomBar()->Widgets()->toArray();
 
         $this->assertEquals($page->BottomBar()->Widgets()->Count(), 0);
         $this->assertEquals($page->SideBar()->Widgets()->Count(), 1);

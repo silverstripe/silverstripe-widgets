@@ -3,10 +3,10 @@
 namespace SilverStripe\Widgets\Model;
 
 use SilverStripe\Control\Controller;
-use SilverStripe\ORM\ArrayList;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\HasManyList;
-use SilverStripe\ORM\SS_List;
+use SilverStripe\Model\List\SS_List;
 use SilverStripe\Versioned\Versioned;
 
 /**
@@ -14,25 +14,25 @@ use SilverStripe\Versioned\Versioned;
  */
 class WidgetArea extends DataObject
 {
-    private static $has_many = [
+    private static array $has_many = [
         "Widgets" => Widget::class
     ];
 
-    private static $owns = [
+    private static array $owns = [
         'Widgets',
     ];
 
-    private static $cascade_deletes = [
+    private static array $cascade_deletes = [
         'Widgets',
     ];
 
-    private static $extensions = [
+    private static array $extensions = [
         Versioned::class,
     ];
 
-    private static $table_name = 'WidgetArea';
+    private static string $table_name = 'WidgetArea';
 
-    public $template = __CLASS__;
+    public string $template = __CLASS__;
 
     /**
      * Used in template instead of {@link Widgets()} to wrap each widget in its
@@ -41,10 +41,11 @@ class WidgetArea extends DataObject
      *
      * @return SS_List - Collection of {@link WidgetController} instances.
      */
-    public function WidgetControllers()
+    public function WidgetControllers(): SS_List
     {
         $controllers = new ArrayList();
         $items = $this->ItemsToRender();
+
         if (!is_null($items)) {
             foreach ($items as $widget) {
                 /** @var Widget $widget */
@@ -56,13 +57,14 @@ class WidgetArea extends DataObject
                 $controllers->push($controller);
             }
         }
+
         return $controllers;
     }
 
     /**
      * @return HasManyList
      */
-    public function Items()
+    public function Items(): HasManyList
     {
         return $this->Widgets();
     }
@@ -70,7 +72,7 @@ class WidgetArea extends DataObject
     /**
      * @return HasManyList
      */
-    public function ItemsToRender()
+    public function ItemsToRender(): HasManyList
     {
         return $this->Items()->filter('Enabled', 1);
     }
@@ -78,7 +80,7 @@ class WidgetArea extends DataObject
     /**
      * @return string - HTML
      */
-    public function forTemplate()
+    public function forTemplate(): string
     {
         return $this->renderWith($this->template);
     }
@@ -87,7 +89,7 @@ class WidgetArea extends DataObject
      *
      * @param string $template
      */
-    public function setTemplate($template)
+    public function setTemplate(string $template): void
     {
         $this->template = $template;
     }

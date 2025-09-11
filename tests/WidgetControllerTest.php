@@ -8,9 +8,9 @@ use SilverStripe\Widgets\Tests\WidgetControllerTest\TestWidget;
 
 class WidgetControllerTest extends FunctionalTest
 {
-    protected static $fixture_file = 'WidgetControllerTest.yml';
+    protected static string $fixture_file = 'WidgetControllerTest.yml';
 
-    protected static $extra_dataobjects = [
+    protected static array $extra_dataobjects = [
         TestPage::class,
         TestWidget::class,
     ];
@@ -24,7 +24,7 @@ class WidgetControllerTest extends FunctionalTest
         });
     }
 
-    public function testWidgetFormRendering()
+    public function testWidgetFormRendering(): void
     {
         $page = $this->objFromFixture(TestPage::class, 'page1');
         $widget = $this->objFromFixture(TestWidget::class, 'widget1');
@@ -39,7 +39,7 @@ class WidgetControllerTest extends FunctionalTest
         );
     }
 
-    public function testWidgetFormSubmission()
+    public function testWidgetFormSubmission(): void
     {
         $page = $this->objFromFixture(TestPage::class, 'page1');
         $widget = $this->objFromFixture(TestWidget::class, 'widget1');

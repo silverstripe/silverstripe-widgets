@@ -8,9 +8,9 @@ use SilverStripe\Widgets\Model\WidgetArea;
 
 class FakePage extends Page implements TestOnly
 {
-    private static $table_name = 'FakePage';
+    private static string $table_name = 'FakePage';
 
-    private static $has_one = array(
+    private static array $has_one = [
         "BottomBar" => WidgetArea::class
-    );
+    ];
 }

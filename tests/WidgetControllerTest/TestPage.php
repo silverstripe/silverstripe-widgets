@@ -8,13 +8,13 @@ use SilverStripe\Widgets\Model\WidgetArea;
 
 class TestPage extends Page implements TestOnly
 {
-    private static $table_name = 'TestPage';
+    private static string $table_name = 'TestPage';
 
-    private static $has_one = [
+    private static array $has_one = [
         'WidgetControllerTestSidebar' => WidgetArea::class,
     ];
 
-    private static $owns = [
+    private static array $owns = [
         'WidgetControllerTestSidebar',
     ];
 }

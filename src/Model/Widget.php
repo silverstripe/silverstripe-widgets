@@ -27,57 +27,58 @@ use SilverStripe\View\SSViewer;
  */
 class Widget extends DataObject
 {
-    private static $db = [
+    private static array $db = [
         "Title" => "Varchar(255)",
         "Sort" => "Int",
         "Enabled" => "Boolean",
     ];
 
-    private static $defaults = [
+    private static array $defaults = [
         'Enabled' => true,
     ];
 
-    private static $casting = [
+    private static array $casting = [
         'CMSTitle' => 'Text',
         'Description' => 'Text',
     ];
 
-    private static $only_available_in = [];
+    private static array $only_available_in = [];
 
-    private static $has_one = [
+    private static array $has_one = [
         "Parent" => WidgetArea::class,
     ];
 
-    private static $default_sort = "\"Sort\"";
+    private static string $default_sort = "\"Sort\"";
 
     /**
      * @var string
      */
-    private static $cmsTitle = "Name of this widget";
+    private static string $cmsTitle = "Name of this widget";
 
     /**
      * @var string
      */
-    private static $description = "Description of what this widget does.";
+    private static string $description = "Description of what this widget does.";
 
-    private static $summary_fields = [
+    private static array $summary_fields = [
         'CMSTitle' => 'Title'
     ];
 
-    private static $table_name = 'Widget';
+    private static string $table_name = 'Widget';
 
-    private static $extensions = [
+    private static array $extensions = [
         Versioned::class,
     ];
 
     /**
      * @var WidgetController
      */
-    protected $controller;
+    protected ?WidgetController $controller;
 
-    public function populateDefaults()
+    public function populateDefaults(): void
     {
         parent::populateDefaults();
+
         $this->setField('Title', $this->getTitle());
     }
 
@@ -86,7 +87,7 @@ class Widget extends DataObject
      *
      * @return string HTML
      */
-    public function WidgetHolder()
+    public function WidgetHolder(): string
     {
         return $this->renderWith("WidgetHolder");
     }
@@ -95,7 +96,7 @@ class Widget extends DataObject
      * Default way to render widget in templates.
      * @return string HTML
      */
-    public function forTemplate($holder = true)
+    public function forTemplate(bool $holder = true): string
     {
         if ($holder) {
             return $this->WidgetHolder();
@@ -115,7 +116,7 @@ class Widget extends DataObject
      *
      * @return string HTML
      */
-    public function Content()
+    public function Content(): string
     {
         return $this->renderWith(SSViewer::get_templates_by_class(static::class));
     }
@@ -123,7 +124,7 @@ class Widget extends DataObject
     /**
      * @return string
      */
-    public function getCMSTitle()
+    public function getCMSTitle(): string
     {
         return _t(__CLASS__ . '.CMSTITLE', $this->config()->get('cmsTitle'));
     }
@@ -131,7 +132,7 @@ class Widget extends DataObject
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return _t(__CLASS__ . '.DESCRIPTION', $this->config()->get('description'));
     }
@@ -139,7 +140,7 @@ class Widget extends DataObject
     /**
      * @return string - HTML
      */
-    public function DescriptionSegment()
+    public function DescriptionSegment(): string
     {
         return $this->renderWith('WidgetDescription');
     }
@@ -149,7 +150,7 @@ class Widget extends DataObject
      *
      * @return string - HTML
      */
-    public function EditableSegment()
+    public function EditableSegment(): string
     {
         return $this->renderWith('WidgetEditor');
     }
@@ -157,7 +158,7 @@ class Widget extends DataObject
     /**
      * @return FieldList
      */
-    public function getCMSFields()
+    public function getCMSFields(): FieldList
     {
         $fields = new FieldList(
             new TextField('Title', $this->fieldLabel('Title'), null, 255),
@@ -171,7 +172,7 @@ class Widget extends DataObject
     /**
      * @return FieldList
      */
-    public function CMSEditor()
+    public function CMSEditor(): FieldList
     {
         $fields = $this->getCMSFields();
         $outputFields = new FieldList();
@@ -188,10 +189,16 @@ class Widget extends DataObject
         foreach ($fields as $field) {
             $name = $field->getName();
             $value = $this->getField($name);
+
             if ($value) {
                 $field->setValue($value);
             }
-            $namefiltered = preg_replace("/([A-Za-z0-9\-_]+)/", "Widget[" . $this->FormID . "][\\1]", $name ?? '');
+
+            $namefiltered = preg_replace(
+                "/([A-Za-z0-9\-_]+)/",
+                "Widget[" . $this->FormID . "][\\1]",
+                    $name ?? ''
+            );
 
             $field->setName($namefiltered);
             $outputFields->push($field);
@@ -206,7 +213,7 @@ class Widget extends DataObject
      *
      * @return string
      */
-    public function ClassName()
+    public function ClassName(): string
     {
         return str_replace('\\', '_', get_class($this));
     }
@@ -214,7 +221,7 @@ class Widget extends DataObject
     /**
      * @return string
      */
-    public function Name()
+    public function Name(): string
     {
         return "Widget[" . $this->ID . "]";
     }
@@ -224,7 +231,7 @@ class Widget extends DataObject
      *
      * @return WidgetController
      */
-    public function getController()
+    public function getController(): WidgetController
     {
         if ($this->controller) {
             return $this->controller;
@@ -232,6 +239,7 @@ class Widget extends DataObject
 
         foreach (array_reverse(ClassInfo::ancestry(get_class($this)) ?? []) as $widgetClass) {
             $controllerClass = "{$widgetClass}Controller";
+
             if (class_exists($controllerClass ?? '')) {
                 break;
             }
@@ -242,6 +250,7 @@ class Widget extends DataObject
         }
 
         $this->controller = Injector::inst()->create($controllerClass, $this);
+
         if (Injector::inst()->has(HTTPRequest::class)) {
             $this->controller->setRequest(Injector::inst()->get(HTTPRequest::class));
         }
@@ -252,26 +261,31 @@ class Widget extends DataObject
     /**
      * @param array $data
      */
-    public function populateFromPostData($data)
+    public function populateFromPostData(array $data): void
     {
         $fields = $this->getCMSFields();
+
         foreach ($data as $name => $value) {
-            if ($name != "Type") {
-                if ($field = $fields->dataFieldByName($name)) {
-                    $field->setValue($value);
-                    $field->saveInto($this);
-                } else {
-                    $this->setField($name, $value);
-                }
+            if ($name === 'Type') {
+                continue;
+            }
+
+            if ($field = $fields->dataFieldByName($name)) {
+                $field->setValue($value);
+                $field->saveInto($this);
+            } else {
+                $this->setField($name, $value);
             }
         }
 
         //Look for checkbox fields not present in the data
         foreach ($fields as $field) {
-            if ($field instanceof CheckboxField && !array_key_exists($field->getName(), $data ?? [])) {
-                $field->setValue(false);
-                $field->saveInto($this);
+            if (!$field instanceof CheckboxField || array_key_exists($field->getName(), $data ?? [])) {
+                continue;
             }
+
+            $field->setValue(false);
+            $field->saveInto($this);
         }
 
         $this->write();

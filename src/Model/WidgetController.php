@@ -30,19 +30,19 @@ class WidgetController extends Controller
     /**
      * @var Widget
      */
-    protected $widget;
+    protected ?Widget $widget;
 
     /**
      * @var array
      */
-    private static $allowed_actions = array(
+    private static array $allowed_actions = array(
         'editablesegment'
     );
 
     /**
      * @param Widget $widget
      */
-    public function __construct($widget = null)
+    public function __construct(?Widget $widget = null)
     {
         if ($widget) {
             $this->widget = $widget;
@@ -53,15 +53,16 @@ class WidgetController extends Controller
     }
 
     /**
-     * @param string $action
+     * @param ?string $action
      * @return string
      */
-    public function Link($action = null)
+    public function Link(?string $action = null): string
     {
         $id = ($this->widget) ? $this->widget->ID : null;
         $segment = Controller::join_links('widget', $id, $action);
 
         $page = Director::get_current_page();
+
         if ($page && !($page instanceof WidgetController)) {
             return $page->Link($segment);
         }
@@ -78,22 +79,25 @@ class WidgetController extends Controller
      * This is needed becauseController::currreturns the widget controller,
      * which means anyLinkfunction turns into endless loop.
      *
-     * @return Controller
+     * @return Controller|bool
      */
-    public function getParentController()
+    public function getParentController(): Controller|bool
     {
         foreach (Controller::$controller_stack as $controller) {
-            if (!($controller instanceof WidgetController)) {
-                return $controller;
+            if ($controller instanceof WidgetController) {
+                continue;
             }
+
+            return $controller;
         }
+
         return false;
     }
 
     /**
      * @return Widget
      */
-    public function getWidget()
+    public function getWidget(): Widget
     {
         return $this->widget;
     }
@@ -104,7 +108,7 @@ class WidgetController extends Controller
      *
      * @return string HTML
      */
-    public function Content()
+    public function Content(): string
     {
         return $this->renderWith(array_reverse(ClassInfo::ancestry(get_class($this->widget)) ?? []));
     }
@@ -115,7 +119,7 @@ class WidgetController extends Controller
      *
      * @return string HTML
      */
-    public function WidgetHolder()
+    public function WidgetHolder(): string
     {
         return $this->renderWith("WidgetHolder");
     }
@@ -128,7 +132,7 @@ class WidgetController extends Controller
      *
      * @return string HTML
      */
-    public function editablesegment()
+    public function editablesegment(): string
     {
         // use left and main to set the html config
         $leftandmain = LeftAndMain::create();
@@ -137,12 +141,13 @@ class WidgetController extends Controller
 
         // Decode if fully qualified - @see Widget::ClassName
         $className = str_replace('_', '\\', $this->urlParams['ID'] ?? '');
+
         if (class_exists($className ?? '') && is_subclass_of($className, Widget::class)) {
-            $obj = new $className();
-            return $obj->EditableSegment();
-        } else {
-            user_error("Bad widget class: $className", E_USER_WARNING);
-            return "Bad widget class name given";
+            return (new $className())->EditableSegment();
         }
+
+        user_error("Bad widget class: $className", E_USER_WARNING);
+
+        return "Bad widget class name given";
     }
 }
